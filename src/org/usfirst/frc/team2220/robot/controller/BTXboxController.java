@@ -60,36 +60,47 @@ public class BTXboxController implements BTIController
 	}
 
 	@Override
-	public BTIConButton getButton(int port) {
+	public BTIConButton getButton(int port)
+	{
 		return new BTJoyButton(joy, port);
 	}
 
-
 	@Override
-	public BTIConAxis getDriveLeftRight() {
-		return null;
+	public BTIConAxis getLeftDriveFrontBack()
+	{
+		return LEFT_STICK_UP_DOWN;
 	}
 
 	@Override
-	public BTIConAxis getDriveFrontBack() {
-		return null;
+	public BTIConAxis getRightDriveFrontBack()
+	{
+		return RIGHT_STICK_UP_DOWN;
 	}
 
 	@Override
-	public BTIConAxis getDriveRotate() {
-		return null;
+	public BTIConAxis getDriveLeftRight()
+	{
+		return LEFT_STICK_LEFT_RIGHT;
 	}
 
 	@Override
-	public BTIConButton getShift() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getDriveFrontBack()
+	{
+		return LEFT_STICK_UP_DOWN;
 	}
 
 	@Override
-	public BTIConButton getOctoSwitch() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getDriveRotate()
+	{
+		return RIGHT_STICK_LEFT_RIGHT;
 	}
+	
+	@Override
+	public BTIConButton getOctoSwitch()
+	{
+		return A_BUTTON;
+	}
+
+
 
 }

@@ -11,10 +11,11 @@ public interface BTIController
 	// public BTIConButton[] getAllButtons();
 	
 	// Drivetrain parameters
+	public BTIConAxis getLeftDriveFrontBack();
+	public BTIConAxis getRightDriveFrontBack();
 	public BTIConAxis getDriveLeftRight();
 	public BTIConAxis getDriveFrontBack();
 	public BTIConAxis getDriveRotate();
-	public BTIConButton getShift();
 	public BTIConButton getOctoSwitch();
 	
 	
