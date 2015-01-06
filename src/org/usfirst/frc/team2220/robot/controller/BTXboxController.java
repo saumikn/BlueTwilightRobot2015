@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class BTXboxController implements BTIController
 {
-	// Axis
 	private final BTJoyAxis LEFT_STICK_LEFT_RIGHT;
 	private final BTJoyAxis LEFT_STICK_UP_DOWN;
 	private final BTJoyAxis RIGHT_STICK_LEFT_RIGHT;
@@ -17,7 +16,6 @@ public class BTXboxController implements BTIController
 	private final BTJoyAxis TRIGGER;
 	private final BTJoyAxis DPAD_LEFT_RIGHT;
 	
-	// Buttons
 	private final BTJoyButton A_BUTTON;
 	private final BTJoyButton B_BUTTON;
 	private final BTJoyButton X_BUTTON;
@@ -30,28 +28,29 @@ public class BTXboxController implements BTIController
 	private final BTJoyButton RIGHT_STICK_BUTTON;
 	
 	private Joystick joy;
-
+	
 	public BTXboxController(int port)
 	{
 		joy = new Joystick(port);
 		
-		LEFT_STICK_LEFT_RIGHT	= new BTJoyAxis(joy, 1);
-		LEFT_STICK_UP_DOWN		= new BTJoyAxis(joy, 2);
-		RIGHT_STICK_LEFT_RIGHT	= new BTJoyAxis(joy, 4);
-		RIGHT_STICK_UP_DOWN		= new BTJoyAxis(joy, 5);
-		TRIGGER					= new BTJoyAxis(joy, 3);
-		DPAD_LEFT_RIGHT			= new BTJoyAxis(joy, 6);
+		LEFT_STICK_LEFT_RIGHT = new BTJoyAxis(joy, 1);
+		LEFT_STICK_UP_DOWN = new BTJoyAxis(joy, 2);
+		RIGHT_STICK_LEFT_RIGHT = new BTJoyAxis(joy, 4);
+		RIGHT_STICK_UP_DOWN = new BTJoyAxis(joy, 5);
+		TRIGGER = new BTJoyAxis(joy, 3);
+		DPAD_LEFT_RIGHT = new BTJoyAxis(joy, 6);
 		
-		A_BUTTON				= new BTJoyButton(joy, 1);
-		B_BUTTON				= new BTJoyButton(joy, 2);
-		X_BUTTON				= new BTJoyButton(joy, 3);
-		Y_BUTTON				= new BTJoyButton(joy, 4);
-		LEFT_BUMPER_BUTTON		= new BTJoyButton(joy, 5);
-		RIGHT_BUMPER_BUTTON		= new BTJoyButton(joy, 6);
-		BACK_BUTTON				= new BTJoyButton(joy, 7);
-		START_BUTTON			= new BTJoyButton(joy, 8);
-		LEFT_STICK_BUTTON		= new BTJoyButton(joy, 9);
-		RIGHT_STICK_BUTTON		= new BTJoyButton(joy, 10);
+		A_BUTTON = new BTJoyButton(joy, 1);
+		B_BUTTON = new BTJoyButton(joy, 2);
+		X_BUTTON = new BTJoyButton(joy, 3);
+		Y_BUTTON = new BTJoyButton(joy, 4);
+		LEFT_BUMPER_BUTTON = new BTJoyButton(joy, 5);
+		RIGHT_BUMPER_BUTTON = new BTJoyButton(joy, 6);
+		BACK_BUTTON = new BTJoyButton(joy, 7);
+		START_BUTTON = new BTJoyButton(joy, 8);
+		LEFT_STICK_BUTTON = new BTJoyButton(joy, 9);
+		RIGHT_STICK_BUTTON = new BTJoyButton(joy, 10);
+
 	}
 
 	@Override
@@ -61,39 +60,47 @@ public class BTXboxController implements BTIController
 	}
 
 	@Override
-	public BTIConButton getButton(int port) {
+	public BTIConButton getButton(int port)
+	{
 		return new BTJoyButton(joy, port);
 	}
 
-
 	@Override
-	public BTIConAxis getDriveLeftRight() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getLeftDriveFrontBack()
+	{
+		return LEFT_STICK_UP_DOWN;
 	}
 
 	@Override
-	public BTIConAxis getDriveFrontBack() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getRightDriveFrontBack()
+	{
+		return RIGHT_STICK_UP_DOWN;
 	}
 
 	@Override
-	public BTIConAxis getDriveRotate() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getDriveLeftRight()
+	{
+		return LEFT_STICK_LEFT_RIGHT;
 	}
 
 	@Override
-	public BTIConButton getShift() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getDriveFrontBack()
+	{
+		return LEFT_STICK_UP_DOWN;
 	}
 
 	@Override
-	public BTIConButton getOctoSwitch() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConAxis getDriveRotate()
+	{
+		return RIGHT_STICK_LEFT_RIGHT;
 	}
+	
+	@Override
+	public BTIConButton getOctoSwitch()
+	{
+		return A_BUTTON;
+	}
+
+
 
 }
