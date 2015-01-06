@@ -16,7 +16,7 @@ public class BTMain extends SampleRobot
 	@Override
     public void autonomous()
     {
-		
+		BTConstants.AUTON_ROUTINE.autonomous();
     }
 	
 	@Override
