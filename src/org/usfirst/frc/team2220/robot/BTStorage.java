@@ -10,6 +10,6 @@ public class BTStorage
     public BTStorage()
     {
         data = new BTData();
-        xcon = new BTXboxController(1);
+        xcon = new BTXboxController(0);
     }
 }

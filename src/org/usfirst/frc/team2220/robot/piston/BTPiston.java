@@ -9,8 +9,8 @@ public class BTPiston
 	
 	public BTPiston(int extend, int retract)
 	{
-		left = new Solenoid(extend);
-		right = new Solenoid(retract);
+		left = new Solenoid(1, extend);
+		right = new Solenoid(1, retract);
 	}
 	
 	 public void set(boolean up)
@@ -24,7 +24,8 @@ public class BTPiston
 	     */
 	 public void extend()
 	 {
-		 set(true);
+		 right.set(false);
+		 left.set(true);
 	 }
 	
 	 /**
@@ -32,7 +33,8 @@ public class BTPiston
 	  */
 	 public void retract()
 	 {
-		 set(false);
+		 left.set(false);
+		 right.set(true); 
 	 }
 	    
 	 /**
