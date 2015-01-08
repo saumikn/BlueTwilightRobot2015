@@ -18,6 +18,7 @@ public class BTMain extends SampleRobot
     
 	public BTMain()
 	{
+		
 	}
 	
 	@Override
@@ -25,14 +26,14 @@ public class BTMain extends SampleRobot
     {
 		storage = new BTStorage();
     	octo = new BTOctocanum(storage);
-    	//meca = new BTMecanum(storage);
+    	meca = new BTMecanum(storage);
     	comp = new BTCompressor();
     }
 	
 	@Override
     public void autonomous()
     {
-		//BTConstants.AUTON_ROUTINE.autonomous();
+		BTConstants.AUTON_ROUTINE.autonomous();
     }
 	
 	@Override
