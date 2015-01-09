@@ -8,6 +8,6 @@ public class BTCompressor
 	
 	public BTCompressor()
 	{
-		comp = new Compressor();
+		comp = new Compressor(1);
 	}
 }

@@ -34,7 +34,7 @@ public class BTPiston
 	 public void retract()
 	 {
 		 left.set(false);
-		 right.set(true); 
+		 right.set(true);
 	 }
 	    
 	 /**

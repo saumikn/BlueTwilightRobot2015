@@ -3,49 +3,47 @@ package org.usfirst.frc.team2220.robot;
 
 
 import org.usfirst.frc.team2220.robot.compressor.BTCompressor;
-import org.usfirst.frc.team2220.robot.drivetrain.BTMecanum;
 import org.usfirst.frc.team2220.robot.drivetrain.BTOctocanum;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SampleRobot;
 
 public class BTMain extends SampleRobot
 {
+	// Testing folders
 	BTCompressor comp;
 	BTOctocanum octo;
 	BTStorage storage;
-	BTMecanum meca;
-    
-	public BTMain()
-	{
-		
-	}
+	
+    public BTMain()
+    {
+    	
+    }
 	
 	@Override
     public void robotInit()
     {
 		storage = new BTStorage();
     	octo = new BTOctocanum(storage);
-    	meca = new BTMecanum(storage);
     	comp = new BTCompressor();
     }
 	
-	@Override
+	//@Override
     public void autonomous()
     {
-		BTConstants.AUTON_ROUTINE.autonomous();
+		
     }
 	
-	@Override
+	//@Override
     public void operatorControl()
     {
-    	while(isOperatorControl() && isEnabled())
+    	while(isOperatorControl())
     	{
     		octo.drive();
+    		
     	}
     }
 	
-	@Override
+	//@Override
     public void disabled()
     {
     	

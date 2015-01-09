@@ -9,33 +9,38 @@ public class BTOctocanum implements BTIDrivetrain
 	private BTMecanum meca;
 	private BTTank tank;
 	
+	private boolean extended;
+	
 	public BTOctocanum(BTStorage storage)
 	{
 		this.storage = storage;
 		meca = new BTMecanum(storage);
 		tank = new BTTank(storage);
+		extended = false;
 	}
 
 	@Override
 	public void drive()
 	{
-		boolean extend = storage.data.DRIVETRAIN.isExtended();
-		if(storage.xcon.getOctoSwitch().getValue())
+//		boolean extend = storage.data.DRIVETRAIN.isExtended();
+		if(storage.xcon.getOctoSwitch().getLeadingEdge())
 		{
-			if(extend)
+			System.out.println("Extended = " + extended);
+			if(extended)
 			{
+				System.out.println("Extended was true");
 				storage.data.DRIVETRAIN.retract();
-				System.out.println("DID RETRACT");
+				extended = false;
 			}
 			else
 			{
+				System.out.println("Extended was true");
 				storage.data.DRIVETRAIN.extend();
-				System.out.println("DID EXTEND");
+				extended = true;
 			}
-			System.out.println(extend);
 		}
-		System.out.println("THIS IS A PRINT");
-		if(extend)
+		
+		if(extended)
 		{
 			meca.drive();
 		}

@@ -38,9 +38,9 @@ public class BTMecanum implements BTIDrivetrain
         
         
         
-        storage.data.MOTOR_BL.setX(-bl / max);
+        storage.data.MOTOR_BL.setX(bl / max);
         storage.data.MOTOR_BR.setX(br / max);
-        storage.data.MOTOR_FL.setX(-fl / max);
+        storage.data.MOTOR_FL.setX(fl / max);
         storage.data.MOTOR_FR.setX(fr / max);
 	}
 	

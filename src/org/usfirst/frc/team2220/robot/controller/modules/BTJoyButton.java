@@ -15,26 +15,19 @@ public class BTJoyButton implements BTIConButton
 		this.port = port;
 	}
 
-	public void updateValue()
-	{
-		previousVal = currentVal;
-		currentVal = joy.getRawButton(port);
-	}
-	
 	@Override
 	public boolean getValue()
 	{
-		updateValue();
+		previousVal = currentVal;
+		currentVal = joy.getRawButton(port);
 		return currentVal;
-		
 	}
 
 	@Override
 	public boolean getLeadingEdge()
 	{
-		updateValue();
-		if (currentVal && !previousVal)
-		{
+		getValue();
+		if (currentVal && !previousVal) {
 			return true;
 		}
 		return false;
@@ -43,9 +36,8 @@ public class BTJoyButton implements BTIConButton
 	@Override
 	public boolean getContinuousEdge()
 	{
-		updateValue();
-		if (currentVal && previousVal)
-		{
+		getValue();
+		if (currentVal && previousVal) {
 			return true;
 		}
 		return false;
@@ -54,9 +46,8 @@ public class BTJoyButton implements BTIConButton
 	@Override
 	public boolean getBackEdge()
 	{
-		updateValue();
-		if (!currentVal && previousVal)
-		{
+		getValue();
+		if (!currentVal && previousVal) {
 			return true;
 		}
 		return false;
