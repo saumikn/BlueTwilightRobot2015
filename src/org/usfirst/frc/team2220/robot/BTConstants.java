@@ -27,13 +27,13 @@ public class BTConstants
 
 	public static final int MEC_BACK_RIGHT = 2;
 	
-	public static final int TANK_FRONT_LEFT = 0;
+	public static final int TANK_FRONT_LEFT = 1;
 	
-	public static final int TANK_BACK_LEFT = 1;
+	public static final int TANK_BACK_LEFT = 0;
 
-	public static final int TANK_FRONT_RIGHT = 2;
+	public static final int TANK_FRONT_RIGHT = 3;
 
-	public static final int TANK_BACK_RIGHT = 3;
+	public static final int TANK_BACK_RIGHT = 2;
 	
 	public static final MotorType[] REVERSED_MOTORS = { };
 
