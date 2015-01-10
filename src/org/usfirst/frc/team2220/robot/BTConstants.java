@@ -5,6 +5,8 @@ import org.usfirst.frc.team2220.robot.controller.BTIController;
 import org.usfirst.frc.team2220.robot.controller.BTXboxController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+
 // Just an idea, feel free to change it around
 public class BTConstants
 {
@@ -32,5 +34,7 @@ public class BTConstants
 	public static final int TANK_FRONT_RIGHT = 2;
 
 	public static final int TANK_BACK_RIGHT = 3;
+	
+	public static final MotorType[] REVERSED_MOTORS = { };
 
 }

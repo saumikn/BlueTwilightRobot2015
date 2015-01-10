@@ -4,6 +4,7 @@ import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 public class BTOctocanum implements BTIDrivetrain
 {
@@ -22,10 +23,18 @@ public class BTOctocanum implements BTIDrivetrain
 					BTConstants.MEC_BACK_LEFT, 
 					BTConstants.MEC_FRONT_RIGHT, 
 					BTConstants.MEC_BACK_RIGHT);
+		for (MotorType motor : BTConstants.REVERSED_MOTORS)
+		{
+			meca.setInvertedMotor(motor, true);
+		}
 		tank = new RobotDrive(BTConstants.TANK_FRONT_LEFT,
 					BTConstants.TANK_BACK_LEFT, 
 					BTConstants.TANK_FRONT_RIGHT, 
 					BTConstants.TANK_BACK_RIGHT);
+		for (MotorType motor : BTConstants.REVERSED_MOTORS)
+		{
+			tank.setInvertedMotor(motor, true);
+		}
 		extended = false;
 	}
 
