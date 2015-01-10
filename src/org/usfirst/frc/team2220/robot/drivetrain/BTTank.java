@@ -14,10 +14,10 @@ public class BTTank implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
-		storage.data.MOTOR_FL.setX(storage.xcon.getLeftDriveFrontBack().getValue());
-        storage.data.MOTOR_FR.setX(storage.xcon.getRightDriveFrontBack().getValue());
-        storage.data.MOTOR_BL.setX(storage.xcon.getLeftDriveFrontBack().getValue());
-        storage.data.MOTOR_BR.setX(storage.xcon.getRightDriveFrontBack().getValue());
+		storage.data.MOTOR_FL.setX(storage.con.getLeftDriveFrontBack().getValue());
+        storage.data.MOTOR_FR.setX(storage.con.getRightDriveFrontBack().getValue());
+        storage.data.MOTOR_BL.setX(storage.con.getLeftDriveFrontBack().getValue());
+        storage.data.MOTOR_BR.setX(storage.con.getRightDriveFrontBack().getValue());
 		
 	}
 

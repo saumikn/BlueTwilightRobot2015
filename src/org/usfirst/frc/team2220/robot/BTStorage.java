@@ -1,15 +1,15 @@
 package org.usfirst.frc.team2220.robot;
 
-import org.usfirst.frc.team2220.robot.controller.BTXboxController;
+import org.usfirst.frc.team2220.robot.controller.BTIController;
 
 public class BTStorage
 {
     public BTData data;
-    public BTXboxController xcon;
+    public BTIController con;
     
     public BTStorage()
     {
         data = new BTData();
-        xcon = new BTXboxController(0);
+        con = BTConstants.CONTROLLER;
     }
 }

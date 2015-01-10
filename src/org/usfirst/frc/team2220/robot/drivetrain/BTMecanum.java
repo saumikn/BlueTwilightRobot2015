@@ -15,12 +15,12 @@ public class BTMecanum implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
-		double lr = storage.xcon.getDriveLeftRight().getValue();
-        double ud = storage.xcon.getDriveFrontBack().getValue();
+		double lr = storage.con.getDriveLeftRight().getValue();
+        double ud = storage.con.getDriveFrontBack().getValue();
                
         double mag = Math.sqrt(lr * lr + ud * ud);
         double angle = Math.atan(ud / lr);
-        double rotation = storage.xcon.getDriveRotate().getValue();
+        double rotation = storage.con.getDriveRotate().getValue();
         
         double fl = mag * Math.sin(angle + Math.PI / 4) + rotation;
         double fr = mag * Math.cos(angle + Math.PI / 4) - rotation;

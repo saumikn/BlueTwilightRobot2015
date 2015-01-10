@@ -23,7 +23,7 @@ public class BTOctocanum implements BTIDrivetrain
 	public void drive()
 	{
 //		boolean extend = storage.data.DRIVETRAIN.isExtended();
-		if(storage.xcon.getOctoSwitch().getLeadingEdge())
+		if(storage.con.getOctoSwitch().getLeadingEdge())
 		{
 			System.out.println("Extended = " + extended);
 			if(extended)
