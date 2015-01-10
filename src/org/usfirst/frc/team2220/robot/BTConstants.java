@@ -14,7 +14,7 @@ public class BTConstants
 	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;
 	
 	// The current controller
-	public static final BTIController CONTROLLER = new BTXboxController(1);
+	public static final BTIController CONTROLLER = new BTXboxController(0);
 	
 	// The current drivetrain
 	public static final BTIDrivetrain DRIVETRAIN = null;

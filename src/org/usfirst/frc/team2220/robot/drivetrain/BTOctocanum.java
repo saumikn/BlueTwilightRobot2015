@@ -10,7 +10,7 @@ public class BTOctocanum implements BTIDrivetrain
 {
 	public BTStorage storage;
 	
-	private RobotDrive meca;
+	private RobotDrive roboDrive;
 	
 	private RobotDrive tank;
 	
@@ -19,46 +19,48 @@ public class BTOctocanum implements BTIDrivetrain
 	public BTOctocanum(BTStorage storage)
 	{
 		this.storage = storage;
-		meca = new RobotDrive(BTConstants.MEC_FRONT_LEFT,
+		roboDrive = new RobotDrive(BTConstants.MEC_FRONT_LEFT,
 					BTConstants.MEC_BACK_LEFT, 
 					BTConstants.MEC_FRONT_RIGHT, 
 					BTConstants.MEC_BACK_RIGHT);
 		for (MotorType motor : BTConstants.REVERSED_MOTORS)
 		{
-			meca.setInvertedMotor(motor, true);
+			roboDrive.setInvertedMotor(motor, true);
 		}
-		tank = new RobotDrive(BTConstants.TANK_FRONT_LEFT,
-					BTConstants.TANK_BACK_LEFT, 
-					BTConstants.TANK_FRONT_RIGHT, 
-					BTConstants.TANK_BACK_RIGHT);
+		tank = roboDrive;
 		for (MotorType motor : BTConstants.REVERSED_MOTORS)
 		{
 			tank.setInvertedMotor(motor, true);
 		}
+	}
+	
+	public void init()
+	{
+		storage.data.DRIVETRAIN.retract();
 		extended = false;
 	}
 
 	@Override
 	public void drive()
 	{
-//		boolean extend = storage.data.DRIVETRAIN.isExtended();
+		// Toggle piston extension if the switch was pressed
 		if(storage.controller.getOctoSwitch().getLeadingEdge())
 		{
-			System.out.println("Extended = " + extended);
 			if(extended)
 			{
-				System.out.println("Extended was true");
 				storage.data.DRIVETRAIN.retract();
 				extended = false;
 			}
 			else
 			{
-				System.out.println("Extended was true");
 				storage.data.DRIVETRAIN.extend();
 				extended = true;
 			}
 		}
 		
+		System.out.println("IS EXTENDED? " + extended);
+		
+		// Use a mecanum drive or a tank drive depending on if the piston was extended		
 		if(extended)
 		{
 			double lr = storage.controller.getDriveLeftRight().getValue();
@@ -68,11 +70,11 @@ public class BTOctocanum implements BTIDrivetrain
 	        double dir = Math.atan(ud / lr);
 	        double rotation = storage.controller.getDriveRotate().getValue();
 	        
-			meca.mecanumDrive_Polar(mag, dir, rotation);
+			roboDrive.mecanumDrive_Polar(mag, dir, rotation);
 		}
 		else
 		{
-			tank.tankDrive(storage.controller.getLeftDriveFrontBack().getValue(), storage.controller.getDriveFrontBack().getValue());
+			roboDrive.tankDrive(storage.controller.getLeftDriveFrontBack().getValue(), storage.controller.getRightDriveFrontBack().getValue());
 		}
 		
 		

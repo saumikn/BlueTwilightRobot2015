@@ -24,6 +24,7 @@ public class BTMain extends SampleRobot
     {
 		storage = new BTStorage();
     	octo = new BTOctocanum(storage);
+    	octo.init();
     	comp = new BTCompressor();
     }
 	
