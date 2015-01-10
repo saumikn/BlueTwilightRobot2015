@@ -1,21 +1,31 @@
 package org.usfirst.frc.team2220.robot.drivetrain;
 
+import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
+
+import edu.wpi.first.wpilibj.RobotDrive;
 
 public class BTOctocanum implements BTIDrivetrain
 {
 	public BTStorage storage;
 	
-	private BTMecanum meca;
-	private BTTank tank;
+	private RobotDrive meca;
+	
+	private RobotDrive tank;
 	
 	private boolean extended;
 	
 	public BTOctocanum(BTStorage storage)
 	{
 		this.storage = storage;
-		meca = new BTMecanum(storage);
-		tank = new BTTank(storage);
+		meca = new RobotDrive(BTConstants.MEC_FRONT_LEFT,
+					BTConstants.MEC_BACK_LEFT, 
+					BTConstants.MEC_FRONT_RIGHT, 
+					BTConstants.MEC_BACK_RIGHT);
+		tank = new RobotDrive(BTConstants.TANK_FRONT_LEFT,
+					BTConstants.TANK_BACK_LEFT, 
+					BTConstants.TANK_FRONT_RIGHT, 
+					BTConstants.TANK_BACK_RIGHT);
 		extended = false;
 	}
 
@@ -23,7 +33,7 @@ public class BTOctocanum implements BTIDrivetrain
 	public void drive()
 	{
 //		boolean extend = storage.data.DRIVETRAIN.isExtended();
-		if(storage.con.getOctoSwitch().getLeadingEdge())
+		if(storage.controller.getOctoSwitch().getLeadingEdge())
 		{
 			System.out.println("Extended = " + extended);
 			if(extended)
@@ -42,11 +52,18 @@ public class BTOctocanum implements BTIDrivetrain
 		
 		if(extended)
 		{
-			meca.drive();
+			double lr = storage.controller.getDriveLeftRight().getValue();
+	        double ud = storage.controller.getDriveFrontBack().getValue();
+	               
+	        double mag = Math.sqrt(lr * lr + ud * ud);
+	        double dir = Math.atan(ud / lr);
+	        double rotation = storage.controller.getDriveRotate().getValue();
+	        
+			meca.mecanumDrive_Polar(mag, dir, rotation);
 		}
 		else
 		{
-			tank.drive();
+			tank.tankDrive(storage.controller.getLeftDriveFrontBack().getValue(), storage.controller.getDriveFrontBack().getValue());
 		}
 		
 		
