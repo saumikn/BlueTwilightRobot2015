@@ -15,12 +15,12 @@
 //	@Override
 //	public void drive()
 //	{
-//		double lr = storage.con.getDriveLeftRight().getValue();
-//        double ud = storage.con.getDriveFrontBack().getValue();
+//		double lr = storage.controller.getDriveLeftRight().getValue();
+//        double ud = storage.controller.getDriveFrontBack().getValue();
 //               
 //        double mag = Math.sqrt(lr * lr + ud * ud);
 //        double angle = Math.atan(ud / lr);
-//        double rotation = storage.con.getDriveRotate().getValue();
+//        double rotation = storage.controller.getDriveRotate().getValue();
 //        
 //        double fl = mag * Math.sin(angle + Math.PI / 4) + rotation;
 //        double fr = mag * Math.cos(angle + Math.PI / 4) - rotation;
@@ -35,7 +35,6 @@
 //            max = Math.max(max, Math.abs(bl));
 //            max = Math.max(max, Math.abs(br));
 //        }
-//        
 //        
 //        
 //        storage.data.MOTOR_BL.setX(bl / max);
