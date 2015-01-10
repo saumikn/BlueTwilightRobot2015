@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class BTXboxController implements BTIController
 {
-	private final BTJoyAxis LEFT_STICK_LEFT_RIGHT;
-	private final BTJoyAxis LEFT_STICK_UP_DOWN;
-	private final BTJoyAxis RIGHT_STICK_LEFT_RIGHT;
-	private final BTJoyAxis RIGHT_STICK_UP_DOWN;
-	private final BTJoyAxis TRIGGER;
-	private final BTJoyAxis DPAD_LEFT_RIGHT;
+	private final BTJoyAxis LEFT_STICK_X_AXIS;
+	private final BTJoyAxis LEFT_STICK_Y_AXIS;
+	private final BTJoyAxis LEFT_TRIGGER;
+	private final BTJoyAxis RIGHT_TRIGGER;
+	private final BTJoyAxis RIGHT_STICK_X_AXIS;
+	private final BTJoyAxis RIGHT_STICK_Y_AXIS;
 	
 	private final BTJoyButton A_BUTTON;
 	private final BTJoyButton B_BUTTON;
@@ -33,12 +33,12 @@ public class BTXboxController implements BTIController
 	{
 		joy = new Joystick(port);
 		
-		LEFT_STICK_LEFT_RIGHT = new BTJoyAxis(joy, 1);
-		LEFT_STICK_UP_DOWN = new BTJoyAxis(joy, 2);
-		RIGHT_STICK_LEFT_RIGHT = new BTJoyAxis(joy, 4);
-		RIGHT_STICK_UP_DOWN = new BTJoyAxis(joy, 5);
-		TRIGGER = new BTJoyAxis(joy, 3);
-		DPAD_LEFT_RIGHT = new BTJoyAxis(joy, 6);
+		LEFT_STICK_X_AXIS = new BTJoyAxis(joy, 1);
+		LEFT_STICK_Y_AXIS = new BTJoyAxis(joy, 2);
+		LEFT_TRIGGER = new BTJoyAxis(joy, 3);
+		RIGHT_TRIGGER = new BTJoyAxis(joy, 4);
+		RIGHT_STICK_X_AXIS = new BTJoyAxis(joy, 5);
+		RIGHT_STICK_Y_AXIS = new BTJoyAxis(joy, 6);
 		
 		A_BUTTON = new BTJoyButton(joy, 1);
 		B_BUTTON = new BTJoyButton(joy, 2);
@@ -68,31 +68,31 @@ public class BTXboxController implements BTIController
 	@Override
 	public BTIConAxis getLeftDriveFrontBack()
 	{
-		return LEFT_STICK_UP_DOWN;
+		return LEFT_STICK_Y_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getRightDriveFrontBack()
 	{
-		return RIGHT_STICK_UP_DOWN;
+		return RIGHT_STICK_Y_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getDriveLeftRight()
 	{
-		return LEFT_STICK_LEFT_RIGHT;
+		return LEFT_STICK_X_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getDriveFrontBack()
 	{
-		return LEFT_STICK_UP_DOWN;
+		return LEFT_STICK_Y_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getDriveRotate()
 	{
-		return RIGHT_STICK_LEFT_RIGHT;
+		return RIGHT_STICK_X_AXIS;
 	}
 	
 	@Override
