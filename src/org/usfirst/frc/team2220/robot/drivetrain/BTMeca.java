@@ -53,13 +53,21 @@ public class BTMeca implements BTIDrivetrain
 		double fl = strafe + forward - rotate;
 		double bl = strafe - forward - rotate;
 		
+		
+		// Reverse front and back right motors
 		fr = -fr;
 		br = -br;
 		
+		// Get the maximum motor power, before scaling. If it's over 1, that will break the code.
+		// We need to scale it down then, so if one motor is 2.0 and the rest are 1.0, the 2.0 will
+		// be scaled to 1.0, the rest to 0.5.
 		double max = Math.max(Math.abs(fr), Math.max(Math.abs(br), Math.max(Math.abs(fl), Math.abs(bl))));
 		
+		// Don't upscale so we can drive slowly
 		if(max < 1)
+		{
 			max = 1;
+		}
 		
 		if(max != 0)
 		{
@@ -79,11 +87,12 @@ public class BTMeca implements BTIDrivetrain
 		storage.data.FRONT_LEFT_MOTOR.setX(fl);
 		storage.data.BACK_LEFT_MOTOR.setX(bl);
 		
-		storage.data.FRONT_RIGHT_MOTOR.setX(.2);
-		storage.data.BACK_RIGHT_MOTOR.setX(.2);
-		storage.data.FRONT_LEFT_MOTOR.setX(.2);
-		storage.data.BACK_LEFT_MOTOR.setX(.2);
-		
+		// test code for something
+//		storage.data.FRONT_RIGHT_MOTOR.setX(.2);
+//		storage.data.BACK_RIGHT_MOTOR.setX(.2);
+//		storage.data.FRONT_LEFT_MOTOR.setX(.2);
+//		storage.data.BACK_LEFT_MOTOR.setX(.2);
+//		
 	}
 
 }
