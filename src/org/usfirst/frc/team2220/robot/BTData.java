@@ -16,9 +16,9 @@ public class BTData
 	{
 		DRIVETRAIN_PISTON = new BTPiston(0,1);
 		FRONT_LEFT_MOTOR = new BTTalon(0);
-		FRONT_LEFT_MOTOR = new BTTalon(1);
-		FRONT_LEFT_MOTOR = new BTTalon(2);
-		FRONT_LEFT_MOTOR = new BTTalon(3);		
+		BACK_LEFT_MOTOR = new BTTalon(1);
+		FRONT_RIGHT_MOTOR = new BTTalon(2);
+		BACK_RIGHT_MOTOR = new BTTalon(3);		
 	}
 	
 }

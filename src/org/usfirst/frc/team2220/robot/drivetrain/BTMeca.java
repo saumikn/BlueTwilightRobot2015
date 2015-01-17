@@ -3,6 +3,8 @@ package org.usfirst.frc.team2220.robot.drivetrain;
 import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class BTMeca implements BTIDrivetrain
 {
 	
@@ -53,7 +55,14 @@ public class BTMeca implements BTIDrivetrain
 		double fl = strafe + forward - rotate;
 		double bl = strafe - forward - rotate;
 		
-		
+		if (rotate > 0.9) rotate = 0.9;
+		if (rotate < -0.9) rotate = -0.9;
+
+		if (strafe > 0.9) strafe = 0.9;
+		if (strafe < -0.9) strafe = -0.9;
+
+		if (forward > 0.9) forward = 0.9;
+		if (forward < -0.9) forward = -0.9;
 		// Reverse front and back right motors
 		fr = -fr;
 		br = -br;
@@ -68,19 +77,36 @@ public class BTMeca implements BTIDrivetrain
 		{
 			max = 1;
 		}
+
+		// Scale the motor powers down so they are all <= 1.0
+		fr = fr / max;
+		br = br / max;
+		fl = fl / max;
+		bl = bl / max;
 		
-		if(max != 0)
-		{
-			fr = fr / max;
-			br = br / max;
-			fl = fl / max;
-			bl = bl / max;
-		}
-		
+		// Scale to the mecanum value, ie if we want to run at half power
 		fr = fr * BTConstants.MECANUM_SCALE_VALUE;
 		br = br * BTConstants.MECANUM_SCALE_VALUE;
 		fl = fl * BTConstants.MECANUM_SCALE_VALUE;
 		bl = bl * BTConstants.MECANUM_SCALE_VALUE;
+		
+		// Now set the motor powers!
+		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
+		SmartDashboard.putNumber("Y Axis Input", forward);
+		SmartDashboard.putNumber("X Axis Input", strafe);
+		SmartDashboard.putNumber("Z Axis Input", rotate);
+		
+		if (fr > 0.9) fr = 0.9;
+		if (fr < -0.9) fr = -0.9;
+
+		if (br > 0.9) br = 0.9;
+		if (br < -0.9) br = -0.9;
+
+		if (fl > 0.9) fl = 0.9;
+		if (fl < -0.9) fl = -0.9;
+		
+		if (bl > 0.9) bl = 0.9;
+		if (bl < -0.9) bl = -0.9;
 		
 		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
 		storage.data.BACK_RIGHT_MOTOR.setX(br);

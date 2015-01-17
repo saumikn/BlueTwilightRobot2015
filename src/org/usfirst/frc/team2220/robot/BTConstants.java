@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
+import org.usfirst.frc.team2220.robot.controller.BTFlightstick;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
-import org.usfirst.frc.team2220.robot.controller.BTLogitechController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -14,7 +14,7 @@ public class BTConstants
 	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;
 	
 	// The current controller
-	public static final BTIController CONTROLLER = new BTLogitechController(0);
+	public static final BTIController CONTROLLER = new BTFlightstick(0);
 	
 	// The current drivetrain
 	public static final BTIDrivetrain DRIVETRAIN = null;

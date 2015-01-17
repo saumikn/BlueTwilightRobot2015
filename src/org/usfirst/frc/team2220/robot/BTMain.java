@@ -3,7 +3,7 @@ package org.usfirst.frc.team2220.robot;
 
 
 import org.usfirst.frc.team2220.robot.compressor.BTCompressor;
-import org.usfirst.frc.team2220.robot.drivetrain.BTOctocanum;
+import org.usfirst.frc.team2220.robot.drivetrain.BTOcto;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
@@ -11,7 +11,7 @@ public class BTMain extends SampleRobot
 {
 	// Testing folders
 	BTCompressor comp;
-	BTOctocanum octo;
+	BTOcto octo;
 	BTStorage storage;
 	
     public BTMain()
@@ -23,7 +23,7 @@ public class BTMain extends SampleRobot
     public void robotInit()
     {
 		storage = new BTStorage();
-    	octo = new BTOctocanum(storage);
+    	octo = new BTOcto(storage);	
     	octo.init();
     	comp = new BTCompressor();
     }

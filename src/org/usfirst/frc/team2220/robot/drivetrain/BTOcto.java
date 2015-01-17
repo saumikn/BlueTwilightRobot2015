@@ -6,7 +6,7 @@ public class BTOcto implements BTIDrivetrain
 {
 	public BTStorage storage;
 	public BTMeca meca;
-	public BTTank tank;
+	//public BTTank tank;
 	private boolean isExtended;
 	
 	
@@ -18,9 +18,9 @@ public class BTOcto implements BTIDrivetrain
 	public void init()
 	{
 		meca = new BTMeca(storage);
-		tank = new BTTank(storage);
+		//tank = new BTTank(storage);
 		storage.data.DRIVETRAIN_PISTON.retract();
-		isExtended = false;		
+		isExtended = true;		
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class BTOcto implements BTIDrivetrain
 		}
 		else
 		{
-			tank.drive();
+			//tank.drive();
 		}
 	}
 	
