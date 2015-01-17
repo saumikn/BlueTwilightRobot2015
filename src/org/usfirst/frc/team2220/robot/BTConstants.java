@@ -28,6 +28,10 @@ public class BTConstants
 	public static final double MECANUM_DEADZONE = 0.05;
 	public static final double FPS_DEADZONE = 0.05;
 	
+	public static final double TANK_SCALE_VALUE = 1;
+	public static final double MECANUM_SCALE_VALUE = 1;
+	public static final double FPS_SCALE_VALUE = 1;
+	
 	
 	public static final MotorType[] MOTOR_TYPES = { MotorType.kFrontLeft, MotorType.kRearLeft, MotorType.kFrontRight, MotorType.kRearRight };
 	
