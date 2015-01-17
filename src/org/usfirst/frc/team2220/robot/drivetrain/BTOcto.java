@@ -17,6 +17,8 @@ public class BTOcto implements BTIDrivetrain
 
 	public void init()
 	{
+		meca = new BTMeca(storage);
+		tank = new BTTank(storage);
 		storage.data.DRIVETRAIN_PISTON.retract();
 		isExtended = false;		
 	}

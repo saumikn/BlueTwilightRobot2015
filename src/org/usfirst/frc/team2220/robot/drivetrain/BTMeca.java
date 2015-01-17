@@ -13,42 +13,50 @@ public class BTMeca implements BTIDrivetrain
 		this.storage = storage;
 	}
 		
-	double xAxis = storage.controller.getDriveLeftRight().getValue();
-	double yAxis = storage.controller.getDriveFrontBack().getValue();
-	double zAxis = storage.controller.getDriveRotate().getValue();
+	double strafe = 0.0;
+	double forward = 0.0;
+	double rotate = 0.0;
 	
-	
-	
+	/**
+	 * Applies the deadzone to the input axis
+	 */
 	public void setDeadzone()
 	{
-		if(xAxis < BTConstants.MECANUM_DEADZONE && xAxis > -BTConstants.MECANUM_DEADZONE)
+		if(strafe < BTConstants.MECANUM_DEADZONE && strafe > -BTConstants.MECANUM_DEADZONE)
 		{
-			xAxis = 0;
+			strafe = 0;
 		}
-		if(yAxis < BTConstants.MECANUM_DEADZONE && yAxis > -BTConstants.MECANUM_DEADZONE)
+		if(forward < BTConstants.MECANUM_DEADZONE && forward > -BTConstants.MECANUM_DEADZONE)
 		{
-			yAxis = 0;
+			forward = 0;
 		}
-		if(zAxis < BTConstants.MECANUM_DEADZONE && zAxis > -BTConstants.MECANUM_DEADZONE)
+		if(rotate < BTConstants.MECANUM_DEADZONE && rotate > -BTConstants.MECANUM_DEADZONE)
 		{
-			zAxis = 0;
+			rotate = 0;
 		}
 	}
 
 	@Override
 	public void drive()
 	{
+		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
+		strafe = storage.controller.getDriveLeftRight().getValue();
+		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
+		forward = storage.controller.getDriveFrontBack().getValue();
+		// Rotate is how much the robot should turn.
+		rotate = storage.controller.getDriveRotate().getValue();
+		
 		setDeadzone();
 		
-		double fr = xAxis - yAxis + zAxis;
-		double br = xAxis + yAxis + zAxis;
-		double fl = xAxis + yAxis - zAxis;
-		double bl = xAxis - yAxis - zAxis;
+		double fr = strafe - forward + rotate;
+		double br = strafe + forward + rotate;
+		double fl = strafe + forward - rotate;
+		double bl = strafe - forward - rotate;
 		
 		fr = -fr;
 		br = -br;
 		
-		double max = Math.max(Math.abs(fr), Math.max(Math.abs(br),Math.max(Math.abs(fl), Math.abs(bl))));
+		double max = Math.max(Math.abs(fr), Math.max(Math.abs(br), Math.max(Math.abs(fl), Math.abs(bl))));
 		
 		if(max < 1)
 			max = 1;
