@@ -27,7 +27,7 @@ public class BTOctocanum implements BTIDrivetrain
 	
 	public void init()
 	{
-		storage.data.DRIVETRAIN.retract();
+		storage.data.DRIVETRAIN_PISTON.retract();
 		extended = false;
 		for (MotorType motor : BTConstants.MOTOR_TYPES)
 		{
@@ -50,7 +50,7 @@ public class BTOctocanum implements BTIDrivetrain
 		{
 			if(extended)
 			{
-				storage.data.DRIVETRAIN.retract();
+				storage.data.DRIVETRAIN_PISTON.retract();
 				extended = false;
 				for (MotorType motor : BTConstants.MOTOR_TYPES)
 				{
@@ -66,7 +66,7 @@ public class BTOctocanum implements BTIDrivetrain
 			}
 			else
 			{
-				storage.data.DRIVETRAIN.extend();
+				storage.data.DRIVETRAIN_PISTON.extend();
 				extended = true;
 				for (MotorType motor : BTConstants.MOTOR_TYPES)
 				{

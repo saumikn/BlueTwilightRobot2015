@@ -5,11 +5,9 @@ import edu.wpi.first.wpilibj.Talon;
 public class BTTalon implements BTIMotor
 {
 	private final Talon talon;
-	private final int port;
 	
 	public BTTalon(int port)
 	{
-		this.port = port;
 		talon = new Talon(port);
 	}
 

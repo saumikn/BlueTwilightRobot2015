@@ -19,13 +19,15 @@ public class BTConstants
 	// The current drivetrain
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	
-	public static final int MEC_FRONT_LEFT = 1;
-			
-	public static final int MEC_BACK_LEFT = 0;
+	public static final int MEC_FRONT_LEFT = 0;
+	public static final int MEC_BACK_LEFT = 1;
+	public static final int MEC_FRONT_RIGHT = 2;
+	public static final int MEC_BACK_RIGHT = 3;
 	
-	public static final int MEC_FRONT_RIGHT = 3;
-
-	public static final int MEC_BACK_RIGHT = 2;
+	public static final double TANK_DEADZONE = 0.05;
+	public static final double MECANUM_DEADZONE = 0.05;
+	public static final double FPS_DEADZONE = 0.05;
+	
 	
 	public static final MotorType[] MOTOR_TYPES = { MotorType.kFrontLeft, MotorType.kRearLeft, MotorType.kFrontRight, MotorType.kRearRight };
 	

@@ -10,4 +10,5 @@ public class BTCompressor
 	{
 		comp = new Compressor(1);
 	}
+
 }
