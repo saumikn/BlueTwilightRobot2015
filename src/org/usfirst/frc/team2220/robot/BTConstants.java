@@ -5,9 +5,6 @@ import org.usfirst.frc.team2220.robot.controller.BTFlightstick;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 
-import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-
-// Just an idea, feel free to change it around
 public class BTConstants
 {
 	// The current autonomous routine
@@ -19,24 +16,22 @@ public class BTConstants
 	// The current drivetrain
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	
+	//Numbers used to represent motors
 	public static final int MEC_FRONT_LEFT = 0;
 	public static final int MEC_BACK_LEFT = 1;
 	public static final int MEC_FRONT_RIGHT = 2;
 	public static final int MEC_BACK_RIGHT = 3;
 	
-	public static final double TANK_DEADZONE = 0.05;
+	//Deadzone radius specification
 	public static final double MECANUM_DEADZONE = 0.05;
-	public static final double FPS_DEADZONE = 0.05;
 	
-	public static final double TANK_SCALE_VALUE = 1;
-	public static final double MECANUM_SCALE_VALUE = 1;
-	public static final double FPS_SCALE_VALUE = 1;
+	//Power scaling value for mecanum motors
+	public static final double MECANUM_SCALE_VALUE = 0.9;
 	
-	
-	public static final MotorType[] MOTOR_TYPES = { MotorType.kFrontLeft, MotorType.kRearLeft, MotorType.kFrontRight, MotorType.kRearRight };
-	
-	public static final MotorType[] REVERSED_MOTORS_TANK = { };
-	
-	public static final MotorType[] REVERSED_MOTORS_MECANUM = { MotorType.kRearRight, MotorType.kRearLeft };
+	//Reverses selected wheels
+	public static final boolean FRONT_LEFT_REVERSED = true;
+	public static final boolean BACK_LEFT_REVERSED = true;
+	public static final boolean FRONT_RIGHT_REVERSED = false;
+	public static final boolean BACK_RIGHT_REVERSED = false;
 
 }

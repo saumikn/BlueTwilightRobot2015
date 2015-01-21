@@ -94,12 +94,6 @@ public class BTLogitechController implements BTIController
 	{
 		return RIGHT_STICK_X_AXIS;
 	}
-	
-	@Override
-	public BTIConButton getOctoSwitch()
-	{
-		return A_BUTTON;
-	}
 
 
 

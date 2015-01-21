@@ -1,8 +1,11 @@
 package org.usfirst.frc.team2220.robot.drivetrain;
 
+import java.util.Arrays;
+
 import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BTMeca implements BTIDrivetrain
@@ -64,8 +67,23 @@ public class BTMeca implements BTIDrivetrain
 		if (forward > 0.9) forward = 0.9;
 		if (forward < -0.9) forward = -0.9;
 		// Reverse front and back left motors
-		fl = -fl;
-		bl = -bl;
+		
+		if (BTConstants.FRONT_LEFT_REVERSED)
+		{
+			fl = -fl;
+		}
+		if (BTConstants.BACK_LEFT_REVERSED)
+		{
+			bl = -bl;
+		}
+		if (BTConstants.FRONT_RIGHT_REVERSED)
+		{
+			fr = -fr;
+		}
+		if (BTConstants.BACK_RIGHT_REVERSED)
+		{
+			br = -br;
+		}
 		
 		// Get the maximum motor power, before scaling. If it's over 1, that will break the code.
 		// We need to scale it down then, so if one motor is 2.0 and the rest are 1.0, the 2.0 will
@@ -84,7 +102,7 @@ public class BTMeca implements BTIDrivetrain
 		fl = fl / max;
 		bl = bl / max;
 		
-		// Scale to the mecanum value, ie if we want to run at half power
+		// Scale to the mecanum value, i.e. if we want to run at half power
 		fr = fr * BTConstants.MECANUM_SCALE_VALUE;
 		br = br * BTConstants.MECANUM_SCALE_VALUE;
 		fl = fl * BTConstants.MECANUM_SCALE_VALUE;
@@ -96,17 +114,17 @@ public class BTMeca implements BTIDrivetrain
 		SmartDashboard.putNumber("X Axis Input", strafe);
 		SmartDashboard.putNumber("Z Axis Input", rotate);
 		
-		if (fr > 0.9) fr = 0.9;
-		if (fr < -0.9) fr = -0.9;
-
-		if (br > 0.9) br = 0.9;
-		if (br < -0.9) br = -0.9;
-
-		if (fl > 0.9) fl = 0.9;
-		if (fl < -0.9) fl = -0.9;
-		
-		if (bl > 0.9) bl = 0.9;
-		if (bl < -0.9) bl = -0.9;
+//		if (fr > 0.9) fr = 0.9;
+//		if (fr < -0.9) fr = -0.9;
+//
+//		if (br > 0.9) br = 0.9;
+//		if (br < -0.9) br = -0.9;
+//
+//		if (fl > 0.9) fl = 0.9;
+//		if (fl < -0.9) fl = -0.9;
+//		
+//		if (bl > 0.9) bl = 0.9;
+//		if (bl < -0.9) bl = -0.9;
 		
 		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
 		storage.data.BACK_RIGHT_MOTOR.setX(br);

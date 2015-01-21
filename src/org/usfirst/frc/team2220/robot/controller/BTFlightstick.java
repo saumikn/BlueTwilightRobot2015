@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2220.robot.controller;
 
-import org.usfirst.frc.team2220.robot.controller.modules.BTAxisButton;
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConAxis;
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
 import org.usfirst.frc.team2220.robot.controller.modules.BTJoyAxis;
@@ -13,7 +12,7 @@ public class BTFlightstick implements BTIController
 	private final BTJoyAxis JOYSTICK_X;
 	private final BTJoyAxis JOYSTICK_Y;
 	private final BTJoyAxis JOYSTICK_Z_ROTATE;
-	private final BTAxisButton THROTTLE;
+	private final BTJoyAxis THROTTLE;
 	
 	private Joystick joy;
 	
@@ -24,7 +23,7 @@ public class BTFlightstick implements BTIController
 		JOYSTICK_X = new BTJoyAxis(joy, 0);
 		JOYSTICK_Y = new BTJoyAxis(joy, 1);
 		JOYSTICK_Z_ROTATE = new BTJoyAxis(joy, 5);
-		THROTTLE = new BTAxisButton(joy, 4);
+		THROTTLE = new BTJoyAxis(joy, 4);
 	}
 
 	@Override
@@ -68,11 +67,4 @@ public class BTFlightstick implements BTIController
 	{
 		return JOYSTICK_Z_ROTATE;
 	}
-	
-	@Override
-	public BTIConButton getOctoSwitch()
-	{
-		return THROTTLE;
-	}
-
 }

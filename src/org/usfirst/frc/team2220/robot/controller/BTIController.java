@@ -7,8 +7,6 @@ public interface BTIController
 {
 	public BTIConAxis getAxis(int port);
 	public BTIConButton getButton(int port);
-	// public BTIConAxis[] getAllAxis();
-	// public BTIConButton[] getAllButtons();
 	
 	// Drivetrain parameters
 	public BTIConAxis getLeftDriveFrontBack();
@@ -16,8 +14,6 @@ public interface BTIController
 	public BTIConAxis getDriveLeftRight();
 	public BTIConAxis getDriveFrontBack();
 	public BTIConAxis getDriveRotate();
-	public BTIConButton getOctoSwitch();
-	
 	
 	
 	// Manipulator parameters
