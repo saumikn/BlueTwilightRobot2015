@@ -58,14 +58,6 @@ public class BTMeca implements BTIDrivetrain
 		double fl = strafe + forward - rotate;
 		double bl = strafe - forward - rotate;
 		
-		if (rotate > 0.9) rotate = 0.9;
-		if (rotate < -0.9) rotate = -0.9;
-
-		if (strafe > 0.9) strafe = 0.9;
-		if (strafe < -0.9) strafe = -0.9;
-
-		if (forward > 0.9) forward = 0.9;
-		if (forward < -0.9) forward = -0.9;
 		// Reverse front and back left motors
 		
 		if (BTConstants.FRONT_LEFT_REVERSED)
