@@ -100,24 +100,18 @@ public class BTMeca implements BTIDrivetrain
 		fl = fl * BTConstants.MECANUM_SCALE_VALUE;
 		bl = bl * BTConstants.MECANUM_SCALE_VALUE;
 		
-		// Now set the motor powers!
+
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
 		SmartDashboard.putNumber("Y Axis Input", forward);
 		SmartDashboard.putNumber("X Axis Input", strafe);
 		SmartDashboard.putNumber("Z Axis Input", rotate);
 		
-//		if (fr > 0.9) fr = 0.9;
-//		if (fr < -0.9) fr = -0.9;
-//
-//		if (br > 0.9) br = 0.9;
-//		if (br < -0.9) br = -0.9;
-//
-//		if (fl > 0.9) fl = 0.9;
-//		if (fl < -0.9) fl = -0.9;
-//		
-//		if (bl > 0.9) bl = 0.9;
-//		if (bl < -0.9) bl = -0.9;
+		SmartDashboard.putNumber("Front Right Motor Power", fr);
+		SmartDashboard.putNumber("Back Right Motor Power", br);
+		SmartDashboard.putNumber("Front Left Motor Power", fl);
+		SmartDashboard.putNumber("Back Left Motor Power", bl);
 		
+		//Set the motor powers
 		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
 		storage.data.BACK_RIGHT_MOTOR.setX(br);
 		storage.data.FRONT_LEFT_MOTOR.setX(fl);
