@@ -63,9 +63,9 @@ public class BTMeca implements BTIDrivetrain
 
 		if (forward > 0.9) forward = 0.9;
 		if (forward < -0.9) forward = -0.9;
-		// Reverse front and back right motors
-		fr = -fr;
-		br = -br;
+		// Reverse front and back left motors
+		fl = -fl;
+		bl = -bl;
 		
 		// Get the maximum motor power, before scaling. If it's over 1, that will break the code.
 		// We need to scale it down then, so if one motor is 2.0 and the rest are 1.0, the 2.0 will
