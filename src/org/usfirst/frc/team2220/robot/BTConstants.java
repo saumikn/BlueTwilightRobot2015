@@ -16,22 +16,25 @@ public class BTConstants
 	// The current drivetrain
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	
-	//Numbers used to represent motors
+	// Numbers used to represent motors
 	public static final int MEC_FRONT_LEFT = 0;
 	public static final int MEC_BACK_LEFT = 1;
 	public static final int MEC_FRONT_RIGHT = 2;
 	public static final int MEC_BACK_RIGHT = 3;
 	
-	//Deadzone radius specification
+	// Deadzone radius specification
 	public static final double MECANUM_DEADZONE = 0.05;
 	
-	//Power scaling value for mecanum motors
+	// Power scaling value for mecanum motors
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	
-	//Reverses selected wheels
+	// Reverses selected wheels
 	public static final boolean FRONT_LEFT_REVERSED = true;
 	public static final boolean BACK_LEFT_REVERSED = true;
 	public static final boolean FRONT_RIGHT_REVERSED = false;
 	public static final boolean BACK_RIGHT_REVERSED = false;
+	
+	// If we're using the test board. Disables any motors etc.
+	public static final boolean TEST_BOARD = true;
 
 }
