@@ -29,10 +29,10 @@ public class BTConstants
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	
 	// Reverses selected wheels
-	public static final boolean FRONT_LEFT_REVERSED = true;
+	public static final boolean FRONT_LEFT_REVERSED = false;
 	public static final boolean BACK_LEFT_REVERSED = true;
 	public static final boolean FRONT_RIGHT_REVERSED = false;
-	public static final boolean BACK_RIGHT_REVERSED = false;
+	public static final boolean BACK_RIGHT_REVERSED = true;
 	
 	// If we're using the test board. Disables any motors etc.
 	public static final boolean TEST_BOARD = true;

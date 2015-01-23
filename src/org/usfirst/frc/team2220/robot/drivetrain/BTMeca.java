@@ -53,10 +53,10 @@ public class BTMeca implements BTIDrivetrain
 		
 		setDeadzone();
 		
-		double fr = strafe - forward + rotate;
-		double br = strafe + forward + rotate;
-		double fl = strafe + forward - rotate;
-		double bl = strafe - forward - rotate;
+		double fr = -strafe + forward + -rotate;
+		double br =  strafe + forward +  rotate;
+		double fl =  strafe + forward + -rotate;
+		double bl = -strafe + forward +  rotate;
 		
 		// Reverse front and back left motors
 		
