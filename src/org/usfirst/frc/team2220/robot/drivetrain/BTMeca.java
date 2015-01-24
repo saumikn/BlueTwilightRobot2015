@@ -21,37 +21,84 @@ public class BTMeca implements BTIDrivetrain
 	double strafe = 0.0;
 	double forward = 0.0;
 	double rotate = 0.0;
-	
-	/**
-	 * Applies the deadzone to the input axis
-	 */
-	public void setDeadzone()
+
+	// Commenting this out for now because the deadzone is
+	// now specified and coded in the curve function. -JE
+//	/**
+//	 * Applies the deadzone to the input axis
+//	 */
+//	public void setDeadzone()
+//	{
+//		if(strafe < BTConstants.MECANUM_DEADZONE && strafe > -BTConstants.MECANUM_DEADZONE)
+//		{
+//			strafe = 0;
+//		}
+//		if(forward < BTConstants.MECANUM_DEADZONE && forward > -BTConstants.MECANUM_DEADZONE)
+//		{
+//			forward = 0;
+//		}
+//		if(rotate < BTConstants.MECANUM_DEADZONE && rotate > -BTConstants.MECANUM_DEADZONE)
+//		{
+//			rotate = 0;
+//		}
+//	}
+
+	public double curve(double rawValue)
 	{
-		if(strafe < BTConstants.MECANUM_DEADZONE && strafe > -BTConstants.MECANUM_DEADZONE)
+		final double DEADZONE_MAX_RANGE = 0.1;		//Below this radius, doesn't move
+		final double SLOW_INCREASE_MAX_RANGE = 0.5; //Below this radius, accelerates slowly
+		final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
+		final double GLOBAL_MAX_RANGE = 1.0;		//Farthest axis can be from center
+		
+		final double SLOW_INCREASE_MAX_SPEED = 0.3;	//Speed at SLOW_INCREASE_MAX_RANGE
+		final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
+		final double GLOBAL_MAX_SPEED = 1.0;		//Speed at GLOBAL_MAX_RANGE
+		
+		if (rawValue < DEADZONE_MAX_RANGE)
 		{
-			strafe = 0;
+			return 0;
 		}
-		if(forward < BTConstants.MECANUM_DEADZONE && forward > -BTConstants.MECANUM_DEADZONE)
+		
+		else if (rawValue < SLOW_INCREASE_MAX_RANGE)
 		{
-			forward = 0;
+			double rise = SLOW_INCREASE_MAX_SPEED;
+			double run = SLOW_INCREASE_MAX_RANGE - DEADZONE_MAX_RANGE;
+			double slope = rise / run;
+			return (rawValue - DEADZONE_MAX_RANGE) * slope;
 		}
-		if(rotate < BTConstants.MECANUM_DEADZONE && rotate > -BTConstants.MECANUM_DEADZONE)
+		
+		else if (rawValue < FAST_INCREASE_MAX_RANGE)
 		{
-			rotate = 0;
+			double rise = FAST_INCREASE_MAX_SPEED - SLOW_INCREASE_MAX_SPEED;
+			double run = FAST_INCREASE_MAX_RANGE - SLOW_INCREASE_MAX_RANGE;
+			double slope = rise / run;
+			return ((rawValue - SLOW_INCREASE_MAX_RANGE) * slope) + SLOW_INCREASE_MAX_SPEED;
+		}
+		
+		else
+		{
+			double rise = GLOBAL_MAX_SPEED - FAST_INCREASE_MAX_SPEED;
+			double run = GLOBAL_MAX_RANGE - FAST_INCREASE_MAX_RANGE;
+			double slope = rise / run;
+			return ((rawValue - FAST_INCREASE_MAX_RANGE) * slope) + FAST_INCREASE_MAX_SPEED;
 		}
 	}
-
+	
 	@Override
 	public void drive()
 	{
 		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
-		strafe = storage.controller.getDriveLeftRight().getValue();
+		double strafeRaw = storage.controller.getDriveLeftRight().getValue();
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
-		forward = storage.controller.getDriveFrontBack().getValue();
+		double forwardRaw = storage.controller.getDriveFrontBack().getValue();
 		// Rotate is how much the robot should turn.
-		rotate = storage.controller.getDriveRotate().getValue();
+		double rotateRaw = storage.controller.getDriveRotate().getValue();
 		
-		setDeadzone();
+		strafe = curve(strafeRaw);
+		forward = curve(forwardRaw);
+		rotate = curve(rotateRaw);
+		
+		//setDeadzone();
 		
 		double fr = -strafe + forward + -rotate;
 		double br =  strafe + forward +  rotate;
