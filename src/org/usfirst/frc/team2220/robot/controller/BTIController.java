@@ -14,6 +14,7 @@ public interface BTIController
 	public BTIConAxis getDriveLeftRight();
 	public BTIConAxis getDriveFrontBack();
 	public BTIConAxis getDriveRotate();
+	public BTIConAxis getTopThrottle();
 	
 	
 	// Manipulator parameters

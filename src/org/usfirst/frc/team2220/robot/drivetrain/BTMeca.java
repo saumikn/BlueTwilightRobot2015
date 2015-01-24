@@ -21,8 +21,9 @@ public class BTMeca implements BTIDrivetrain
 	double strafe = 0.0;
 	double forward = 0.0;
 	double rotate = 0.0;
+	double maxPower = 0.0;
 
-	// Commenting this out for now because the deadzone is
+	// Commented out for now because the deadzone is
 	// now specified and coded in the curve function. -JE
 //	/**
 //	 * Applies the deadzone to the input axis
@@ -152,11 +153,23 @@ public class BTMeca implements BTIDrivetrain
 		fl = fl / max;
 		bl = bl / max;
 		
+		//If no value for top throttle (i.e. not using flight stick), sets to default value for max power
+		if (storage.controller.getTopThrottle() == null)
+		{
+			maxPower = BTConstants.MECANUM_SCALE_VALUE;
+		}
+		
+		//If top throttle exists, set max power to top throttle value
+		else
+		{
+			maxPower = (storage.controller.getTopThrottle().getValue() + 1.0) / 2.0;
+		}
+		
 		// Scale to the mecanum value, i.e. if we want to run at half power
-		fr = fr * BTConstants.MECANUM_SCALE_VALUE;
-		br = br * BTConstants.MECANUM_SCALE_VALUE;
-		fl = fl * BTConstants.MECANUM_SCALE_VALUE;
-		bl = bl * BTConstants.MECANUM_SCALE_VALUE;
+		fr = fr * maxPower;
+		br = br * maxPower;
+		fl = fl * maxPower;
+		bl = bl * maxPower;
 		
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);

@@ -94,7 +94,11 @@ public class BTXboxController implements BTIController
 	{
 		return RIGHT_STICK_X_AXIS;
 	}
-
-
+	
+	@Override
+	public BTIConAxis getTopThrottle()
+	{
+		return null;
+	}
 
 }
