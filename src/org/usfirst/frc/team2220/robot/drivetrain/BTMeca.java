@@ -45,6 +45,11 @@ public class BTMeca implements BTIDrivetrain
 
 	public double curve(double rawValue)
 	{
+		boolean isNegative = false;
+		if (rawValue < 0)
+			isNegative = true;
+		rawValue = Math.abs(rawValue);
+		
 		final double DEADZONE_MAX_RANGE = 0.1;		//Below this radius, doesn't move
 		final double SLOW_INCREASE_MAX_RANGE = 0.5; //Below this radius, accelerates slowly
 		final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
@@ -53,6 +58,8 @@ public class BTMeca implements BTIDrivetrain
 		final double SLOW_INCREASE_MAX_SPEED = 0.3;	//Speed at SLOW_INCREASE_MAX_RANGE
 		final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
 		final double GLOBAL_MAX_SPEED = 1.0;		//Speed at GLOBAL_MAX_RANGE
+		
+		double result;
 		
 		if (rawValue < DEADZONE_MAX_RANGE)
 		{
@@ -64,7 +71,7 @@ public class BTMeca implements BTIDrivetrain
 			double rise = SLOW_INCREASE_MAX_SPEED;
 			double run = SLOW_INCREASE_MAX_RANGE - DEADZONE_MAX_RANGE;
 			double slope = rise / run;
-			return (rawValue - DEADZONE_MAX_RANGE) * slope;
+			result = (rawValue - DEADZONE_MAX_RANGE) * slope;
 		}
 		
 		else if (rawValue < FAST_INCREASE_MAX_RANGE)
@@ -72,7 +79,7 @@ public class BTMeca implements BTIDrivetrain
 			double rise = FAST_INCREASE_MAX_SPEED - SLOW_INCREASE_MAX_SPEED;
 			double run = FAST_INCREASE_MAX_RANGE - SLOW_INCREASE_MAX_RANGE;
 			double slope = rise / run;
-			return ((rawValue - SLOW_INCREASE_MAX_RANGE) * slope) + SLOW_INCREASE_MAX_SPEED;
+			result = ((rawValue - SLOW_INCREASE_MAX_RANGE) * slope) + SLOW_INCREASE_MAX_SPEED;
 		}
 		
 		else
@@ -80,8 +87,12 @@ public class BTMeca implements BTIDrivetrain
 			double rise = GLOBAL_MAX_SPEED - FAST_INCREASE_MAX_SPEED;
 			double run = GLOBAL_MAX_RANGE - FAST_INCREASE_MAX_RANGE;
 			double slope = rise / run;
-			return ((rawValue - FAST_INCREASE_MAX_RANGE) * slope) + FAST_INCREASE_MAX_SPEED;
+			result = ((rawValue - FAST_INCREASE_MAX_RANGE) * slope) + FAST_INCREASE_MAX_SPEED;
 		}
+		
+		if (isNegative)
+			return -1 * result;
+		return result;
 	}
 	
 	@Override
