@@ -46,6 +46,7 @@ public class BTMeca implements BTIDrivetrain
 
 	public double curve(double rawValue)
 	{
+		//Checks for and stores negative status of the input value, to be re-added at the end
 		boolean isNegative = false;
 		if (rawValue < 0)
 			isNegative = true;
@@ -54,7 +55,7 @@ public class BTMeca implements BTIDrivetrain
 		final double DEADZONE_MAX_RANGE = 0.1;		//Below this radius, doesn't move
 		final double SLOW_INCREASE_MAX_RANGE = 0.5; //Below this radius, accelerates slowly
 		final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
-		final double GLOBAL_MAX_RANGE = 1.0;		//Farthest axis can be from center
+		final double GLOBAL_MAX_RANGE = 1.0;		//Farthest that the joystick can be from center
 		
 		final double SLOW_INCREASE_MAX_SPEED = 0.3;	//Speed at SLOW_INCREASE_MAX_RANGE
 		final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
@@ -62,11 +63,13 @@ public class BTMeca implements BTIDrivetrain
 		
 		double result;
 		
+		//Range 1: Deadzone
 		if (rawValue < DEADZONE_MAX_RANGE)
 		{
 			return 0;
 		}
 		
+		//Range 2: Slow increase zone
 		else if (rawValue < SLOW_INCREASE_MAX_RANGE)
 		{
 			double rise = SLOW_INCREASE_MAX_SPEED;
@@ -75,6 +78,7 @@ public class BTMeca implements BTIDrivetrain
 			result = (rawValue - DEADZONE_MAX_RANGE) * slope;
 		}
 		
+		//Range 3: Fast increase zone
 		else if (rawValue < FAST_INCREASE_MAX_RANGE)
 		{
 			double rise = FAST_INCREASE_MAX_SPEED - SLOW_INCREASE_MAX_SPEED;
@@ -83,6 +87,7 @@ public class BTMeca implements BTIDrivetrain
 			result = ((rawValue - SLOW_INCREASE_MAX_RANGE) * slope) + SLOW_INCREASE_MAX_SPEED;
 		}
 		
+		//Range 4: Upper zone
 		else
 		{
 			double rise = GLOBAL_MAX_SPEED - FAST_INCREASE_MAX_SPEED;
@@ -106,6 +111,7 @@ public class BTMeca implements BTIDrivetrain
 		// Rotate is how much the robot should turn.
 		double rotateRaw = storage.controller.getDriveRotate().getValue();
 		
+		// Curves the strafe, forward, and rotate values according to a piecewise function
 		strafe = curve(strafeRaw);
 		forward = curve(forwardRaw);
 		rotate = curve(rotateRaw);
