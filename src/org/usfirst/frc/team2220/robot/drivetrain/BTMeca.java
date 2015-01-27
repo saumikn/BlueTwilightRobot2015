@@ -105,7 +105,7 @@ public class BTMeca implements BTIDrivetrain
 	public void drive()
 	{
 		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
-		double strafeRaw = storage.controller.getDriveLeftRight().getValue();
+		double strafeRaw = -storage.controller.getDriveLeftRight().getValue();
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
 		double forwardRaw = storage.controller.getDriveFrontBack().getValue();
 		// Rotate is how much the robot should turn.
@@ -168,7 +168,9 @@ public class BTMeca implements BTIDrivetrain
 		//If top throttle exists, set max power to top throttle value
 		else
 		{
-			maxPower = (storage.controller.getTopThrottle().getValue() + 1.0) / 2.0;
+			double topThrottle = (storage.controller.getTopThrottle().getValue() + 1.0);
+			topThrottle = Math.max(BTConstants.TOP_THROTTLE_MIN, topThrottle);
+			maxPower =  topThrottle / 2.0;
 		}
 		
 		// Scale to the mecanum value, i.e. if we want to run at half power

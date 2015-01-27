@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
+import org.usfirst.frc.team2220.robot.controller.BTFlightstick;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
-import org.usfirst.frc.team2220.robot.controller.BTXboxController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 
 public class BTConstants
@@ -11,7 +11,7 @@ public class BTConstants
 	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;
 	
 	// The current controller
-	public static final BTIController CONTROLLER = new BTXboxController(0);
+	public static final BTIController CONTROLLER = new BTFlightstick(0);
 	
 	// The current drivetrain
 	public static final BTIDrivetrain DRIVETRAIN = null;
@@ -28,6 +28,9 @@ public class BTConstants
 	// Power scaling value for mecanum motors
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	
+	// Minimum scaling for the top [speed] control
+	public static final double TOP_THROTTLE_MIN = 0.1;
+	
 	// Reverses selected wheels
 	public static final boolean FRONT_LEFT_REVERSED = false;
 	public static final boolean BACK_LEFT_REVERSED = true;
@@ -35,6 +38,6 @@ public class BTConstants
 	public static final boolean BACK_RIGHT_REVERSED = true;
 	
 	// If we're using the test board. Disables any motors etc.
-	public static final boolean TEST_BOARD = true;
+	public static final boolean TEST_BOARD = false;
 
 }
