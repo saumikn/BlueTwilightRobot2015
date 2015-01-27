@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.SampleRobot;
 public class BTMain extends SampleRobot
 {
 	// Testing folders
-	BTCompressor comp;
 	BTMeca meca;
 	BTStorage storage;
 	
@@ -25,7 +24,6 @@ public class BTMain extends SampleRobot
 		storage = new BTStorage();
     	meca = new BTMeca(storage);	
     	//meca.init();
-    	comp = new BTCompressor();
     }
 	
 	//@Override

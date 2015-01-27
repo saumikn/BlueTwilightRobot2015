@@ -38,6 +38,6 @@ public class BTConstants
 	public static final boolean BACK_RIGHT_REVERSED = true;
 	
 	// If we're using the test board. Disables any motors etc.
-	public static final boolean TEST_BOARD = false;
+	public static final boolean TEST_BOARD = true;
 
 }
