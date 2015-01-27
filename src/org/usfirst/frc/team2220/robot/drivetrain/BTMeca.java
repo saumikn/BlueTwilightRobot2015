@@ -184,6 +184,7 @@ public class BTMeca implements BTIDrivetrain
 		SmartDashboard.putNumber("Y Axis Input", forward);
 		SmartDashboard.putNumber("X Axis Input", strafe);
 		SmartDashboard.putNumber("Z Axis Input", rotate);
+		SmartDashboard.putNumber("Throttle Rotator", storage.controller.getTopThrottle().getValue());
 		
 		SmartDashboard.putNumber("Front Right Motor Power", fr);
 		SmartDashboard.putNumber("Back Right Motor Power", br);

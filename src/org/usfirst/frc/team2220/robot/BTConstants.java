@@ -29,7 +29,7 @@ public class BTConstants
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	
 	// Minimum scaling for the top [speed] control
-	public static final double TOP_THROTTLE_MIN = 0.1;
+	public static final double TOP_THROTTLE_MIN = 0.5;
 	
 	// Reverses selected wheels
 	public static final boolean FRONT_LEFT_REVERSED = false;
