@@ -114,7 +114,7 @@ public class BTMeca implements BTIDrivetrain
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
 		double forwardRaw = storage.controller.getDriveFrontBack().getValue();
 		// Rotate is how much the robot should turn.
-		double rotateRaw = storage.controller.getDriveRotate().getValue();
+		double rotateRaw = -storage.controller.getDriveRotate().getValue();
 		
 		// Curves the strafe, forward, and rotate values according to a piecewise function
 		strafe = curve(strafeRaw);
@@ -127,6 +127,8 @@ public class BTMeca implements BTIDrivetrain
 		double br =  strafe + forward +  rotate;
 		double fl =  strafe + forward + -rotate;
 		double bl = -strafe + forward +  rotate;
+		
+		System.out.println("Before reversing - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
 		
 		// Reverse front and back left motors
 		
@@ -147,6 +149,9 @@ public class BTMeca implements BTIDrivetrain
 			br = -br;
 		}
 		
+
+		System.out.println("Before max - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
+		
 		// Get the maximum motor power, before scaling. If it's over 1, that will break the code.
 		// We need to scale it down then, so if one motor is 2.0 and the rest are 1.0, the 2.0 will
 		// be scaled to 1.0, the rest to 0.5.
@@ -163,6 +168,9 @@ public class BTMeca implements BTIDrivetrain
 		br = br / max;
 		fl = fl / max;
 		bl = bl / max;
+		
+
+		System.out.println("Before throttle - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
 		
 		//If no value for top throttle (i.e. not using flight stick), sets to default value for max power
 		if (storage.controller.getTopThrottle() == null)
@@ -183,6 +191,10 @@ public class BTMeca implements BTIDrivetrain
 		br = br * maxPower;
 		fl = fl * maxPower;
 		bl = bl * maxPower;
+		
+
+		System.out.println("Final - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
+		System.out.println();
 		
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);

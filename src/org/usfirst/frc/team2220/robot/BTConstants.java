@@ -17,9 +17,9 @@ public class BTConstants
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	
 	// Numbers used to represent motors
-	public static final int MEC_FRONT_LEFT = 0;
+	public static final int MEC_FRONT_LEFT = 5;
 	public static final int MEC_BACK_LEFT = 1;
-	public static final int MEC_FRONT_RIGHT = 2;
+	public static final int MEC_FRONT_RIGHT = 7;
 	public static final int MEC_BACK_RIGHT = 3;
 	
 	// Deadzone radius specification
@@ -38,6 +38,7 @@ public class BTConstants
 	public static final boolean BACK_RIGHT_REVERSED = true;
 	
 	// If we're using the test board. Disables any motors etc.
-	public static final boolean TEST_BOARD = true;
+	public static final boolean IS_TEST_BOARD = false;
+	public static final boolean IS_SRX = true;
 
 }
