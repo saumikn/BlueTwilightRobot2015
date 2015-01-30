@@ -104,11 +104,6 @@ public class BTMeca implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
-		if (storage.data.LIMIT_SWITCH != null)
-		{
-			SmartDashboard.putBoolean("Limit Switch", storage.data.LIMIT_SWITCH.get());
-			System.out.println(storage.data.LIMIT_SWITCH.get());
-		}
 		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
 		double strafeRaw = -storage.controller.getDriveLeftRight().getValue();
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.

@@ -1,16 +1,48 @@
-package org.usfirst.frc.team2220.robot.electronics; 
- 
- 
-import edu.wpi.first.wpilibj.Solenoid; 
+package org.usfirst.frc.team2220.robot.electronics;
+
+import edu.wpi.first.wpilibj.Solenoid;
 
 public class BTPiston
-{ 
-	Solenoid left;
-	Solenoid right;
+{
+	private final Solenoid left;
+	private final Solenoid right;
 	
-	public BTPiston(int left, int right)
+	public BTPiston(int extend, int retract)
 	{
-		this.left = new Solenoid(left);
-		this.right = new Solenoid(right);
+		left = new Solenoid(1, extend);
+		right = new Solenoid(1, retract);
 	}
+	
+	 public void set(boolean up)
+	 {
+		 left.set(up);
+		 right.set(!up);
+	 }
+	    
+	 /**
+	     * extends the piston
+	     */
+	 public void extend()
+	 {
+		 right.set(false);
+		 left.set(true);
+	 }
+	
+	 /**
+	  * retracts the piston
+	  */
+	 public void retract()
+	 {
+		 left.set(false);
+		 right.set(true);
+	 }
+	    
+	 /**
+	  * returns true if the piston is extended, false otherwise.
+	  * @return true if the piston is extended, false otherwise.
+	  */
+	 public boolean isExtended()
+	 {
+		 return left.get();
+	 }
 }

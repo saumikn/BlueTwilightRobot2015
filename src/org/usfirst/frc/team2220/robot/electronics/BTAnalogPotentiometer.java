@@ -10,4 +10,9 @@ public class BTAnalogPotentiometer
 	{
 		analogPotentiometer = new AnalogPotentiometer(port);
 	}
+	
+	public double getValue()
+	{
+		return analogPotentiometer.get();
+	}
 }

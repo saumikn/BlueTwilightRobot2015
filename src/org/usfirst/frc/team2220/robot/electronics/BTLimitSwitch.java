@@ -10,4 +10,9 @@ public class BTLimitSwitch
 	{
 		limitSwitch = new DigitalInput(port);
 	}
+	
+	public boolean getValue()
+	{
+		return limitSwitch.get();
+	}
 }

@@ -12,5 +12,25 @@ public class BTEncoder
 		encoder = new Encoder(port1, port2);
 	}
 	
+	public double getValue()
+	{
+		return encoder.get();
+	}
+	
+	public void reset()
+	{
+		encoder.reset();
+	}
+	
+	public void setPulse(double distance)
+	{
+		encoder.setDistancePerPulse(distance);
+	}
+	
+	public double getDistance()
+	{
+		return encoder.getDistance();
+	}
+	
 
 }
