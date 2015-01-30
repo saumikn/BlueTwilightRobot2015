@@ -16,6 +16,6 @@ public interface BTIController
 	public BTIConAxis getDriveRotate();
 	public BTIConAxis getTopThrottle();
 	
-	
 	// Manipulator parameters
+	public BTIConButton getToteRelease();
 }

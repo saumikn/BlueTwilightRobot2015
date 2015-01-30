@@ -10,20 +10,26 @@ import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
 
 public class BTData
 {
+	//Drivetrain
+	
 	public BTIMotor FRONT_LEFT_MOTOR;
 	public BTIMotor FRONT_RIGHT_MOTOR;
 	public BTIMotor BACK_LEFT_MOTOR;
 	public BTIMotor BACK_RIGHT_MOTOR;
 	
+	//Manipulator
+	
 	public BTLimitSwitch TOTE_SWITCH; //
 	public BTLimitSwitch LOW_LIMIT; //
-	public BTLimitSwitch MEDIUM_LIMIT; //
+	public BTLimitSwitch MIDDLE_LIMIT; //
 	public BTLimitSwitch UPPER_LIMIT; // 
 		
 	public BTEncoder FRONT_RIGHT_ENCODER;
 	public BTEncoder FRONT_LEFT_ENCODER;
 	public BTEncoder BACK_RIGHT_ENCODER;
 	public BTEncoder BACK_LEFT_ENCODER;
+	
+	public BTIMotor FORK_MOTOR;
 	
 	public BTData(BTCompetitionRobot compRobot)
 	{
@@ -39,9 +45,10 @@ public class BTData
 		
 		this.TOTE_SWITCH = compRobot.TOTE_SWTICH;
 		this.LOW_LIMIT = compRobot.LOW_LIMIT;
-		this.MEDIUM_LIMIT = compRobot.MEDIUM_LIMIT;
+		this.MIDDLE_LIMIT = compRobot.MIDDLE_LIMIT;
 		this.UPPER_LIMIT = compRobot.UPPER_LIMIT;
 		
+		this.FORK_MOTOR = compRobot.FORK_MOTOR;
 	}
 	
 //	public BTData()

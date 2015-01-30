@@ -14,7 +14,7 @@ public class BTCompetitionRobot
 	
 	public BTLimitSwitch TOTE_SWTICH; //
 	public BTLimitSwitch LOW_LIMIT; //
-	public BTLimitSwitch MEDIUM_LIMIT; //
+	public BTLimitSwitch MIDDLE_LIMIT; //
 	public BTLimitSwitch UPPER_LIMIT; // 
 	
 	public BTLimitSwitch LIMIT_SWITCH = new BTLimitSwitch(9);
@@ -23,4 +23,6 @@ public class BTCompetitionRobot
 	public BTEncoder FRONT_LEFT_ENCODER = new BTEncoder(2,3);
 	public BTEncoder BACK_RIGHT_ENCODER = new BTEncoder(4,5);
 	public BTEncoder BACK_LEFT_ENCODER = new BTEncoder(6,7);
+	
+	public BTTalonSRX FORK_MOTOR = new BTTalonSRX(/*Port number of the fork motor*/);
 }
