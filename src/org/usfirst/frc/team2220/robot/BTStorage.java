@@ -7,7 +7,7 @@ public class BTStorage
 {
     public BTData data;
     public BTIController controller;
-    public BTCompetitionRobot compRobot;
+    public BTCompetitionRobot compRobot; // This lines determines which hardware the code is being sent to
     
     public BTStorage()
     {

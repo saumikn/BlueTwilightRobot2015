@@ -17,7 +17,7 @@ public class BTManipulator implements BTIManipulator
 	boolean isMiddle;
 	boolean isUpper;
 	
-	boolean release;
+	boolean toteRelease;
 	
 	private int totecount = 0;
 	
@@ -65,7 +65,7 @@ public class BTManipulator implements BTIManipulator
 		isMiddle = storage.data.MIDDLE_LIMIT.getValue();
 		isUpper = storage.data.UPPER_LIMIT.getValue();
 		
-		release = storage.controller.getToteRelease().getButtonValue();
+		toteRelease = storage.controller.getToteRelease().getButtonValue();
 
 		if (isToteSwitch && isLower && totecount == 4)
 		{
@@ -98,7 +98,7 @@ public class BTManipulator implements BTIManipulator
 			
 			//TOTE RELEASE
 	
-			if (release)
+			if (toteRelease)
 			{
 				//set robot color to green
 				
