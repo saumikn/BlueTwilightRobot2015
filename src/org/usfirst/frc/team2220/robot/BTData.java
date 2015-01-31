@@ -6,6 +6,7 @@ import org.usfirst.frc.team2220.robot.motor.BTIMotor;
 import org.usfirst.frc.team2220.robot.motor.BTTalon;
 import org.usfirst.frc.team2220.robot.motor.BTTalonSRX;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
+import org.usfirst.frc.team2220.robot.robottype.BTTestBot;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
 import org.usfirst.frc.team2220.robot.electronics.BTPiston;
 
@@ -61,6 +62,14 @@ public class BTData
 		this.COLLECTOR_MOTOR_RIGHT = compRobot.COLLECTOR_MOTOR_RIGHT;
 		
 		this.TOTE_HOLDER = compRobot.TOTE_HOLDER;
+	}
+	
+	public BTData(BTTestBot testbot)
+	{
+		this.FRONT_LEFT_MOTOR = testbot.FRONT_LEFT_MOTOR;
+		this.FRONT_RIGHT_MOTOR = testbot.FRONT_RIGHT_MOTOR;
+		this.BACK_LEFT_MOTOR = testbot.BACK_LEFT_MOTOR;
+		this.BACK_RIGHT_MOTOR = testbot.BACK_RIGHT_MOTOR;
 	}
 	
 //	public BTData()
