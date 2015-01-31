@@ -16,6 +16,7 @@ public class BTFlightstick implements BTIController
 	private final BTJoyAxis TOP_THROTTLE;
 	
 	private final BTJoyButton A_BUTTON;
+	private final BTJoyButton E_BUTTON;
 	
 	private Joystick joy;
 	
@@ -30,6 +31,7 @@ public class BTFlightstick implements BTIController
 		TOP_THROTTLE = new BTJoyAxis(joy, 4);
 		
 		A_BUTTON = new BTJoyButton(joy, 2);
+		E_BUTTON = new BTJoyButton(joy, 7);
 	}
 
 	@Override
@@ -78,6 +80,12 @@ public class BTFlightstick implements BTIController
 	public BTIConAxis getTopThrottle()
 	{
 		return TOP_THROTTLE;
+	}
+	
+	@Override
+	public BTIConButton getToteCollect()
+	{
+		return E_BUTTON;
 	}
 	
 	@Override

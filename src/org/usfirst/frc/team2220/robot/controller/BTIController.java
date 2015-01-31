@@ -17,5 +17,6 @@ public interface BTIController
 	public BTIConAxis getTopThrottle();
 	
 	// Manipulator parameters
+	public BTIConButton getToteCollect();
 	public BTIConButton getToteRelease();
 }

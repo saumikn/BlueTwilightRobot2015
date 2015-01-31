@@ -102,6 +102,12 @@ public class BTLogitechController implements BTIController
 	}
 	
 	@Override
+	public BTIConButton getToteCollect()
+	{
+		return null;
+	}
+	
+	@Override
 	public BTIConButton getToteRelease()
 	{
 		return A_BUTTON;

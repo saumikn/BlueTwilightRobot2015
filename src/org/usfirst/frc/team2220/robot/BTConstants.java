@@ -20,7 +20,7 @@ public class BTConstants
 	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 7;
 	public static final int COMPETITION_BACK_RIGHT_MOTOR = 3;
 	public static final int COMPETITION_TOTE_MOTOR = -1;
-	public static final int COMPETITION_BIN_MOTOR = -1;
+	public static final int COMPETITION_BARREL_MOTOR = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
@@ -39,8 +39,12 @@ public class BTConstants
 	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 5;
 	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 6;
 	
-	public static final int COMPETITION_TOTE_HOLDER_PISTON_EXTEND = -1;
-	public static final int COMPETITION_TOTE_HOLDER_PISTON_RETRACT = -1;
+	public static final int COMPETITION_TOTE_HOLDER_EXTEND = -1;
+	public static final int COMPETITION_TOTE_HOLDER_RETRACT = -1;
+	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND = -1;
+	public static final int COMPETITION_TOTE_COLLECTOR_RETRACT = -1;
+	public static final int COMPETITION_BARREL_HOLDER_EXTEND = -1;
+	public static final int COMPETITION_BARREL_HOLDER_RETRACT = -1;
 	
 	// Drivetrain Constants
 	public static final double MECANUM_DEADZONE = 0.05;
@@ -48,6 +52,10 @@ public class BTConstants
 	public static final double TOP_THROTTLE_MIN = 0.5;
 	
 	// Manipulator Constants
+	public static final int MAX_TOTE_COUNT = 6;
+	public static final int EMERGENCY_STOP_TIME = 3000;
+	public static final double TOTE_MOTOR_POWER = 0.9;
+	public static final double COLLECTOR_MOTOR_POWER = 0.9;
 	
 	// Reverses selected motors
 	public static final boolean FRONT_LEFT_REVERSED = false;
