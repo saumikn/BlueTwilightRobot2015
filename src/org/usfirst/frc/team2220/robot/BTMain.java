@@ -2,6 +2,8 @@
 package org.usfirst.frc.team2220.robot;
 
 
+import org.usfirst.frc.team2220.robot.autonomous.BTAuto1;
+import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.drivetrain.BTMeca;
 
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -11,6 +13,8 @@ public class BTMain extends SampleRobot
 	// Testing folders
 	BTMeca meca;
 	BTStorage storage;
+	BTIAutonomousRoutine auto;
+	BTTestClass test;
 	
     public BTMain()
     {
@@ -22,13 +26,16 @@ public class BTMain extends SampleRobot
     {
 		storage = new BTStorage();
     	meca = new BTMeca(storage);	
+    	auto = new BTAuto1(storage);
+    	test = new BTTestClass(storage);
+    	
     	//meca.init();
     }
 	
 	//@Override
     public void autonomous()
     {
-		
+		auto.runAutonomous();
     }
 	
 	//@Override
@@ -36,7 +43,8 @@ public class BTMain extends SampleRobot
     {
     	while(isOperatorControl())
     	{
-    		meca.drive();
+    		test.test();
+    		//meca.drive();
     		//[something].perform();
     	}
     }
