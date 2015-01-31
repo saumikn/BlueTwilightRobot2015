@@ -59,6 +59,8 @@ public class BTConstants
 	
 	// Autonomous Constants
 	public static final int ACTIVE_AUTONOMOUS = 4;
+	public static final String AUTONOMOUS_METHOD_KEY = "AutonomousMethodKey";
+	public static final String AUTONOMOUS_STAGE_KEY = "AutonomousStageKey";
 	public static final int MOVE_BACK_TIME = 3000;
 	public static final int STRAFE_RIGHT_TIME = 4000;
 //	public static final int COLLECT_TIME = 1000;

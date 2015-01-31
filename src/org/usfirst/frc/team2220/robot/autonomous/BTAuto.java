@@ -4,6 +4,8 @@ import org.usfirst.frc.team2220.robot.BTStorage;
 import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class BTAuto implements BTIAutonomousRoutine
 {
 	BTStorage storage;
@@ -20,13 +22,17 @@ public class BTAuto implements BTIAutonomousRoutine
 	{
 		switch (BTConstants.ACTIVE_AUTONOMOUS)
 		{
-		case 4: runAutonomous4();
+		case 4: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Autonomous 4");
+				runAutonomous4();
 				break;
-		case 3: runAutonomous3();
+		case 3: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Autonomous 3");
+				runAutonomous3();
 				break;
-		case 2: runAutonomous2();
+		case 2: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Autonomous 2");
+				runAutonomous2();
 				break;
-		case 1:	runAutonomous1();
+		case 1:	SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Autonomous 1");
+				runAutonomous1();
 				break;
 		default:	break;
 		
@@ -35,11 +41,22 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void runAutonomous4()
 	{
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 1 of 6: Collecting tote 1 of 3");
 		manipulator.collectTote();
+		
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 2 of 6: Strafing right");
 		strafeRight();
+		
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 3 of 6: Collecting tote 2 of 3");
 		manipulator.collectTote();
+		
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 4 of 6: Strafing right");
 		strafeRight();
+		
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 5 of 6: Collecting tote 3 of 3");
 		manipulator.collectTote();
+		
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 6 of 6: Moving backwards");
 		moveBack();
 	}
 	
