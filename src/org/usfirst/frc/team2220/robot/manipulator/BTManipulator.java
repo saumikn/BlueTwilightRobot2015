@@ -28,34 +28,34 @@ public class BTManipulator implements BTIManipulator
 	public void forkToUpper()
 	{
 		//Fork starts moving up to Upper, which should cause TS to become false
-		storage.data.FORK_MOTOR.setX(TOTE_MOTOR_POWER);
+		storage.data.TOTE_MOTOR.setX(TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Upper OR when it's been going for 3 seconds
 		while (!isUpper && System.currentTimeMillis() - startTime > EMERGENCY_STOP_TIME){}
-		storage.data.FORK_MOTOR.setX(0);
+		storage.data.TOTE_MOTOR.setX(0);
 	}
 	
 	public void forkToMiddle()
 	{
 		//Fork starts moving up to Middle, which should cause TS to become false
-		storage.data.FORK_MOTOR.setX(TOTE_MOTOR_POWER);
+		storage.data.TOTE_MOTOR.setX(TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Middle OR when it's been going for 3 seconds
 		while (!isMiddle && System.currentTimeMillis() - startTime > EMERGENCY_STOP_TIME){}
-		storage.data.FORK_MOTOR.setX(0);
+		storage.data.TOTE_MOTOR.setX(0);
 	}
 	
 	public void forkToLower()
 	{
 		//Fork starts moving down to Lower, which should cause TS to become false
-		storage.data.FORK_MOTOR.setX(-TOTE_MOTOR_POWER);
+		storage.data.TOTE_MOTOR.setX(-TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Middle OR when it's been going for 3 seconds
 		while (!isLower && System.currentTimeMillis() - startTime > EMERGENCY_STOP_TIME){}
-		storage.data.FORK_MOTOR.setX(0);
+		storage.data.TOTE_MOTOR.setX(0);
 	}
 	
 	@Override

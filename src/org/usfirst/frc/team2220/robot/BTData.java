@@ -30,7 +30,9 @@ public class BTData
 	public BTEncoder BACK_RIGHT_ENCODER;
 	public BTEncoder BACK_LEFT_ENCODER;
 	
-	public BTIMotor FORK_MOTOR;
+	public BTIMotor TOTE_MOTOR;
+	public BTIMotor BIN_MOTOR;
+	
 	public BTIMotor COLLECTOR_MOTOR_LEFT;
 	public BTIMotor COLLECTOR_MOTOR_RIGHT;
 	
@@ -53,7 +55,8 @@ public class BTData
 		this.MIDDLE_LIMIT = compRobot.MIDDLE_LIMIT;
 		this.UPPER_LIMIT = compRobot.UPPER_LIMIT;
 		
-		this.FORK_MOTOR = compRobot.FORK_MOTOR;
+		this.TOTE_MOTOR = compRobot.TOTE_MOTOR;
+		this.BIN_MOTOR = compRobot.BIN_MOTOR;
 		this.COLLECTOR_MOTOR_LEFT = compRobot.COLLECTOR_MOTOR_LEFT;
 		this.COLLECTOR_MOTOR_RIGHT = compRobot.COLLECTOR_MOTOR_RIGHT;
 		

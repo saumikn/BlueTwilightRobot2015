@@ -19,7 +19,8 @@ public class BTConstants
 	public static final int COMPETITION_BACK_LEFT_MOTOR = 1;
 	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 7;
 	public static final int COMPETITION_BACK_RIGHT_MOTOR = 3;
-	public static final int COMPETITION_FORK_MOTOR = -1;
+	public static final int COMPETITION_TOTE_MOTOR = -1;
+	public static final int COMPETITION_BIN_MOTOR = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
