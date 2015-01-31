@@ -22,6 +22,11 @@ public class BTMeca implements BTIDrivetrain
 	double forward = 0.0;
 	double rotate = 0.0;
 	double maxPower = 0.0;
+	
+	double encodeFR;
+	double encodeFL;
+	double encodeBL;
+	double encodeBR;
 
 	// Commented out for now because the deadzone is
 	// now specified and coded in the curve function. -JE
@@ -122,9 +127,7 @@ public class BTMeca implements BTIDrivetrain
 		double br =  strafe + forward +  rotate;
 		double fl =  strafe + forward + -rotate;
 		double bl = -strafe + forward +  rotate;
-		
-		System.out.println("Before reversing - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
-		
+				
 		// Reverse front and back left motors
 		
 		if (BTConstants.FRONT_LEFT_REVERSED)
@@ -144,9 +147,6 @@ public class BTMeca implements BTIDrivetrain
 			br = -br;
 		}
 		
-
-		System.out.println("Before max - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
-		
 		// Get the maximum motor power, before scaling. If it's over 1, that will break the code.
 		// We need to scale it down then, so if one motor is 2.0 and the rest are 1.0, the 2.0 will
 		// be scaled to 1.0, the rest to 0.5.
@@ -163,10 +163,7 @@ public class BTMeca implements BTIDrivetrain
 		br = br / max;
 		fl = fl / max;
 		bl = bl / max;
-		
-
-		System.out.println("Before throttle - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
-		
+				
 		//If no value for top throttle (i.e. not using flight stick), sets to default value for max power
 		if (storage.controller.getTopThrottle() == null)
 		{
@@ -187,10 +184,10 @@ public class BTMeca implements BTIDrivetrain
 		fl = fl * maxPower;
 		bl = bl * maxPower;
 		
-
-		System.out.println("Final - Fr: " + fr + "\tBr: " + br + "\tFl: " + fl + "\tbl: " + bl);
-		System.out.println();
-		
+		encodeFR = storage.data.FRONT_RIGHT_ENCODER.getValue();
+		encodeFL = storage.data.FRONT_LEFT_ENCODER.getValue();
+		encodeBL = storage.data.BACK_LEFT_ENCODER.getValue();
+		encodeBR = storage.data.BACK_RIGHT_ENCODER.getValue();
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
 		SmartDashboard.putNumber("Y Axis Input", forward);
@@ -202,6 +199,11 @@ public class BTMeca implements BTIDrivetrain
 		SmartDashboard.putNumber("Back Right Motor Power", br);
 		SmartDashboard.putNumber("Front Left Motor Power", fl);
 		SmartDashboard.putNumber("Back Left Motor Power", bl);
+		
+		SmartDashboard.putNumber("Front Right Encoder Reading", fr);
+		SmartDashboard.putNumber("Back Right Encoder Reading", br);
+		SmartDashboard.putNumber("Front Left Encoder Reading", fl);
+		SmartDashboard.putNumber("Back Left Encoder Reading", bl);
 		
 		//Set the motor powers
 		storage.data.FRONT_RIGHT_MOTOR.setX(fr);

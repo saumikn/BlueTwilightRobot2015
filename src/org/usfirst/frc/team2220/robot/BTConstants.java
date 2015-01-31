@@ -25,16 +25,16 @@ public class BTConstants
 	public static final int COMPETITION_LOW_SWITCH = -1;
 	public static final int COMPETITION_MIDDLE_SWITCH = -1;
 	public static final int COMPETITION_UPPER_SWITCH = -1;
-	public static final int COMPETITION_LIMIT_SWITCH = -1;
+	public static final int COMPETITION_LIMIT_SWITCH = 0;
 	
-	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = -1;
-	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = -1;
-	public static final int COMPETITION_FRONT_LEFT_ENCODER_A = -1;
-	public static final int COMPETITION_FRONT_LEFT_ENCODER_B = -1;
-	public static final int COMPETITION_BACK_RIGHT_ENCODER_A = -1;
-	public static final int COMPETITION_BACK_RIGHT_ENCODER_B = -1;
-	public static final int COMPETITION_BACK_LEFT_ENCODER_A = -1;
-	public static final int COMPETITION_BACK_LEFT_ENCODER_B = -1;
+	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 1;
+	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = 2;
+	public static final int COMPETITION_FRONT_LEFT_ENCODER_A = 3;
+	public static final int COMPETITION_FRONT_LEFT_ENCODER_B = 4;
+	public static final int COMPETITION_BACK_RIGHT_ENCODER_A = 7;
+	public static final int COMPETITION_BACK_RIGHT_ENCODER_B = 8;
+	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 5;
+	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 6;
 	
 	
 	// Drivetrain Constants
