@@ -57,6 +57,12 @@ public class BTConstants
 	public static final double TOTE_MOTOR_POWER = 0.9;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;
 	
+	// Autonomous Constants
+	public static final int ACTIVE_AUTONOMOUS = 4;
+	public static final int MOVE_BACK_TIME = 3000;
+	public static final int STRAFE_RIGHT_TIME = 4000;
+//	public static final int COLLECT_TIME = 1000;
+	
 	// Reverses selected motors
 	public static final boolean FRONT_LEFT_REVERSED = false;
 	public static final boolean BACK_LEFT_REVERSED = true;

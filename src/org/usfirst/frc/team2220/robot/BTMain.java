@@ -2,9 +2,10 @@
 package org.usfirst.frc.team2220.robot;
 
 
-import org.usfirst.frc.team2220.robot.autonomous.BTAuto1;
+import org.usfirst.frc.team2220.robot.autonomous.BTAuto;
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.drivetrain.BTMeca;
+import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
 import edu.wpi.first.wpilibj.SampleRobot;
 
@@ -15,6 +16,7 @@ public class BTMain extends SampleRobot
 	BTStorage storage;
 	BTIAutonomousRoutine auto;
 	BTTestClass test;
+	BTManipulator manipulator;
 	
     public BTMain()
     {
@@ -26,7 +28,8 @@ public class BTMain extends SampleRobot
     {
 		storage = new BTStorage();
     	meca = new BTMeca(storage);	
-    	auto = new BTAuto1(storage);
+    	manipulator = new BTManipulator(storage);
+    	auto = new BTAuto(storage, manipulator);
     	test = new BTTestClass(storage);
     	
     	//meca.init();
