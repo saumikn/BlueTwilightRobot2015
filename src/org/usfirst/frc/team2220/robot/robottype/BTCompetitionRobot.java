@@ -4,6 +4,7 @@ import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.electronics.BTEncoder;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
 import org.usfirst.frc.team2220.robot.motor.BTTalonSRX;
+import org.usfirst.frc.team2220.robot.electronics.BTPiston;
 
 public class BTCompetitionRobot
 {
@@ -25,4 +26,8 @@ public class BTCompetitionRobot
 	public BTEncoder BACK_LEFT_ENCODER = new BTEncoder(BTConstants.COMPETITION_BACK_LEFT_ENCODER_A,BTConstants.COMPETITION_BACK_LEFT_ENCODER_B);
 	
 	public BTTalonSRX FORK_MOTOR = new BTTalonSRX(BTConstants.COMPETITION_FORK_MOTOR);
+	public BTTalonSRX COLLECTOR_MOTOR_LEFT = new BTTalonSRX(BTConstants.COMPETITION_COLLECTOR_MOTOR_LEFT);
+	public BTTalonSRX COLLECTOR_MOTOR_RIGHT = new BTTalonSRX(BTConstants.COMPETITION_COLLECTOR_MOTOR_RIGHT);
+	
+	public BTPiston TOTE_HOLDER = new BTPiston(BTConstants.COMPETITION_TOTE_HOLDER_PISTON_EXTEND, BTConstants.COMPETITION_TOTE_HOLDER_PISTON_RETRACT);
 }

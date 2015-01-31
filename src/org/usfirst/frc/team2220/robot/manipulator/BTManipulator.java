@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2220.robot.manipulator;
 
+import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
 public class BTManipulator implements BTIManipulator
@@ -74,22 +75,36 @@ public class BTManipulator implements BTIManipulator
 		if (isMiddle)
 		{
 			//Collector wheels stop
+			storage.data.COLLECTOR_MOTOR_LEFT.setX(0);
+			storage.data.COLLECTOR_MOTOR_RIGHT.setX(0);
 			
 			//Disable driving?
 			
 			//set robot color to red
 			
 			//Pistons retract
+			storage.data.TOTE_HOLDER.retract();
 			
 			forkToUpper();
 			
 			//Pistons extend
+			storage.data.TOTE_HOLDER.extend();
 			
 			totecount++;
 			
 			forkToLower();
 			
 			//Collector wheels start
+			if (BTConstants.COLLECTORS_REVERSED)
+			{
+				storage.data.COLLECTOR_MOTOR_LEFT.setX(1);
+				storage.data.COLLECTOR_MOTOR_RIGHT.setX(-1);
+			}
+			else
+			{
+				storage.data.COLLECTOR_MOTOR_LEFT.setX(-1);
+				storage.data.COLLECTOR_MOTOR_RIGHT.setX(1);
+			}
 			
 			//Enable driving?
 			
@@ -105,12 +120,14 @@ public class BTManipulator implements BTIManipulator
 				forkToUpper();
 				
 				//Pistons retract
+				storage.data.TOTE_HOLDER.retract();
 				
 				forkToLower();
 				
 				//set robot color to yellow
 				
 				//open front containment
+				
 			}
 		}
 	}

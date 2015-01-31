@@ -7,6 +7,7 @@ import org.usfirst.frc.team2220.robot.motor.BTTalon;
 import org.usfirst.frc.team2220.robot.motor.BTTalonSRX;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
+import org.usfirst.frc.team2220.robot.electronics.BTPiston;
 
 public class BTData
 {
@@ -30,6 +31,10 @@ public class BTData
 	public BTEncoder BACK_LEFT_ENCODER;
 	
 	public BTIMotor FORK_MOTOR;
+	public BTIMotor COLLECTOR_MOTOR_LEFT;
+	public BTIMotor COLLECTOR_MOTOR_RIGHT;
+	
+	public BTPiston TOTE_HOLDER;
 	
 	public BTData(BTCompetitionRobot compRobot)
 	{
@@ -49,6 +54,10 @@ public class BTData
 		this.UPPER_LIMIT = compRobot.UPPER_LIMIT;
 		
 		this.FORK_MOTOR = compRobot.FORK_MOTOR;
+		this.COLLECTOR_MOTOR_LEFT = compRobot.COLLECTOR_MOTOR_LEFT;
+		this.COLLECTOR_MOTOR_RIGHT = compRobot.COLLECTOR_MOTOR_RIGHT;
+		
+		this.TOTE_HOLDER = compRobot.TOTE_HOLDER;
 	}
 	
 //	public BTData()

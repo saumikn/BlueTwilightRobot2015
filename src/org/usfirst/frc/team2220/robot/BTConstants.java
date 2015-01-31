@@ -20,6 +20,8 @@ public class BTConstants
 	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 7;
 	public static final int COMPETITION_BACK_RIGHT_MOTOR = 3;
 	public static final int COMPETITION_FORK_MOTOR = -1;
+	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
+	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
 	public static final int COMPETITION_TOTE_SWITCH = -1;
 	public static final int COMPETITION_LOW_SWITCH = -1;
@@ -36,6 +38,8 @@ public class BTConstants
 	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 5;
 	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 6;
 	
+	public static final int COMPETITION_TOTE_HOLDER_PISTON_EXTEND = -1;
+	public static final int COMPETITION_TOTE_HOLDER_PISTON_RETRACT = -1;
 	
 	// Drivetrain Constants
 	public static final double MECANUM_DEADZONE = 0.05;
@@ -50,4 +54,6 @@ public class BTConstants
 	public static final boolean FRONT_RIGHT_REVERSED = false;
 	public static final boolean BACK_RIGHT_REVERSED = true;
 	public static final boolean FORK_REVERSED = false;
+	public static final boolean COLLECTORS_REVERSED = false;
+	
 }
