@@ -8,7 +8,7 @@ public class BTStorage
 {
     public BTData data;
     public BTIController controller;
-    public BTTestBot testbot; // This lines determines which hardware the code is being sent to
+    public BTTestBot testbot = new BTTestBot(); // This lines determines which hardware the code is being sent to
     
     public BTStorage()
     {
