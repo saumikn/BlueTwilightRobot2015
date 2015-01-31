@@ -31,12 +31,14 @@ public class BTData
 	public BTEncoder BACK_LEFT_ENCODER;
 	
 	public BTIMotor TOTE_MOTOR;
-	public BTIMotor BIN_MOTOR;
+	public BTIMotor BARREL_MOTOR;
 	
 	public BTIMotor COLLECTOR_MOTOR_LEFT;
 	public BTIMotor COLLECTOR_MOTOR_RIGHT;
 	
 	public BTPiston TOTE_HOLDER;
+	public BTPiston TOTE_COLLECTOR;
+	public BTPiston BARREL_HOLDER;
 	
 	public BTData(BTCompetitionRobot compRobot)
 	{
@@ -56,11 +58,13 @@ public class BTData
 		this.UPPER_LIMIT = compRobot.UPPER_LIMIT;
 		
 		this.TOTE_MOTOR = compRobot.TOTE_MOTOR;
-		this.BIN_MOTOR = compRobot.BIN_MOTOR;
+		this.BARREL_MOTOR = compRobot.BARREL_MOTOR;
 		this.COLLECTOR_MOTOR_LEFT = compRobot.COLLECTOR_MOTOR_LEFT;
 		this.COLLECTOR_MOTOR_RIGHT = compRobot.COLLECTOR_MOTOR_RIGHT;
 		
 		this.TOTE_HOLDER = compRobot.TOTE_HOLDER;
+		this.TOTE_COLLECTOR = compRobot.TOTE_COLLECTOR;
+		this.BARREL_HOLDER = compRobot.BARREL_HOLDER;
 	}
 	
 //	public BTData()
