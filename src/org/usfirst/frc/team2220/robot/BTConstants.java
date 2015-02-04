@@ -57,6 +57,9 @@ public class BTConstants
 	public static final double TOTE_MOTOR_POWER = 0.9;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;
 	
+	// Electronics Constants
+	public static final double KP = 0.03;
+	
 	// Autonomous Constants
 	public static final int ACTIVE_AUTONOMOUS = 4;
 	public static final String AUTONOMOUS_METHOD_KEY = "AutonomousMethodKey";
