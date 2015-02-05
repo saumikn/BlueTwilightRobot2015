@@ -110,11 +110,11 @@ public class BTMeca implements BTIDrivetrain
 	public void drive()
 	{
 		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
-		double strafeRaw = -storage.controller.getDriveLeftRight().getValue();
+		double forwardRaw = storage.controller.getDriveLeftRight().getValue();
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
-		double forwardRaw = storage.controller.getDriveFrontBack().getValue();
+		double strafeRaw = -storage.controller.getDriveFrontBack().getValue();
 		// Rotate is how much the robot should turn.
-		double rotateRaw = -storage.controller.getDriveRotate().getValue();
+		double rotateRaw = storage.controller.getDriveRotate().getValue();
 		
 		// Curves the strafe, forward, and rotate values according to a piecewise function
 		strafe = curve(strafeRaw);
@@ -184,16 +184,17 @@ public class BTMeca implements BTIDrivetrain
 		fl = fl * maxPower;
 		bl = bl * maxPower;
 		
-		encodeFR = storage.data.FRONT_RIGHT_ENCODER.getValue();
-		encodeFL = storage.data.FRONT_LEFT_ENCODER.getValue();
-		encodeBL = storage.data.BACK_LEFT_ENCODER.getValue();
-		encodeBR = storage.data.BACK_RIGHT_ENCODER.getValue();
+//		encodeFR = storage.data.FRONT_RIGHT_ENCODER.getValue();
+//		encodeFL = storage.data.FRONT_LEFT_ENCODER.getValue();
+//		encodeBL = storage.data.BACK_LEFT_ENCODER.getValue();
+//		encodeBR = storage.data.BACK_RIGHT_ENCODER.getValue();
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
 		SmartDashboard.putNumber("Y Axis Input", forward);
 		SmartDashboard.putNumber("X Axis Input", strafe);
 		SmartDashboard.putNumber("Z Axis Input", rotate);
-		SmartDashboard.putNumber("Throttle Rotator", storage.controller.getTopThrottle().getValue());
+		double throttle = storage.controller.getDriveRotate().getValue();
+		SmartDashboard.putNumber("Throttle Rotator", throttle);
 		
 		SmartDashboard.putNumber("Front Right Motor Power", fr);
 		SmartDashboard.putNumber("Back Right Motor Power", br);
@@ -210,6 +211,22 @@ public class BTMeca implements BTIDrivetrain
 		storage.data.BACK_RIGHT_MOTOR.setX(br);
 		storage.data.FRONT_LEFT_MOTOR.setX(fl);
 		storage.data.BACK_LEFT_MOTOR.setX(bl);
+		
+//		if(storage.controller.getToteCollect().getButtonValue())
+//		{
+//			storage.data.FRONT_RIGHT_MOTOR.setX(0.9);
+//			storage.data.BACK_RIGHT_MOTOR.setX(-0.9);
+//			storage.data.FRONT_LEFT_MOTOR.setX(0.9);
+//			storage.data.BACK_LEFT_MOTOR.setX(-0.9);
+//		}
+//		
+//		if(storage.controller.getToteRelease().getButtonValue())
+//		{
+//			storage.data.FRONT_RIGHT_MOTOR.setX(-0.9);
+//			storage.data.BACK_RIGHT_MOTOR.setX(0.9);
+//			storage.data.FRONT_LEFT_MOTOR.setX(0.9);
+//			storage.data.BACK_LEFT_MOTOR.setX(-0.9);
+//		}
 		
 		// test code for something
 //		storage.data.FRONT_RIGHT_MOTOR.setX(.2);

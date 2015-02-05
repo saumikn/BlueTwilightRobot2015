@@ -3,15 +3,16 @@ package org.usfirst.frc.team2220.robot;
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.controller.BTFlightstick;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
+import org.usfirst.frc.team2220.robot.controller.BTLogitechController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
 
 public class BTConstants
 {
 	
-	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;			// The current autonomous routine
-	public static final BTIController CONTROLLER = new BTFlightstick(0);	// The current controller
-	public static final BTIDrivetrain DRIVETRAIN = null;					// The current drivetrain
+	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;				// The current autonomous routine
+	public static final BTIController CONTROLLER = new BTLogitechController(0);	// The current controller
+	public static final BTIDrivetrain DRIVETRAIN = null;						// The current drivetrain
 	
 	
 	// Competition robot electronics ports
@@ -61,7 +62,7 @@ public class BTConstants
 	public static final double KP = 0.03;
 	
 	// Autonomous Constants
-	public static final int ACTIVE_AUTONOMOUS = 4;
+	public static final int ACTIVE_AUTONOMOUS = 1;
 	public static final String AUTONOMOUS_METHOD_KEY = "AutonomousMethodKey";
 	public static final String AUTONOMOUS_STAGE_KEY = "AutonomousStageKey";
 	public static final int MOVE_BACK_TIME = 3000;
