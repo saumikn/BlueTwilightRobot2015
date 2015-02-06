@@ -1,9 +1,7 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
-import org.usfirst.frc.team2220.robot.controller.BTFlightstick;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
-import org.usfirst.frc.team2220.robot.controller.BTLogitechConsole;
 import org.usfirst.frc.team2220.robot.controller.BTLogitechJoystick1;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
@@ -72,8 +70,8 @@ public class BTConstants
 	
 	// Reverses selected motors
 	public static final boolean FRONT_LEFT_REVERSED = false;
-	public static final boolean BACK_LEFT_REVERSED = true;
-	public static final boolean FRONT_RIGHT_REVERSED = false;
+	public static final boolean BACK_LEFT_REVERSED = false;
+	public static final boolean FRONT_RIGHT_REVERSED = true;
 	public static final boolean BACK_RIGHT_REVERSED = true;
 	public static final boolean FORK_REVERSED = false;
 	public static final boolean COLLECTORS_REVERSED = false;
