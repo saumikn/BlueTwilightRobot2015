@@ -24,10 +24,10 @@ public class BTTestClass
 		SmartDashboard.putBoolean("Button 1", button1);
 		if(button1)
 		{
-			storage.data.FRONT_LEFT_MOTOR.setX(0.9);
-			storage.data.FRONT_RIGHT_MOTOR.setX(0.9);
-			storage.data.BACK_LEFT_MOTOR.setX(0.9);
-			storage.data.BACK_RIGHT_MOTOR.setX(0.9);
+			storage.data.FRONT_LEFT_MOTOR.setX(0.2);
+			storage.data.FRONT_RIGHT_MOTOR.setX(0.2);
+			storage.data.BACK_LEFT_MOTOR.setX(0.2);
+			storage.data.BACK_RIGHT_MOTOR.setX(0.2);
 		}
 		else
 		{

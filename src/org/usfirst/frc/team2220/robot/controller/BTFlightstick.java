@@ -93,4 +93,10 @@ public class BTFlightstick implements BTIController
 	{
 		return A_BUTTON;
 	}
+
+	@Override
+	public BTIConButton getTest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

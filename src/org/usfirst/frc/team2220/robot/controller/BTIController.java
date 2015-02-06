@@ -19,5 +19,5 @@ public interface BTIController
 	// Manipulator parameters
 	public BTIConButton getToteCollect();
 	public BTIConButton getToteRelease();
-//	public BTIConButton getTest();
+	public BTIConButton getTest();
 }

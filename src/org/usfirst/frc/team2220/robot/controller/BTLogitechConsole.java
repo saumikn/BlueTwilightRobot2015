@@ -7,7 +7,7 @@ import org.usfirst.frc.team2220.robot.controller.modules.BTJoyButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class BTLogitechController implements BTIController
+public class BTLogitechConsole implements BTIController
 {
 	private final BTJoyAxis LEFT_STICK_X_AXIS;
 	private final BTJoyAxis LEFT_STICK_Y_AXIS;
@@ -29,7 +29,7 @@ public class BTLogitechController implements BTIController
 	
 	private Joystick joy;
 	
-	public BTLogitechController(int port)
+	public BTLogitechConsole(int port)
 	{
 		joy = new Joystick(port);
 		
@@ -104,12 +104,17 @@ public class BTLogitechController implements BTIController
 	@Override
 	public BTIConButton getToteCollect()
 	{
-		return null;
+		return A_BUTTON;
 	}
 	
 	@Override
 	public BTIConButton getToteRelease()
 	{
+		return A_BUTTON;
+	}
+
+	@Override
+	public BTIConButton getTest() {
 		return A_BUTTON;
 	}
 
