@@ -11,6 +11,11 @@ public class BTAuto implements BTIAutonomousRoutine
 	BTStorage storage;
 	BTManipulator manipulator;
 	
+	double fl;
+	double bl;
+	double fr;
+	double br;
+	
 	public BTAuto(BTStorage storage, BTManipulator manipulator)
 	{
 		this.storage = storage;
@@ -22,6 +27,9 @@ public class BTAuto implements BTIAutonomousRoutine
 	{
 		switch (BTConstants.ACTIVE_AUTONOMOUS)
 		{
+		case 5: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Test Autonomous");
+				runAutonomousTest();
+				break;
 		case 4: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Autonomous 4");
 				runAutonomous4();
 				break;
@@ -39,10 +47,13 @@ public class BTAuto implements BTIAutonomousRoutine
 		}
 	}
 	
-	public void runTestAutonomous()
+	public void runAutonomousTest()
 	{
-		moveBack();
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 		strafeRight();
+		moveForward();
+		manipulator.collectTote();
+		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
 	public void runAutonomous4()
@@ -63,7 +74,7 @@ public class BTAuto implements BTIAutonomousRoutine
 		manipulator.collectTote();
 		
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 6 of 6: Moving backwards");
-		moveBack();
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 	}
 	
 	public void runAutonomous3()
@@ -71,18 +82,18 @@ public class BTAuto implements BTIAutonomousRoutine
 		manipulator.collectTote();
 		strafeRight();
 		manipulator.collectTote();
-		moveBack();
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 	}
 	
 	public void runAutonomous2()
 	{
 		manipulator.collectTote();
-		moveBack();
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 	}
 	
 	public void runAutonomous1()
 	{
-		moveBack();
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 	}
 	
 	public void strafeRight()
@@ -93,11 +104,20 @@ public class BTAuto implements BTIAutonomousRoutine
 		stopMotors();
 	}
 	
-	public void moveBack()
+	public void moveBack(int time)
 	{
 		long startTime = System.currentTimeMillis();
 		startMovingBack();
-		while(System.currentTimeMillis() - startTime < BTConstants.MOVE_BACK_TIME){}
+		while(System.currentTimeMillis() - startTime < time){}
+		stopMotors();
+	}
+	
+	public void moveForward()
+	{
+		long startTime = System.currentTimeMillis();
+		startMovingForward();
+		//while(storage.data.TOTE_SWITCH.getValue() == false){}
+		while(System.currentTimeMillis() - startTime < 3000){}
 		stopMotors();
 	}
 
@@ -131,25 +151,80 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void startMovingBack()
 	{
-		storage.data.FRONT_LEFT_MOTOR.setX(0.4);
-		storage.data.FRONT_RIGHT_MOTOR.setX(0.4);
-		storage.data.BACK_LEFT_MOTOR.setX(-0.4);
-		storage.data.BACK_RIGHT_MOTOR.setX(-0.4);
+		double speed = BTConstants.STRAFE_SPEED;
+		
+		fl = speed;
+		bl = -speed;
+		fr = -speed;
+		br = speed;
+		
+		invertMotors();
+		
+		storage.data.FRONT_LEFT_MOTOR.setX(fl);
+		storage.data.BACK_LEFT_MOTOR.setX(bl);
+		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
+		storage.data.BACK_RIGHT_MOTOR.setX(br);
+	}
+	
+	public void startMovingForward()
+	{
+		double speed = BTConstants.FORWARD_SPEED;
+		
+		fl = -speed;
+		bl = speed;
+		fr = speed;
+		br = -speed;
+		
+		invertMotors();
+		
+		storage.data.FRONT_LEFT_MOTOR.setX(fl);
+		storage.data.BACK_LEFT_MOTOR.setX(bl);
+		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
+		storage.data.BACK_RIGHT_MOTOR.setX(br);
 	}
 	
 	public void startStrafingRight()
 	{
-		storage.data.FRONT_LEFT_MOTOR.setX(0.9);
-		storage.data.FRONT_RIGHT_MOTOR.setX(0.9);
-		storage.data.BACK_LEFT_MOTOR.setX(0.9);
-		storage.data.BACK_RIGHT_MOTOR.setX(0.9);
+		double speed = BTConstants.STRAFE_SPEED;
+		
+		fl = -speed;
+		bl = -speed;
+		fr = -speed;
+		br = -speed;
+		
+		invertMotors();
+		
+		storage.data.FRONT_LEFT_MOTOR.setX(fl);
+		storage.data.BACK_LEFT_MOTOR.setX(bl);
+		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
+		storage.data.BACK_RIGHT_MOTOR.setX(br);
+	}
+	
+	public void invertMotors()
+	{
+		if (BTConstants.FRONT_LEFT_REVERSED)
+		{
+			fl = -fl;
+		}
+		if (BTConstants.BACK_LEFT_REVERSED)
+		{
+			bl = -bl;
+		}
+		if (BTConstants.FRONT_RIGHT_REVERSED)
+		{
+			fr = -fr;
+		}
+		if (BTConstants.BACK_RIGHT_REVERSED)
+		{
+			br = -br;
+		}
 	}
 	
 	public void stopMotors()
 	{
 		storage.data.FRONT_LEFT_MOTOR.setX(0);
-		storage.data.FRONT_RIGHT_MOTOR.setX(0);
 		storage.data.BACK_LEFT_MOTOR.setX(0);
+		storage.data.FRONT_RIGHT_MOTOR.setX(0);
 		storage.data.BACK_RIGHT_MOTOR.setX(0);	
 	}
 }
