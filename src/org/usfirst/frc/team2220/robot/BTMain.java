@@ -46,8 +46,8 @@ public class BTMain extends SampleRobot
     {
     	while(isOperatorControl())
     	{
-    		test.test();
-    		//meca.drive();
+    		//test.test();
+    		meca.drive();
     		//[something].perform();
     	}
     }
