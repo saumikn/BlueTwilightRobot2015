@@ -39,6 +39,12 @@ public class BTAuto implements BTIAutonomousRoutine
 		}
 	}
 	
+	public void runTestAutonomous()
+	{
+		moveBack();
+		strafeRight();
+	}
+	
 	public void runAutonomous4()
 	{
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 1 of 6: Collecting tote 1 of 3");
@@ -125,10 +131,10 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void startMovingBack()
 	{
-		storage.data.FRONT_LEFT_MOTOR.setX(0.9);
-		storage.data.FRONT_RIGHT_MOTOR.setX(0.9);
-		storage.data.BACK_LEFT_MOTOR.setX(-0.9);
-		storage.data.BACK_RIGHT_MOTOR.setX(-0.9);
+		storage.data.FRONT_LEFT_MOTOR.setX(0.4);
+		storage.data.FRONT_RIGHT_MOTOR.setX(0.4);
+		storage.data.BACK_LEFT_MOTOR.setX(-0.4);
+		storage.data.BACK_RIGHT_MOTOR.setX(-0.4);
 	}
 	
 	public void startStrafingRight()

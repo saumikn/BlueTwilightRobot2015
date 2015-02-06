@@ -112,7 +112,7 @@ public class BTMeca implements BTIDrivetrain
 		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
 		double forwardRaw = storage.controller.getDriveLeftRight().getValue();
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
-		double strafeRaw = -storage.controller.getDriveFrontBack().getValue();
+		double strafeRaw = storage.controller.getDriveFrontBack().getValue();
 		// Rotate is how much the robot should turn.
 		double rotateRaw = storage.controller.getDriveRotate().getValue();
 		
