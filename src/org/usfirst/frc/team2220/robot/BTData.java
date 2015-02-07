@@ -19,6 +19,8 @@ public class BTData
 	public BTIMotor BACK_LEFT_MOTOR;
 	public BTIMotor BACK_RIGHT_MOTOR;
 	
+	public BTPiston DRIVETRAIN_PISTON;
+	
 	//Manipulator
 	
 	public BTLimitSwitch TOTE_SWITCH; //
@@ -74,6 +76,8 @@ public class BTData
 		this.FRONT_RIGHT_MOTOR = testbot.FRONT_RIGHT_MOTOR;
 		this.BACK_LEFT_MOTOR = testbot.BACK_LEFT_MOTOR;
 		this.BACK_RIGHT_MOTOR = testbot.BACK_RIGHT_MOTOR;
+		
+		this.DRIVETRAIN_PISTON = testbot.DRIVETRAIN_PISTON;
 	}
 	
 //	public BTData()

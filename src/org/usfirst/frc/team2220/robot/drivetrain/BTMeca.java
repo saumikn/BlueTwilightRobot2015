@@ -16,6 +16,7 @@ public class BTMeca implements BTIDrivetrain
 	public BTMeca(BTStorage storage)
 	{
 		this.storage = storage;
+		storage.data.DRIVETRAIN_PISTON.retract();
 	}
 		
 	double strafe = 0.0;
@@ -57,7 +58,7 @@ public class BTMeca implements BTIDrivetrain
 			isNegative = true;
 		rawValue = Math.abs(rawValue);
 		
-		final double DEADZONE_MAX_RANGE = 0.1;		//Below this radius, doesn't move
+		final double DEADZONE_MAX_RANGE = 0.4;		//Below this radius, doesn't move
 		final double SLOW_INCREASE_MAX_RANGE = 0.5; //Below this radius, accelerates slowly
 		final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
 		final double GLOBAL_MAX_RANGE = 1.0;		//Farthest that the joystick can be from center
@@ -71,7 +72,7 @@ public class BTMeca implements BTIDrivetrain
 		//Range 1: Deadzone
 		if (rawValue < DEADZONE_MAX_RANGE)
 		{
-			return 0;
+			result = 0;
 		}
 		
 		//Range 2: Slow increase zone
@@ -109,24 +110,35 @@ public class BTMeca implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
+		
+		
+		
 		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
-		double forwardRaw = -storage.controller.getDriveLeftRight().getValue();
+		strafe = storage.controller.getDriveLeftRight().getValue();
 		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
-		double strafeRaw = storage.controller.getDriveFrontBack().getValue();
+		forward = -storage.controller.getDriveFrontBack().getValue();
 		// Rotate is how much the robot should turn.
-		double rotateRaw = storage.controller.getDriveRotate().getValue();
+		rotate = storage.controller.getDriveRotate().getValue();
+		
+		SmartDashboard.putNumber("Y Axis Input", forward);
+		SmartDashboard.putNumber("X Axis Input", strafe);
+		SmartDashboard.putNumber("Z Axis Input", rotate);
 		
 		// Curves the strafe, forward, and rotate values according to a piecewise function
-		strafe = curve(strafeRaw);
-		forward = curve(forwardRaw);
-		rotate = curve(rotateRaw);
+		strafe = curve(strafe);
+		forward = curve(forward);
+		rotate = curve(rotate);
+		
+		SmartDashboard.putNumber("Curved Y Axis Input", forward);
+		SmartDashboard.putNumber("Curved X Axis Input", strafe);
+		SmartDashboard.putNumber("Curved Z Axis Input", rotate);
 		
 		//setDeadzone();
 		
-		double fl = -strafe - forward - rotate;
-		double bl = -strafe + forward + rotate;
-		double fr = -strafe + forward - rotate;
-		double br = -strafe - forward + rotate;
+		double fl = strafe - forward - rotate;
+		double bl = strafe + forward + rotate;
+		double fr = strafe + forward - rotate;
+		double br = strafe - forward + rotate;
 				
 		// Reverse front and back left motors
 		
@@ -164,25 +176,25 @@ public class BTMeca implements BTIDrivetrain
 		fl = fl / max;
 		bl = bl / max;
 				
-		//If no value for top throttle (i.e. not using flight stick), sets to default value for max power
-		if (storage.controller.getTopThrottle() == null)
-		{
-			maxPower = BTConstants.MECANUM_SCALE_VALUE;
-		}
+//		//If no value for top throttle (i.e. not using flight stick), sets to default value for max power
+//		if (storage.controller.getTopThrottle() == null)
+//		{
+//			maxPower = BTConstants.MECANUM_SCALE_VALUE;
+//		}
 		
-		//If top throttle exists, set max power to top throttle value
-		else
-		{
-			double topThrottle = (storage.controller.getTopThrottle().getValue() + 1.0);
-			topThrottle = Math.max(BTConstants.TOP_THROTTLE_MIN, topThrottle);
-			maxPower =  topThrottle / 2.0;
-		}
-		
-		// Scale to the mecanum value, i.e. if we want to run at half power
-		fr = fr * maxPower;
-		br = br * maxPower;
-		fl = fl * maxPower;
-		bl = bl * maxPower;
+//		//If top throttle exists, set max power to top throttle value
+//		else
+//		{
+//			double topThrottle = (storage.controller.getTopThrottle().getValue() + 1.0);
+//			topThrottle = Math.max(BTConstants.TOP_THROTTLE_MIN, topThrottle);
+//			maxPower =  topThrottle / 2.0;
+//		}
+//		
+//		// Scale to the mecanum value, i.e. if we want to run at half power
+//		fr = fr * maxPower;
+//		br = br * maxPower;
+//		fl = fl * maxPower;
+//		bl = bl * maxPower;
 		
 //		encodeFR = storage.data.FRONT_RIGHT_ENCODER.getValue();
 //		encodeFL = storage.data.FRONT_LEFT_ENCODER.getValue();
@@ -190,21 +202,14 @@ public class BTMeca implements BTIDrivetrain
 //		encodeBR = storage.data.BACK_RIGHT_ENCODER.getValue();
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
-		SmartDashboard.putNumber("Y Axis Input", forward);
-		SmartDashboard.putNumber("X Axis Input", strafe);
-		SmartDashboard.putNumber("Z Axis Input", rotate);
-		double throttle = storage.controller.getDriveRotate().getValue();
-		SmartDashboard.putNumber("Throttle Rotator", throttle);
+		
+		//double throttle = storage.controller.getDriveRotate().getValue();
+		//SmartDashboard.putNumber("Throttle Rotator", throttle);
 		
 		SmartDashboard.putNumber("Front Right Motor Power", fr);
 		SmartDashboard.putNumber("Back Right Motor Power", br);
 		SmartDashboard.putNumber("Front Left Motor Power", fl);
 		SmartDashboard.putNumber("Back Left Motor Power", bl);
-		
-		SmartDashboard.putNumber("Front Right Encoder Reading", fr);
-		SmartDashboard.putNumber("Back Right Encoder Reading", br);
-		SmartDashboard.putNumber("Front Left Encoder Reading", fl);
-		SmartDashboard.putNumber("Back Left Encoder Reading", bl);
 		
 		//Set the motor powers
 		storage.data.FRONT_RIGHT_MOTOR.setX(fr);

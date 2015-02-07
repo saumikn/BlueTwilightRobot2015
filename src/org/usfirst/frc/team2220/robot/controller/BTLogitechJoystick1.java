@@ -106,6 +106,12 @@ public class BTLogitechJoystick1 implements BTIController
 	{
 		return BUTTON_2;
 	}
+	
+	@Override
+	public BTIConButton getDrivetrainSwitch()
+	{
+		return BUTTON_2;
+	}
 
 	@Override
 	public BTIConButton getToteRelease()
