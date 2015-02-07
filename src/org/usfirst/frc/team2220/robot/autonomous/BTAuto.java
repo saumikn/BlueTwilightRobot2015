@@ -80,28 +80,29 @@ public class BTAuto implements BTIAutonomousRoutine
 	public void runAutonomous3()
 	{
 		//move forward slowly
+		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		//stop at limit switch when limit switch is true
+		while (!BTManipulator.isToteSwitch){}
+		stopMotors();
 		manipulator.collectTote();
 		//move back just enough to collect the next tote
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 		// we will need a new constant for a shorter back up time
 		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		//move forward slowly
-		//stop at limit switch when limit switch is true
-		manipulator.collectTote();
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
-		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+		runAutonomous2();
 	}
 	
 	public void runAutonomous2()
 	{
+		boolean limit;
+		
 		//move forward slowly
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		//stop at limit switch when limit switch is true
 		while (!BTManipulator.isToteSwitch){}
 		stopMotors();
 		manipulator.collectTote();
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
-		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+		runAutonomous1();
 	}
 	
 	public void runAutonomous1()
@@ -130,8 +131,7 @@ public class BTAuto implements BTIAutonomousRoutine
 	{
 		long startTime = System.currentTimeMillis();
 		startMovingForward();
-		//while(storage.data.TOTE_SWITCH.getValue() == false){}
-		while(System.currentTimeMillis() - startTime < time){}
+		while(System.currentTimeMillis() - startTime < time && storage.data.TOTE_SWITCH.getValue() == false){}
 		stopMotors();
 	}
 
