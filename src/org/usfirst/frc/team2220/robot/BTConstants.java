@@ -20,14 +20,20 @@ public class BTConstants
 	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 4;
 	public static final int COMPETITION_BACK_RIGHT_MOTOR = 10;
 	public static final int COMPETITION_TOTE_MOTOR = -1;
-	public static final int COMPETITION_BARREL_MOTOR = -1;
+	public static final int COMPETITION_BARREL_MOTOR_LEFT = -1;
+	public static final int COMPETITION_BARREL_MOTOR_RIGHT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
-	public static final int COMPETITION_TOTE_SWITCH = 0;
-	public static final int COMPETITION_LOW_SWITCH = 1;
-	public static final int COMPETITION_MIDDLE_SWITCH = -1;
-	public static final int COMPETITION_UPPER_SWITCH = -1;
+	public static final int COMPETITION_TOTE_LIMIT = 0;
+	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_LEFT = 1;
+	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT = -1;
+	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT_LEFT = -1;
+	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT_RIGHT = -1;
+	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_LEFT = -1;
+	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT = -1;
+	public static final int COMPETITION_SECONDARY_LOWER_LIMIT = -1;
+	public static final int COMPETITION_SECONDARY_UPPER_LIMIT = -1;
 	public static final int COMPETITION_LIMIT_SWITCH = -1;
 	
 	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 1;
@@ -55,6 +61,7 @@ public class BTConstants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME = 3000;
 	public static final double TOTE_MOTOR_POWER = 0.9;
+	public static final double BARREL_MOTOR_POWER = 0.9;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;
 	
 	// Electronics Constants
@@ -79,5 +86,6 @@ public class BTConstants
 	public static final boolean BACK_RIGHT_REVERSED = true;
 	public static final boolean FORK_REVERSED = false;
 	public static final boolean COLLECTORS_REVERSED = false;
+	public static final boolean BARREL_REVERSED = false;
 	
 }

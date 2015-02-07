@@ -25,9 +25,14 @@ public class BTData
 	//Manipulator
 	
 	public BTLimitSwitch TOTE_LIMIT; //
-	public BTLimitSwitch LOW_LIMIT; //
-	public BTLimitSwitch MIDDLE_LIMIT; //
-	public BTLimitSwitch UPPER_LIMIT; // 
+	public BTLimitSwitch PRIMARY_LOWER_LIMIT_LEFT; //
+	public BTLimitSwitch PRIMARY_LOWER_LIMIT_RIGHT;
+	public BTLimitSwitch PRIMARY_MIDDLE_LIMIT_LEFT; //
+	public BTLimitSwitch PRIMARY_MIDDLE_LIMIT_RIGHT;
+	public BTLimitSwitch PRIMARY_UPPER_LIMIT_LEFT; // 
+	public BTLimitSwitch PRIMARY_UPPER_LIMIT_RIGHT; // 
+	public BTLimitSwitch SECONDARY_LOWER_LIMIT;
+	public BTLimitSwitch SECONDARY_UPPER_LIMIT;
 		
 	public BTEncoder FRONT_RIGHT_ENCODER;
 	public BTEncoder FRONT_LEFT_ENCODER;
@@ -35,7 +40,8 @@ public class BTData
 	public BTEncoder BACK_LEFT_ENCODER;
 	
 	public BTIMotor TOTE_MOTOR;
-	public BTIMotor BARREL_MOTOR;
+	public BTIMotor BARREL_MOTOR_LEFT;
+	public BTIMotor BARREL_MOTOR_RIGHT;
 	
 	public BTIMotor COLLECTOR_MOTOR_LEFT;
 	public BTIMotor COLLECTOR_MOTOR_RIGHT;
@@ -61,12 +67,18 @@ public class BTData
 		//this.BACK_LEFT_ENCODER = compRobot.BACK_RIGHT_ENCODER;
 		
 		this.TOTE_LIMIT = compRobot.TOTE_LIMIT;
-		this.LOW_LIMIT = compRobot.LOW_LIMIT;
-		//this.MIDDLE_LIMIT = compRobot.MIDDLE_LIMIT;
-		//this.UPPER_LIMIT = compRobot.UPPER_LIMIT;
+		this.PRIMARY_LOWER_LIMIT_LEFT = compRobot.PRIMARY_LOWER_LIMIT_LEFT;
+//		this.PRIMARY_LOWER_LIMIT_RIGHT = compRobot.PRIMARY_LOWER_LIMIT_RIGHT;
+//		this.PRIMARY_MIDDLE_LIMIT_LEFT = compRobot.PRIMARY_MIDDLE_LIMIT_LEFT;
+//		this.PRIMARY_MIDDLE_LIMIT_RIGHT = compRobot.PRIMARY_MIDDLE_LIMIT_RIGHT;
+//		this.PRIMARY_UPPER_LIMIT_LEFT = compRobot.PRIMARY_UPPER_LIMIT_LEFT;
+//		this.PRIMARY_UPPER_LIMIT_RIGHT = compRobot.PRIMARY_UPPER_LIMIT_RIGHT;
+//		this.SECONDARY_LOWER_LIMIT = compRobot.SECONDARY_LOWER_LIMIT;
+//		this.SECONDARY_UPPER_LIMIT = compRobot.SECONDARY_UPPER_LIMIT;
 		
 		//this.TOTE_MOTOR = compRobot.TOTE_MOTOR;
-		//this.BARREL_MOTOR = compRobot.BARREL_MOTOR;
+		//this.BARREL_MOTOR_LEFT = compRobot.BARREL_MOTOR_LEFT;
+		//this.BARREL_MOTOR_RIGHT = compRobot.BARREL_MOTOR_RIGHT;
 		//this.COLLECTOR_MOTOR_LEFT = compRobot.COLLECTOR_MOTOR_LEFT;
 		//this.COLLECTOR_MOTOR_RIGHT = compRobot.COLLECTOR_MOTOR_RIGHT;
 		
@@ -87,7 +99,7 @@ public class BTData
 		this.GYRO = testbot.GYRO;
 		
 		this.TOTE_LIMIT = testbot.TOTE_LIMIT;
-		this.LOW_LIMIT = testbot.LOW_LIMIT;
+		this.PRIMARY_LOWER_LIMIT_LEFT = testbot.LOW_LIMIT;
 	}
 	
 //	public BTData()

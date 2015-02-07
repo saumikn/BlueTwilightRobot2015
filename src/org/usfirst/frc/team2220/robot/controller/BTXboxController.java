@@ -119,4 +119,10 @@
 //		return null;
 //	}
 //
+//	@Override
+//	public BTIConButton getSecondaryManipSwitch()
+//	{
+//		return B_BUTTON;
+//	}
+//
 //}

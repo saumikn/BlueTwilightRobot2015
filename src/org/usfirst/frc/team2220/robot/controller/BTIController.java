@@ -20,5 +20,6 @@ public interface BTIController
 	public BTIConButton getToteCollect();
 	public BTIConButton getToteRelease();
 	public BTIConButton getTest();
-	BTIConButton getDrivetrainSwitch();
+	public BTIConButton getDrivetrainSwitch();
+	public BTIConButton getSecondaryManipSwitch();
 }

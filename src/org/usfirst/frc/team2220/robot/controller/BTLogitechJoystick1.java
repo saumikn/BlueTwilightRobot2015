@@ -124,4 +124,10 @@ public class BTLogitechJoystick1 implements BTIController
 	{
 		return BUTTON_1;
 	}
+	
+	@Override
+	public BTIConButton getSecondaryManipSwitch()
+	{
+		return BUTTON_3;
+	}
 }

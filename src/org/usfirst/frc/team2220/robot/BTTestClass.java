@@ -24,7 +24,7 @@ public class BTTestClass
 	{
 		angle = storage.data.GYRO.getAngle();
 		limit1 = storage.data.TOTE_LIMIT.getValue();
-		limit2 = storage.data.LOW_LIMIT.getValue();
+		limit2 = storage.data.PRIMARY_LOWER_LIMIT_LEFT.getValue();
 		//storage.data.GYRO.reset();
 		SmartDashboard.putNumber("Angle", angle);
 		SmartDashboard.putBoolean("Limit 1", limit1);
