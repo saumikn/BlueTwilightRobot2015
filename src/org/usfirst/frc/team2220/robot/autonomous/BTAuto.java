@@ -74,26 +74,40 @@ public class BTAuto implements BTIAutonomousRoutine
 		manipulator.collectTote();
 		
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 6 of 6: Moving backwards");
-		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
 	public void runAutonomous3()
 	{
+		//move forward slowly
+		//stop at limit switch when limit switch is true
 		manipulator.collectTote();
+		//move back just enough to collect the next tote
+		// we will need a new constant for a shorter back up time
 		strafeRight();
+		//move forward slowly
+		//stop at limit switch when limit switch is true
 		manipulator.collectTote();
-		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
+		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
 	public void runAutonomous2()
 	{
+		//move forward slowly
+		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
+		//stop at limit switch when limit switch is true
+		while (!BTManipulator.isToteSwitch){}
+		stopMotors();
 		manipulator.collectTote();
-		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
+		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
 	public void runAutonomous1()
 	{
-		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
+		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
 	public void strafeRight()
@@ -112,12 +126,12 @@ public class BTAuto implements BTIAutonomousRoutine
 		stopMotors();
 	}
 	
-	public void moveForward()
+	public void moveForward(int time)
 	{
 		long startTime = System.currentTimeMillis();
 		startMovingForward();
 		//while(storage.data.TOTE_SWITCH.getValue() == false){}
-		while(System.currentTimeMillis() - startTime < 3000){}
+		while(System.currentTimeMillis() - startTime < time){}
 		stopMotors();
 	}
 
