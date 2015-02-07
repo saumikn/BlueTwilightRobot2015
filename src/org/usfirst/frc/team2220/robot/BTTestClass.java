@@ -8,51 +8,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BTTestClass
 {
-	BTStorage storage;
-	boolean button1;
-	boolean button2;
+	public BTStorage storage;
+	
+	double angle;
+	boolean limit1;
+	boolean limit2;
 	
 	public BTTestClass(BTStorage storage)
 	{
 		this.storage = storage;
+		storage.data.GYRO.reset();
 	}
 	
 	public void test()
 	{
-		button1 = storage.controller.getToteRelease().getButtonValue();
+		angle = storage.data.GYRO.getAngle();
+		limit1 = storage.data.TOTE_SWITCH.getValue();
+		limit2 = storage.data.LOW_LIMIT.getValue();
+		//storage.data.GYRO.reset();
+		SmartDashboard.putNumber("Angle", angle);
+		SmartDashboard.putBoolean("Limit 1", limit1);
+		SmartDashboard.putBoolean("Limit 2", limit2);
 		
-		SmartDashboard.putBoolean("Button 1", button1);
-		if(button1)
-		{
-			storage.data.FRONT_LEFT_MOTOR.setX(0.2);
-			storage.data.FRONT_RIGHT_MOTOR.setX(0.2);
-			storage.data.BACK_LEFT_MOTOR.setX(0.2);
-			storage.data.BACK_RIGHT_MOTOR.setX(0.2);
-		}
-		else
-		{
-			storage.data.FRONT_LEFT_MOTOR.setX(0);
-			storage.data.FRONT_RIGHT_MOTOR.setX(0);
-			storage.data.BACK_LEFT_MOTOR.setX(0);
-			storage.data.BACK_RIGHT_MOTOR.setX(0);	
-		}
 		
-		button2 = storage.controller.getToteCollect().getButtonValue();
-		
-		SmartDashboard.putBoolean("Button 2", button2);
-		if(button2)
-		{
-			storage.data.FRONT_LEFT_MOTOR.setX(0.9);
-			storage.data.FRONT_RIGHT_MOTOR.setX(0.9);
-			storage.data.BACK_LEFT_MOTOR.setX(0.9);
-			storage.data.BACK_RIGHT_MOTOR.setX(0.9);
-		}
-		else
-		{
-			storage.data.FRONT_LEFT_MOTOR.setX(0);
-			storage.data.FRONT_RIGHT_MOTOR.setX(0);
-			storage.data.BACK_LEFT_MOTOR.setX(0);
-			storage.data.BACK_RIGHT_MOTOR.setX(0);	
-		}
 	}
 }

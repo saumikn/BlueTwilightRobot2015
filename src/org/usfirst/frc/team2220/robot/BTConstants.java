@@ -15,20 +15,20 @@ public class BTConstants
 	
 	
 	// Competition robot electronics ports
-	public static final int COMPETITION_FRONT_LEFT_MOTOR = 5;
-	public static final int COMPETITION_BACK_LEFT_MOTOR = 1;
-	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 7;
-	public static final int COMPETITION_BACK_RIGHT_MOTOR = 3;
+	public static final int COMPETITION_FRONT_LEFT_MOTOR = 1;
+	public static final int COMPETITION_BACK_LEFT_MOTOR = 3;
+	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 4;
+	public static final int COMPETITION_BACK_RIGHT_MOTOR = 10;
 	public static final int COMPETITION_TOTE_MOTOR = -1;
 	public static final int COMPETITION_BARREL_MOTOR = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
-	public static final int COMPETITION_TOTE_SWITCH = -1;
-	public static final int COMPETITION_LOW_SWITCH = -1;
+	public static final int COMPETITION_TOTE_SWITCH = 0;
+	public static final int COMPETITION_LOW_SWITCH = 1;
 	public static final int COMPETITION_MIDDLE_SWITCH = -1;
 	public static final int COMPETITION_UPPER_SWITCH = -1;
-	public static final int COMPETITION_LIMIT_SWITCH = 0;
+	public static final int COMPETITION_LIMIT_SWITCH = -1;
 	
 	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 1;
 	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = 2;

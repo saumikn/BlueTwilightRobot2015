@@ -16,7 +16,7 @@ public class BTMeca implements BTIDrivetrain
 	public BTMeca(BTStorage storage)
 	{
 		this.storage = storage;
-		storage.data.DRIVETRAIN_PISTON.retract();
+		//storage.data.DRIVETRAIN_PISTON.retract();
 	}
 		
 	double strafe = 0.0;

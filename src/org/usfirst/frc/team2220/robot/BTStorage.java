@@ -9,10 +9,11 @@ public class BTStorage
     public BTData data;
     public BTIController controller;
     public BTTestBot testbot = new BTTestBot(); // This lines determines which hardware the code is being sent to
+    public BTCompetitionRobot compbot = new BTCompetitionRobot();
     
     public BTStorage()
     {
-        data = new BTData(testbot);
+        data = new BTData(compbot);
         controller = BTConstants.CONTROLLER;
     }
 }
