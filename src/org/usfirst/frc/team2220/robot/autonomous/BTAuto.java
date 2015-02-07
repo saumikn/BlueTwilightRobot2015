@@ -50,8 +50,8 @@ public class BTAuto implements BTIAutonomousRoutine
 	public void runAutonomousTest()
 	{
 		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
-		strafeRight();
-		moveForward();
+		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
+		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		manipulator.collectTote();
 		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
@@ -62,13 +62,13 @@ public class BTAuto implements BTIAutonomousRoutine
 		manipulator.collectTote();
 		
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 2 of 6: Strafing right");
-		strafeRight();
+		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
 		
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 3 of 6: Collecting tote 2 of 3");
 		manipulator.collectTote();
 		
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 4 of 6: Strafing right");
-		strafeRight();
+		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
 		
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 5 of 6: Collecting tote 3 of 3");
 		manipulator.collectTote();
@@ -84,7 +84,7 @@ public class BTAuto implements BTIAutonomousRoutine
 		manipulator.collectTote();
 		//move back just enough to collect the next tote
 		// we will need a new constant for a shorter back up time
-		strafeRight();
+		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
 		//move forward slowly
 		//stop at limit switch when limit switch is true
 		manipulator.collectTote();
@@ -110,11 +110,11 @@ public class BTAuto implements BTIAutonomousRoutine
 		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
-	public void strafeRight()
+	public void strafeRight(int time)
 	{
 		long startTime = System.currentTimeMillis();
 		startStrafingRight();
-		while(System.currentTimeMillis() - startTime < BTConstants.STRAFE_RIGHT_TIME){}
+		while(System.currentTimeMillis() - startTime < time){}
 		stopMotors();
 	}
 	

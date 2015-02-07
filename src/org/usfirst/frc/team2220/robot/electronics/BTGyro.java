@@ -6,6 +6,7 @@ public class BTGyro
 
     private Gyro gyro;
 
+    public BTGyro(){}
 
     public BTGyro(int port)
     {

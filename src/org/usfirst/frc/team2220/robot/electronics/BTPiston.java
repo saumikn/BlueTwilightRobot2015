@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public class BTPiston
 {
-	private final Solenoid left;
-	private final Solenoid right;
+	private Solenoid left;
+	private Solenoid right;
+	
+	public BTPiston(){}
 	
 	public BTPiston(int extend, int retract)
 	{

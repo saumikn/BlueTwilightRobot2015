@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class BTEncoder
 {
-	private final Encoder encoder;
+	private Encoder encoder;
+	
+	public BTEncoder(){}
 	
 	public BTEncoder(int port1, int port2)
 	{

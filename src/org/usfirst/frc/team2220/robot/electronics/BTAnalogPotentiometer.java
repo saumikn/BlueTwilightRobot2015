@@ -6,6 +6,8 @@ public class BTAnalogPotentiometer
 {
 	AnalogPotentiometer analogPotentiometer;
 	
+	public BTAnalogPotentiometer(){}
+	
 	public BTAnalogPotentiometer(int port)
 	{
 		analogPotentiometer = new AnalogPotentiometer(port);

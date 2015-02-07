@@ -6,6 +6,8 @@ public class BTLimitSwitch
 {
 	DigitalInput limitSwitch;
 	
+	public BTLimitSwitch(){}
+	
 	public BTLimitSwitch(int port)
 	{
 		limitSwitch = new DigitalInput(port);
