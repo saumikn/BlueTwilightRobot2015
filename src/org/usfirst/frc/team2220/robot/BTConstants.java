@@ -21,8 +21,8 @@ public class BTConstants
 	public static final int COMPETITION_BACK_RIGHT_MOTOR = 10;
 	public static final int COMPETITION_TOTE_MOTOR = -1;
 	public static final int COMPETITION_BARREL_MOTOR = -1;
-	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
-	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
+	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = 3;
+	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = 4;
 	
 	public static final int COMPETITION_TOTE_SWITCH = 0;
 	public static final int COMPETITION_LOW_SWITCH = 1;
@@ -61,7 +61,7 @@ public class BTConstants
 	public static final double KP = 0.03;
 	
 	// Autonomous Constants
-	public static final int ACTIVE_AUTONOMOUS = 2;
+	public static final int ACTIVE_AUTONOMOUS = 3;
 	public static final String AUTONOMOUS_METHOD_KEY = "AutonomousMethodKey";
 	public static final String AUTONOMOUS_STAGE_KEY = "AutonomousStageKey";
 	public static final int MOVE_BACK_TIME_SHORT = 1000;

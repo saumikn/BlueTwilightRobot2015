@@ -4,6 +4,8 @@ import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 import org.usfirst.frc.team2220.robot.exceptions.BTSafetyTimeout;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class BTManipulator implements BTIManipulator
 {
 	public BTStorage storage;
@@ -46,7 +48,9 @@ public class BTManipulator implements BTIManipulator
 	{
 		try
 		{
+			SmartDashboard.putString("Here", "Inside collectTote");
 			startCollectorMotors();
+			SmartDashboard.putString("Here", "Finished startCollectorMotors");
 			while (!isToteSwitch){}	//Don't continue until the tote switch is activated
 			stopCollectorMotors();
 			
@@ -154,6 +158,7 @@ public class BTManipulator implements BTIManipulator
 	
 	public void startCollectorMotors()
 	{
+		SmartDashboard.putString("Here", "Inside startCollectorMotors");
 		if (BTConstants.COLLECTORS_REVERSED)
 		{
 			storage.data.COLLECTOR_MOTOR_LEFT.setX(BTConstants.COLLECTOR_MOTOR_POWER);

@@ -30,7 +30,7 @@ public class BTMain extends SampleRobot
     {
 		storage = new BTStorage();
     	//meca = new BTMeca(storage);	
-    	//manipulator = new BTManipulator(storage);
+    	manipulator = new BTManipulator(storage);
     	auto = new BTAuto(storage, manipulator);
     	test = new BTTestClass(storage);
     	//octo = new BTOcto(storage);

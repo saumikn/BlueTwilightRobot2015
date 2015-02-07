@@ -79,11 +79,10 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void runAutonomous3()
 	{
+		//start collection motors
+		manipulator.startCollectorMotors();
 		//move forward slowly
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
-		//stop at limit switch when limit switch is true
-		while (!BTManipulator.isToteSwitch){}
-		stopMotors();
 		manipulator.collectTote();
 		//move back just enough to collect the next tote
 		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
@@ -96,6 +95,8 @@ public class BTAuto implements BTIAutonomousRoutine
 	{
 		boolean limit;
 		
+		//start collection motors
+		manipulator.startCollectorMotors();
 		//move forward slowly
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		//stop at limit switch when limit switch is true
