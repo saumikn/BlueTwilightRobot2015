@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.SampleRobot;
 
 public class BTMain extends SampleRobot
 {
-	// Testing folders
+	// Testing folder
 	//BTMeca meca;
 	//BTOcto octo;
 	BTStorage storage;
