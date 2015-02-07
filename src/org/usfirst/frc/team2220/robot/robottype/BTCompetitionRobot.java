@@ -17,7 +17,7 @@ public class BTCompetitionRobot
 	public BTCANTalon BACK_RIGHT_MOTOR = new BTCANTalon(BTConstants.COMPETITION_BACK_RIGHT_MOTOR);
 	
 	
-	public BTLimitSwitch TOTE_SWTICH = new BTLimitSwitch(BTConstants.COMPETITION_TOTE_SWITCH); //
+	public BTLimitSwitch TOTE_LIMIT = new BTLimitSwitch(BTConstants.COMPETITION_TOTE_SWITCH); //
 	public BTLimitSwitch LOW_LIMIT = new BTLimitSwitch(BTConstants.COMPETITION_LOW_SWITCH); //
 //	public BTLimitSwitch MIDDLE_LIMIT = new BTLimitSwitch(BTConstants.COMPETITION_MIDDLE_SWITCH); //
 //	public BTLimitSwitch UPPER_LIMIT = new BTLimitSwitch(BTConstants.COMPETITION_UPPER_SWITCH); // 

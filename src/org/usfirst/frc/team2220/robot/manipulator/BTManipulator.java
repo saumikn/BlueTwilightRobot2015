@@ -27,7 +27,7 @@ public class BTManipulator implements BTIManipulator
 	@Override
 	public void perform()
 	{
-		isToteSwitch = storage.data.TOTE_SWITCH.getValue();
+		isToteSwitch = storage.data.TOTE_LIMIT.getValue();
 		isLower = storage.data.LOW_LIMIT.getValue();
 		isMiddle = storage.data.MIDDLE_LIMIT.getValue();
 		isUpper = storage.data.UPPER_LIMIT.getValue();

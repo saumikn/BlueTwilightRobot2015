@@ -24,7 +24,7 @@ public class BTData
 	
 	//Manipulator
 	
-	public BTLimitSwitch TOTE_SWITCH; //
+	public BTLimitSwitch TOTE_LIMIT; //
 	public BTLimitSwitch LOW_LIMIT; //
 	public BTLimitSwitch MIDDLE_LIMIT; //
 	public BTLimitSwitch UPPER_LIMIT; // 
@@ -60,7 +60,7 @@ public class BTData
 		//this.BACK_RIGHT_ENCODER = compRobot.BACK_RIGHT_ENCODER;
 		//this.BACK_LEFT_ENCODER = compRobot.BACK_RIGHT_ENCODER;
 		
-		this.TOTE_SWITCH = compRobot.TOTE_SWTICH;
+		this.TOTE_LIMIT = compRobot.TOTE_LIMIT;
 		this.LOW_LIMIT = compRobot.LOW_LIMIT;
 		//this.MIDDLE_LIMIT = compRobot.MIDDLE_LIMIT;
 		//this.UPPER_LIMIT = compRobot.UPPER_LIMIT;
@@ -83,6 +83,11 @@ public class BTData
 		this.BACK_RIGHT_MOTOR = testbot.BACK_RIGHT_MOTOR;
 		
 		this.DRIVETRAIN_PISTON = testbot.DRIVETRAIN_PISTON;
+		
+		this.GYRO = testbot.GYRO;
+		
+		this.TOTE_LIMIT = testbot.TOTE_LIMIT;
+		this.LOW_LIMIT = testbot.LOW_LIMIT;
 	}
 	
 //	public BTData()
