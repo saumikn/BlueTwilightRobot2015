@@ -14,7 +14,7 @@ public class BTManipulator implements BTIManipulator
 		totecount = 0;
 	}
 	
-	boolean isToteSwitch;
+	public static boolean isToteSwitch;
 	boolean isLower;
 	boolean isMiddle;
 	boolean isUpper;
