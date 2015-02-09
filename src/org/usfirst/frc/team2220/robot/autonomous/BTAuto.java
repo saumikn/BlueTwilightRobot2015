@@ -58,56 +58,46 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void runAutonomous4()
 	{
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 1 of 6: Collecting tote 1 of 3");
-		manipulator.collectTote();
-		
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 2 of 6: Strafing right");
-		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 3 of 6: Collecting tote 2 of 3");
-		manipulator.collectTote();
-		
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 4 of 6: Strafing right");
-		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 5 of 6: Collecting tote 3 of 3");
-		manipulator.collectTote();
-		
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous phase 6 of 6: Moving backwards");
-		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Completing right staging zone");
+		completeZone();
+		runAutonomous3();
 	}
 	
 	public void runAutonomous3()
 	{
-		//move forward slowly
-		//stop at limit switch when limit switch is true
-		manipulator.collectTote();
-		//move back just enough to collect the next tote
-		// we will need a new constant for a shorter back up time
-		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		//move forward slowly
-		//stop at limit switch when limit switch is true
-		manipulator.collectTote();
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
-		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Completing center staging zone");
+		completeZone();
+		runAutonomous2();
 	}
 	
 	public void runAutonomous2()
 	{
-		//move forward slowly
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Completing left staging zone");
+		// start collection motors
+		manipulator.startCollectorMotors();
+		// move forward slowly
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
-		//stop at limit switch when limit switch is true
-		while (!BTManipulator.isToteSwitch){}
-		stopMotors();
 		manipulator.collectTote();
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
-		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+		runAutonomous1();
 	}
 	
 	public void runAutonomous1()
 	{
-		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving backwards");
+		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving to auto zone");
 		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+	}
+	
+	public void completeZone()
+	{
+		// start collection motors
+		manipulator.startCollectorMotors();
+		// move forward slowly
+		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
+		manipulator.collectTote();
+		// move back just enough to collect the next tote
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
+		runAutonomous2();
 	}
 	
 	public void strafeRight(int time)
@@ -134,34 +124,6 @@ public class BTAuto implements BTIAutonomousRoutine
 		while(System.currentTimeMillis() - startTime < time){}
 		stopMotors();
 	}
-
-//	public void pickTote()
-//	{
-//		long startTime = System.currentTimeMillis();
-//		startCollectorMotors();
-//		while(System.currentTimeMillis() - startTime < BTConstants.COLLECT_TIME){}
-//		stopCollectorMotors();
-//	}
-//	
-//	public void startCollectorMotors()
-//	{
-//		if (BTConstants.COLLECTORS_REVERSED)
-//		{
-//			storage.data.COLLECTOR_MOTOR_LEFT.setX(BTConstants.COLLECTOR_MOTOR_POWER);
-//			storage.data.COLLECTOR_MOTOR_RIGHT.setX(-BTConstants.COLLECTOR_MOTOR_POWER);
-//		}
-//		else
-//		{
-//			storage.data.COLLECTOR_MOTOR_LEFT.setX(-BTConstants.COLLECTOR_MOTOR_POWER);
-//			storage.data.COLLECTOR_MOTOR_RIGHT.setX(BTConstants.COLLECTOR_MOTOR_POWER);
-//		}
-//	}
-//	
-//	public void stopCollectorMotors()
-//	{
-//		storage.data.COLLECTOR_MOTOR_LEFT.setX(0);
-//		storage.data.COLLECTOR_MOTOR_RIGHT.setX(0);
-//	}
 	
 	public void startMovingBack()
 	{
