@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2220.robot.autonomous;
 
-import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
+import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -84,10 +84,6 @@ public class BTAuto implements BTIAutonomousRoutine
 	public void runAutonomous1()
 	{
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving to auto zone");
-		SmartDashboard.putNumber("Front Right Motor Power", fr);
-		SmartDashboard.putNumber("Back Right Motor Power", br);
-		SmartDashboard.putNumber("Front Left Motor Power", fl);
-		SmartDashboard.putNumber("Back Left Motor Power", bl);
 		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
 	}
 	
@@ -101,7 +97,6 @@ public class BTAuto implements BTIAutonomousRoutine
 		// move back just enough to collect the next tote
 		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		runAutonomous2();
 	}
 	
 	public void strafeRight(int time)

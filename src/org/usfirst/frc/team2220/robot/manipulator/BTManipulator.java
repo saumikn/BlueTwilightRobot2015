@@ -160,6 +160,7 @@ public class BTManipulator implements BTIManipulator
 			forkToLower();
 			
 			//close front containment
+			//NOT SURE IF BELONGS HERE, SHOUDLN'T IT ALREADY BE CLOSED?
 			storage.data.TOTE_COLLECTOR.retract();
 			
 			//set robot color to blue
