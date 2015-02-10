@@ -97,7 +97,6 @@ public class BTAuto implements BTIAutonomousRoutine
 		// move back just enough to collect the next tote
 		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		runAutonomous2();
 	}
 	
 	public void strafeRight(int time)
