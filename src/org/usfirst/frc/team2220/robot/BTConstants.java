@@ -15,10 +15,10 @@ public class BTConstants
 	
 	
 	// Competition robot electronics ports
-	public static final int COMPETITION_FRONT_LEFT_MOTOR = 1;
-	public static final int COMPETITION_BACK_LEFT_MOTOR = 3;
-	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 4;
-	public static final int COMPETITION_BACK_RIGHT_MOTOR = 10;
+	public static final int COMPETITION_FRONT_LEFT_MOTOR = 1;  // 1 
+	public static final int COMPETITION_BACK_LEFT_MOTOR = 2;   // 3
+	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 3; // 4
+	public static final int COMPETITION_BACK_RIGHT_MOTOR = 4; // 10
 	public static final int COMPETITION_TOTE_MOTOR = -1;
 	public static final int COMPETITION_BARREL_MOTOR_LEFT = -1;
 	public static final int COMPETITION_BARREL_MOTOR_RIGHT = -1;
@@ -77,6 +77,9 @@ public class BTConstants
 	public static final int STRAFE_RIGHT_TIME = 4000;
 	public static final double FORWARD_SPEED = 0.3;
 	public static final double STRAFE_SPEED = 0.3;
+	public static final double BACK_SHORT_SPEED = 0.9;
+	public static final double BACK_LONG_SPEED = 0.9;
+	
 //	public static final int COLLECT_TIME = 1000;
 	
 	// Reverses selected motors
