@@ -1,3 +1,5 @@
+import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
+
 //package org.usfirst.frc.team2220.robot.controller;
 //
 //import org.usfirst.frc.team2220.robot.controller.modules.BTIConAxis;
@@ -121,6 +123,12 @@
 //
 //	@Override
 //	public BTIConButton getSecondaryManipSwitch()
+//	{
+//		return X_BUTTON;
+//	}
+//
+//	@Override
+//	public BTIConButton getCloseToteContainment()
 //	{
 //		return B_BUTTON;
 //	}

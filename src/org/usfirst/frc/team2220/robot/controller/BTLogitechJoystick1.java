@@ -130,4 +130,10 @@ public class BTLogitechJoystick1 implements BTIController
 	{
 		return BUTTON_3;
 	}
+	
+	@Override
+	public BTIConButton getCloseToteContainment()
+	{
+		return BUTTON_4;
+	}
 }

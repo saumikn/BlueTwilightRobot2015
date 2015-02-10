@@ -110,15 +110,34 @@ public class BTMeca implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
+		boolean isToteFront = true;
+		
+		if(storage.controller.getDrivetrainSwitch().getLeadingEdge())
+		{
+			isToteFront = !isToteFront;
+		}
+		
+		if(isToteFront)
+		{
+			// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
+			strafe = storage.controller.getDriveLeftRight().getValue();
+			// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
+			forward = -storage.controller.getDriveFrontBack().getValue();
+			// Rotate is how much the robot should turn.
+			rotate = storage.controller.getDriveRotate().getValue();
+		}
+		else
+		{
+			// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
+			forward = storage.controller.getDriveLeftRight().getValue();
+			// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
+			strafe = -storage.controller.getDriveFrontBack().getValue();
+			// Rotate is how much the robot should turn.
+			rotate = storage.controller.getDriveRotate().getValue();
+		}
 		
 		
 		
-		// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
-		strafe = storage.controller.getDriveLeftRight().getValue();
-		// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
-		forward = -storage.controller.getDriveFrontBack().getValue();
-		// Rotate is how much the robot should turn.
-		rotate = storage.controller.getDriveRotate().getValue();
 		
 		SmartDashboard.putNumber("Y Axis Input", forward);
 		SmartDashboard.putNumber("X Axis Input", strafe);
@@ -216,6 +235,7 @@ public class BTMeca implements BTIDrivetrain
 		storage.data.BACK_RIGHT_MOTOR.setX(br);
 		storage.data.FRONT_LEFT_MOTOR.setX(fl);
 		storage.data.BACK_LEFT_MOTOR.setX(bl);
+		
 		
 //		if(storage.controller.getToteCollect().getButtonValue())
 //		{
