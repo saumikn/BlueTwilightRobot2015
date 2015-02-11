@@ -112,7 +112,7 @@ public class BTMeca implements BTIDrivetrain
 	{
 		boolean isToteFront = true;
 		
-		if(storage.controller.getDrivetrainSwitch().getLeadingEdge())
+		if(storage.controller.getDrivetrainOrientationSwitch().getLeadingEdge())
 		{
 			isToteFront = !isToteFront;
 		}
