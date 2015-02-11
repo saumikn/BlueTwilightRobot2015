@@ -9,18 +9,14 @@ public interface BTIController
 	public BTIConButton getButton(int port);
 	
 	// Drivetrain parameters
-	public BTIConAxis getLeftDriveFrontBack();
-	public BTIConAxis getRightDriveFrontBack();
 	public BTIConAxis getDriveLeftRight();
 	public BTIConAxis getDriveFrontBack();
 	public BTIConAxis getDriveRotate();
-	public BTIConAxis getTopThrottle();
+	public BTIConAxis getMaxSpeed();
 	
 	// Manipulator parameters
 	public BTIConButton getToteCollect();
 	public BTIConButton getToteRelease();
-	public BTIConButton getCloseToteContainment();
-	public BTIConButton getTest();
-	public BTIConButton getDrivetrainSwitch();
-	public BTIConButton getSecondaryManipSwitch();
+	public BTIConButton getDrivetrainOrientationSwitch();
+	public BTIConButton getBarrelCollect();
 }

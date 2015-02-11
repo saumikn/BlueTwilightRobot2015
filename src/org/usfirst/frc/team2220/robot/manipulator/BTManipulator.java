@@ -48,9 +48,8 @@ public class BTManipulator implements BTIManipulator
 		
 		toteCollect = storage.controller.getToteCollect().getButtonValue();
 		toteRelease = storage.controller.getToteRelease().getButtonValue();
-		closeToteContainment = storage.controller.getCloseToteContainment().getButtonValue();
 		
-		secondaryAct = storage.controller.getSecondaryManipSwitch().getButtonValue();
+		secondaryAct = storage.controller.getBarrelCollect().getButtonValue();
 		
 		if (toteCollect && totecount < BTConstants.MAX_TOTE_COUNT)
 			collectTote();

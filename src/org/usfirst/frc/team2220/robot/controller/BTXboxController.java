@@ -68,18 +68,6 @@ public class BTXboxController implements BTIController
 	}
 
 	@Override
-	public BTIConAxis getLeftDriveFrontBack()
-	{
-		return LEFT_STICK_Y_AXIS;
-	}
-
-	@Override
-	public BTIConAxis getRightDriveFrontBack()
-	{
-		return RIGHT_STICK_Y_AXIS;
-	}
-
-	@Override
 	public BTIConAxis getDriveLeftRight()
 	{
 		return LEFT_STICK_X_AXIS;
@@ -98,7 +86,7 @@ public class BTXboxController implements BTIController
 	}
 	
 	@Override
-	public BTIConAxis getTopThrottle()
+	public BTIConAxis getMaxSpeed()
 	{
 		return null;
 	}
@@ -106,7 +94,7 @@ public class BTXboxController implements BTIController
 	@Override
 	public BTIConButton getToteCollect()
 	{
-		return null;
+		return LEFT_BUMPER_BUTTON;
 	}
 
 	@Override
@@ -116,27 +104,14 @@ public class BTXboxController implements BTIController
 	}
 
 	@Override
-	public BTIConButton getTest() {
-		// TODO Auto-generated method stub
-		return null;
+	public BTIConButton getDrivetrainOrientationSwitch() {
+		return Y_BUTTON;
 	}
 
 	@Override
-	public BTIConButton getSecondaryManipSwitch()
+	public BTIConButton getBarrelCollect()
 	{
-		return X_BUTTON;
-	}
-
-	@Override
-	public BTIConButton getCloseToteContainment()
-	{
-		return B_BUTTON;
-	}
-
-	@Override
-	public BTIConButton getDrivetrainSwitch() {
-		// TODO Auto-generated method stub
-		return null;
+		return RIGHT_BUMPER_BUTTON;
 	}
 
 }
