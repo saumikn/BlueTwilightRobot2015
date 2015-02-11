@@ -9,8 +9,8 @@ public interface BTIController
 	public BTIConButton getButton(int port);
 	
 	// Drivetrain parameters
-	public BTIConAxis getLeftDriveFrontBack();
-	public BTIConAxis getRightDriveFrontBack();
+//	public BTIConAxis getLeftDriveFrontBack();
+//	public BTIConAxis getRightDriveFrontBack();
 	public BTIConAxis getDriveLeftRight();
 	public BTIConAxis getDriveFrontBack();
 	public BTIConAxis getDriveRotate();

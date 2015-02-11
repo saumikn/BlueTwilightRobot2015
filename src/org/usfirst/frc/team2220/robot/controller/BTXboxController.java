@@ -67,17 +67,17 @@ public class BTXboxController implements BTIController
 		return new BTJoyButton(joy, port);
 	}
 
-	@Override
-	public BTIConAxis getLeftDriveFrontBack()
-	{
-		return LEFT_STICK_Y_AXIS;
-	}
-
-	@Override
-	public BTIConAxis getRightDriveFrontBack()
-	{
-		return RIGHT_STICK_Y_AXIS;
-	}
+//	@Override
+//	public BTIConAxis getLeftDriveFrontBack()
+//	{
+//		return LEFT_STICK_Y_AXIS;
+//	}
+//
+//	@Override
+//	public BTIConAxis getRightDriveFrontBack()
+//	{
+//		return RIGHT_STICK_Y_AXIS;
+//	}
 
 	@Override
 	public BTIConAxis getDriveLeftRight()

@@ -65,17 +65,17 @@ public class BTLogitechJoystick1 implements BTIController
 		return new BTJoyButton(joy, port);
 	}
 
-	@Override
-	public BTIConAxis getLeftDriveFrontBack()
-	{
-		return null;
-	}
-
-	@Override
-	public BTIConAxis getRightDriveFrontBack()
-	{
-		return null;
-	}
+//	@Override
+//	public BTIConAxis getLeftDriveFrontBack()
+//	{
+//		return null;
+//	}
+//
+//	@Override
+//	public BTIConAxis getRightDriveFrontBack()
+//	{
+//		return null;
+//	}
 
 	@Override
 	public BTIConAxis getDriveLeftRight()
