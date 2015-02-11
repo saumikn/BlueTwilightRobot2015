@@ -26,7 +26,6 @@ public class BTManipulator implements BTIManipulator
 	
 	boolean toteCollect;
 	boolean toteRelease;
-	boolean closeToteContainment;
 	
 	boolean secondaryAct;
 	
@@ -56,9 +55,6 @@ public class BTManipulator implements BTIManipulator
 		
 		if (toteRelease)
 			releaseTotes();
-		
-		if (closeToteContainment)
-			storage.data.TOTE_CONTAINMENT.retract();//only place opened is in release totes
 		
 		if (secondaryAct)
 		{
@@ -163,10 +159,6 @@ public class BTManipulator implements BTIManipulator
 			
 			forkToLower();
 			
-			//close front containment
-			//NOT SURE IF BELONGS HERE, SHOUDLN'T IT ALREADY BE CLOSED?
-//			storage.data.TOTE_CONTAINMENT.retract();
-			
 			//set robot color to blue
 		}
 		catch (BTSafetyTimeout safety)
@@ -191,9 +183,6 @@ public class BTManipulator implements BTIManipulator
 			forkToLower();
 			
 			//set robot color to yellow
-			
-			//open front containment
-			storage.data.TOTE_CONTAINMENT.extend();
 			
 			totecount = 0;
 		}

@@ -47,7 +47,6 @@ public class BTData
 	public BTIMotor COLLECTOR_MOTOR_RIGHT;
 	
 	public BTPiston TOTE_HOLDER;
-	public BTPiston TOTE_CONTAINMENT;
 	public BTPiston BARREL_HOLDER;
 	
 	public BTGyro GYRO;

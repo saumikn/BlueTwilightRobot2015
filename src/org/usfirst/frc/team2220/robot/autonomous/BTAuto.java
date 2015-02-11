@@ -79,13 +79,13 @@ public class BTAuto implements BTIAutonomousRoutine
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		manipulator.collectTote();
 		runAutonomous1();
+		manipulator.releaseTotes();
 	}
 	
 	public void runAutonomous1()
 	{
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Moving to auto zone");
 		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
-		manipulator.releaseTotes();
 	}
 	
 	public void completeZone()
