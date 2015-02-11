@@ -15,6 +15,8 @@ public class BTConstants
 	
 	
 	// Competition robot electronics ports
+	
+	// Motor ports
 	public static final int COMPETITION_FRONT_LEFT_MOTOR = 1;  // 1 
 	public static final int COMPETITION_BACK_LEFT_MOTOR = 2;   // 3
 	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 3; // 4
@@ -25,6 +27,7 @@ public class BTConstants
 	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
+	// Limit switch ports
 	public static final int COMPETITION_TOTE_LIMIT = 0;
 	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_LEFT = 1;
 	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT = -1;
@@ -36,6 +39,7 @@ public class BTConstants
 	public static final int COMPETITION_SECONDARY_UPPER_LIMIT = -1;
 	public static final int COMPETITION_LIMIT_SWITCH = -1;
 	
+	// Encoder ports
 	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 1;
 	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = 2;
 	public static final int COMPETITION_FRONT_LEFT_ENCODER_A = 3;
@@ -45,6 +49,7 @@ public class BTConstants
 	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 5;
 	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 6;
 	
+	// Solenoid ports
 	public static final int COMPETITION_TOTE_HOLDER_EXTEND = -1;
 	public static final int COMPETITION_TOTE_HOLDER_RETRACT = -1;
 	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND = -1;
@@ -52,10 +57,19 @@ public class BTConstants
 	public static final int COMPETITION_BARREL_HOLDER_EXTEND = -1;
 	public static final int COMPETITION_BARREL_HOLDER_RETRACT = -1;
 	
-	// Drivetrain Constants
-	public static final double MECANUM_DEADZONE = 0.05;
+	// Drivetrain Constants: General
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	public static final double TOP_THROTTLE_MIN = 0.5;
+	
+	// Drivetrain Constants: Joystick curve
+	public static final double DEADZONE_MAX_RANGE = 0.4;		//Below this radius, doesn't move
+	public static final double SLOW_INCREASE_MAX_RANGE = 0.5;	//Below this radius, accelerates slowly
+	public static final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
+	public static final double GLOBAL_MAX_RANGE = 1.0;			//Farthest that the joystick can be from center
+	
+	public static final double SLOW_INCREASE_MAX_SPEED = 0.3;	//Speed at SLOW_INCREASE_MAX_RANGE
+	public static final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
+	public static final double GLOBAL_MAX_SPEED = 1.0;			//Speed at GLOBAL_MAX_RANGE
 	
 	// Manipulator Constants
 	public static final int MAX_TOTE_COUNT = 6;
@@ -77,8 +91,8 @@ public class BTConstants
 	public static final int STRAFE_RIGHT_TIME = 4000;
 	public static final double FORWARD_SPEED = 0.3;
 	public static final double STRAFE_SPEED = 0.3;
-	public static final double BACK_SHORT_SPEED = 0.9;
-	public static final double BACK_LONG_SPEED = 0.9;
+	public static final double BACK_SHORT_SPEED = 0.3;
+	public static final double BACK_LONG_SPEED = 0.3;
 	
 //	public static final int COLLECT_TIME = 1000;
 	
