@@ -58,14 +58,14 @@ public class BTMeca implements BTIDrivetrain
 			isNegative = true;
 		rawValue = Math.abs(rawValue);
 		
-		final double DEADZONE_MAX_RANGE = 0.4;		//Below this radius, doesn't move
-		final double SLOW_INCREASE_MAX_RANGE = 0.5; //Below this radius, accelerates slowly
-		final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
-		final double GLOBAL_MAX_RANGE = 1.0;		//Farthest that the joystick can be from center
+		final double DEADZONE_MAX_RANGE = BTConstants.DEADZONE_MAX_RANGE;
+		final double SLOW_INCREASE_MAX_RANGE = BTConstants.SLOW_INCREASE_MAX_RANGE;	//Below this radius, accelerates slowly
+		final double FAST_INCREASE_MAX_RANGE = BTConstants.FAST_INCREASE_MAX_RANGE;	//Below this radius, accelerates quickly
+		final double GLOBAL_MAX_RANGE = BTConstants.GLOBAL_MAX_RANGE;				//Farthest that the joystick can be from center
 		
-		final double SLOW_INCREASE_MAX_SPEED = 0.3;	//Speed at SLOW_INCREASE_MAX_RANGE
-		final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
-		final double GLOBAL_MAX_SPEED = 1.0;		//Speed at GLOBAL_MAX_RANGE
+		final double SLOW_INCREASE_MAX_SPEED = BTConstants.SLOW_INCREASE_MAX_SPEED;	//Speed at SLOW_INCREASE_MAX_RANGE
+		final double FAST_INCREASE_MAX_SPEED = BTConstants.FAST_INCREASE_MAX_SPEED;	//Speed at FAST_INCREAST_MAX_RANGE
+		final double GLOBAL_MAX_SPEED = BTConstants.GLOBAL_MAX_SPEED;				//Speed at GLOBAL_MAX_RANGE
 		
 		double result;
 		
