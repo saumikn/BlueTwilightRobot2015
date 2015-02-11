@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2220.robot.controller;
 
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
+import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConAxis;
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
 import org.usfirst.frc.team2220.robot.controller.modules.BTJoyAxis;
