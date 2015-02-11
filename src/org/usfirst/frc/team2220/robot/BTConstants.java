@@ -10,7 +10,7 @@ public class BTConstants
 {
 	
 	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;				// The current autonomous routine
-	public static final BTIController CONTROLLER = new BTLogitechJoystick1(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController
+	public static final BTIController CONTROLLER = new BTLogitechJoystick1(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController 
 	public static final BTIDrivetrain DRIVETRAIN = null;						// The current drivetrain
 	
 	
