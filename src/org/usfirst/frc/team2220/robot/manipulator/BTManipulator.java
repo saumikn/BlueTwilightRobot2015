@@ -157,7 +157,10 @@ public class BTManipulator implements BTIManipulator
 			
 			totecount++;
 			
-			forkToLower();
+			if(totecount < BTConstants.TOTE_MAX)
+			{
+				forkToLower();
+			}
 			
 			//set robot color to blue
 		}
@@ -175,7 +178,10 @@ public class BTManipulator implements BTIManipulator
 		{
 			//set robot color to green
 			
-			forkToUpper();
+			if(totecount < BTConstants.TOTE_MAX)
+			{
+				forkToUpper();
+			}
 			
 			//Pistons retract
 			storage.data.TOTE_HOLDER.retract();

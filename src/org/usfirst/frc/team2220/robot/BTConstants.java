@@ -60,6 +60,7 @@ public class BTConstants
 	// Drivetrain Constants: General
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	public static final double TOP_THROTTLE_MIN = 0.5;
+	public static final int TOTE_MAX = 4;
 	
 	// Drivetrain Constants: Joystick curve
 	public static final double DEADZONE_MAX_RANGE = 0.4;		//Below this radius, doesn't move
