@@ -146,7 +146,7 @@ public class BTManipulator implements BTIManipulator
 		}
 		catch (BTSafetyTimeout safety)
 		{
-			storage.robot.getToteMotor().setX(0);
+			moveForkMotors(0);
 			stopCollectorMotors();
 			System.out.println("Error: Motor timed out in collectTote method.");
 		}
@@ -174,7 +174,7 @@ public class BTManipulator implements BTIManipulator
 		}
 		catch (BTSafetyTimeout safety)
 		{
-			storage.robot.getToteMotor().setX(0);
+			moveForkMotors(0);
 			stopCollectorMotors();
 			System.out.println("Error: Motor timed out in releaseTotes method.");
 		}
@@ -183,7 +183,7 @@ public class BTManipulator implements BTIManipulator
 	public void forkToUpper() throws BTSafetyTimeout
 	{
 		//Fork starts moving up to Upper, which should cause TS to become false
-		storage.robot.getToteMotor().setX(BTConstants.TOTE_MOTOR_POWER);
+		moveForkMotors(BTConstants.TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Upper OR when it's been going for 3 seconds
@@ -192,13 +192,13 @@ public class BTManipulator implements BTIManipulator
 			if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 				throw new BTSafetyTimeout();
 		}
-		storage.robot.getToteMotor().setX(0);
+		moveForkMotors(0);
 	}
 	
 	public void forkToMiddle() throws BTSafetyTimeout
 	{
 		//Fork starts moving up to Middle, which should cause TS to become false
-		storage.robot.getToteMotor().setX(BTConstants.TOTE_MOTOR_POWER);
+		moveForkMotors(BTConstants.TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Middle OR when it's been going for 3 seconds
@@ -207,13 +207,13 @@ public class BTManipulator implements BTIManipulator
 			if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 				throw new BTSafetyTimeout();
 		}
-		storage.robot.getToteMotor().setX(0);
+		moveForkMotors(0);
 	}
 	
 	public void forkToLower() throws BTSafetyTimeout
 	{
 		//Fork starts moving down to Lower, which should cause TS to become false
-		storage.robot.getToteMotor().setX(-BTConstants.TOTE_MOTOR_POWER);
+		moveForkMotors(-BTConstants.TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Lower OR when it's been going for 3 seconds
@@ -222,7 +222,7 @@ public class BTManipulator implements BTIManipulator
 			if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 				throw new BTSafetyTimeout();
 		}
-		storage.robot.getToteMotor().setX(0);
+		moveForkMotors(0);
 	}
 	
 	public void startCollectorMotors()
@@ -249,20 +249,28 @@ public class BTManipulator implements BTIManipulator
 	{
 		if (BTConstants.BARREL_REVERSED)
 		{
-			storage.robot.getBarrelMotorLeft().setX(-BTConstants.BARREL_MOTOR_POWER);
-			storage.robot.getBarrelMotorRight().setX(BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorLeft().set(-BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorRight().set(BTConstants.BARREL_MOTOR_POWER);
 		}
 		else
 		{
-			storage.robot.getBarrelMotorLeft().setX(BTConstants.BARREL_MOTOR_POWER);
-			storage.robot.getBarrelMotorRight().setX(-BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorLeft().set(BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorRight().set(-BTConstants.BARREL_MOTOR_POWER);
 		}
 	}
 	
 	public void stopBarrelMotors()
 	{
-		storage.robot.getBarrelMotorLeft().setX(0);
-		storage.robot.getBarrelMotorLeft().setX(0);
+		storage.robot.getBarrelMotorLeft().set(0);
+		storage.robot.getBarrelMotorLeft().set(0);
+	}
+	
+	public void moveForkMotors(double x)
+	{
+		storage.robot.getLeftForkLeft().setX(x);
+		storage.robot.getLeftForkRight().setX(-x);
+		storage.robot.getRightForkLeft().setX(x);
+		storage.robot.getRightForkRight().setX(-x);
 	}
 
 }

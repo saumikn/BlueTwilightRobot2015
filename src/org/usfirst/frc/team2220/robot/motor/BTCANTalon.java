@@ -4,17 +4,35 @@ import edu.wpi.first.wpilibj.CANTalon;
 
 public class BTCANTalon implements BTIMotor
 {
-	private final CANTalon canTalon;
+	private CANTalon canTalon = null;
 	
 	public BTCANTalon(int port)
 	{
-		canTalon = new CANTalon(port);
+		if (port != -1)
+		{
+			canTalon = new CANTalon(port);
+		}
 	}
 
 	@Override
 	public void setX(double x)
 	{
-		canTalon.set(x);
+		if (canTalon != null)
+		{
+			canTalon.set(x);
+		}
 	}
+	
+	@Override
+	public double getCurrent()
+	{
+		if (canTalon != null)
+		{
+			return canTalon.getOutputCurrent();
+		}
+		return 0.0d;
+	}
+	
+	
 
 }

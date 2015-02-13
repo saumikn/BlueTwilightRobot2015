@@ -4,17 +4,29 @@ import edu.wpi.first.wpilibj.TalonSRX;
 
 public class BTTalonSRX implements BTIMotor
 {
-	private final TalonSRX talonSRX;
+	private TalonSRX talonSRX = null;
 	
 	public BTTalonSRX(int port)
 	{
-		talonSRX = new TalonSRX(port);
+		if (port != -1)
+		{
+			talonSRX = new TalonSRX(port);
+		}
 	}
 
 	@Override
 	public void setX(double x)
 	{
-		talonSRX.set(x);		
+		if (talonSRX != null)
+		{
+			talonSRX.set(x);	
+		}
+	}
+
+	@Override
+	public double getCurrent()
+	{
+		return 0;
 	}
 
 }

@@ -4,17 +4,24 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BTLimitSwitch
 {
-	DigitalInput limitSwitch;
+	DigitalInput limitSwitch = null;
 	
 	public BTLimitSwitch(){}
 	
 	public BTLimitSwitch(int port)
 	{
-		limitSwitch = new DigitalInput(port);
+		if (port != -1)
+		{
+			limitSwitch = new DigitalInput(port);
+		}
 	}
 	
 	public boolean getValue()
 	{
-		return limitSwitch.get();
+		if (limitSwitch != null)
+		{
+			return limitSwitch.get();
+		}
+		return false;
 	}
 }

@@ -92,7 +92,13 @@ public class BTLogitechJoystick1 implements BTIController
 	@Override
 	public BTIConButton getToteCollect()
 	{
-		return BUTTON_1;
+		return BUTTON_6;
+	}
+	
+	@Override
+	public BTIConButton getToteCollectDown()
+	{
+		return BUTTON_4;
 	}
 
 	@Override
@@ -104,11 +110,17 @@ public class BTLogitechJoystick1 implements BTIController
 	@Override
 	public BTIConButton getDrivetrainOrientationSwitch()
 	{
-		return BUTTON_6;
+		return BUTTON_1;
 	}
 	
 	@Override
 	public BTIConButton getBarrelCollect()
+	{
+		return BUTTON_5;
+	}
+	
+	@Override
+	public BTIConButton getBarrelCollectDown()
 	{
 		return BUTTON_3;
 	}

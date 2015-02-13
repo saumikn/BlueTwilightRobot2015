@@ -16,7 +16,10 @@ public interface BTIController
 	
 	// Manipulator parameters
 	public BTIConButton getToteCollect();
+	public BTIConButton getToteCollectDown();
 	public BTIConButton getToteRelease();
 	public BTIConButton getDrivetrainOrientationSwitch();
 	public BTIConButton getBarrelCollect();
+	public BTIConButton getBarrelCollectDown();
+
 }

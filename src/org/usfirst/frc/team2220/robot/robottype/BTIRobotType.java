@@ -7,6 +7,8 @@ import org.usfirst.frc.team2220.robot.electronics.BTIPiston;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
 import org.usfirst.frc.team2220.robot.motor.BTIMotor;
 
+import edu.wpi.first.wpilibj.CANTalon;
+
 public interface BTIRobotType
 {
 	public BTIMotor getFrontLeftMotor();
@@ -14,9 +16,13 @@ public interface BTIRobotType
 	public BTIMotor getBackLeftMotor();
 	public BTIMotor getBackRightMotor();
 	
-	public BTIMotor getToteMotor();
-	public BTIMotor getBarrelMotorLeft();
-	public BTIMotor getBarrelMotorRight();
+	public BTIMotor getLeftForkLeft();
+	public BTIMotor getLeftForkRight();
+	public BTIMotor getRightForkLeft();
+	public BTIMotor getRightForkRight();
+
+	public CANTalon getBarrelMotorLeft();
+	public CANTalon getBarrelMotorRight();
 	public BTIMotor getCollectorMotorLeft();
 	public BTIMotor getCollectorMotorRight();
 	

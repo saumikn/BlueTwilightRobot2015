@@ -4,30 +4,44 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public class BTDoublePiston implements BTIPiston
 {
-	private Solenoid left;
-	private Solenoid right;
+	private Solenoid left  = null;
+	private Solenoid right = null;
 	
 	public BTDoublePiston(){}
 	
 	public BTDoublePiston(int extend, int retract)
 	{
-		left = new Solenoid(1, extend);
-		right = new Solenoid(1, retract);
+		if (extend != -1 && retract != -1)
+		{
+			left = new Solenoid(1, extend);
+			right = new Solenoid(1, retract);
+		}
 	}
 	
-	 public void set(boolean up)
-	 {
-		 left.set(up);
-		 right.set(!up);
-	 }
+	public boolean exists()
+	{
+		return left != null && right != null;
+	}
+	
+	public void set(boolean up)
+ 	{
+	 	if (exists())
+	 	{
+	 		left.set(up);
+		 	right.set(!up);
+	 	}
+ 	}
 	    
 	 /**
 	     * extends the piston
 	     */
 	 public void extend()
 	 {
-		 right.set(false);
-		 left.set(true);
+	 	if (exists())
+	 	{
+	 		right.set(false);
+	 		left.set(true);
+	 	}
 	 }
 	
 	 /**
@@ -35,8 +49,11 @@ public class BTDoublePiston implements BTIPiston
 	  */
 	 public void retract()
 	 {
+	 	if (exists())
+	 	{
 		 left.set(false);
 		 right.set(true);
+	 	}
 	 }
 	    
 	 /**
@@ -45,6 +62,10 @@ public class BTDoublePiston implements BTIPiston
 	  */
 	 public boolean isExtended()
 	 {
-		 return left.get();
+	 	if (exists())
+	 	{
+	 		return left.get();
+	 	}
+	 	return false;
 	 }
 }

@@ -113,5 +113,17 @@ public class BTXboxController implements BTIController
 	{
 		return RIGHT_BUMPER_BUTTON;
 	}
+	
+	@Override
+	public BTIConButton getBarrelCollectDown()
+	{
+		return LEFT_BUMPER_BUTTON;
+	}
+
+	@Override
+	public BTIConButton getToteCollectDown() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

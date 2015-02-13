@@ -28,7 +28,16 @@ public class BTMeca implements BTIDrivetrain
 	double encodeFL;
 	double encodeBL;
 	double encodeBR;
-
+	
+	double flCurrent;
+	double frCurrent;
+	double blCurrent;
+	double brCurrent;
+	double maxCurrent;
+	
+	boolean isToteFront = true;
+	
+	
 	public double curve(double rawValue)
 	{
 		//Checks for and stores negative status of the input value, to be re-added at the end
@@ -89,21 +98,22 @@ public class BTMeca implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
-		boolean isToteFront = true;
-		
+
+
 		if(storage.controller.getDrivetrainOrientationSwitch().getLeadingEdge())
 		{
 			isToteFront = !isToteFront;
 		}
+		SmartDashboard.putBoolean("Is tote collector front", isToteFront);
 		
 		if(isToteFront)
 		{
 			// Strafe is the left/right dimension of the joystick. Moves the robot left or right without rotating.
 			strafe = storage.controller.getDriveLeftRight().getValue();
 			// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
-			forward = -storage.controller.getDriveFrontBack().getValue();
+			forward = storage.controller.getDriveFrontBack().getValue();
 			// Rotate is how much the robot should turn.
-			rotate = storage.controller.getDriveRotate().getValue();
+			rotate = -storage.controller.getDriveRotate().getValue();
 		}
 		else
 		{
@@ -112,7 +122,7 @@ public class BTMeca implements BTIDrivetrain
 			// Forward is the forward/back dimension of the joystick. Moves the robot forward and backward.
 			strafe = -storage.controller.getDriveFrontBack().getValue();
 			// Rotate is how much the robot should turn.
-			rotate = storage.controller.getDriveRotate().getValue();
+			rotate = -storage.controller.getDriveRotate().getValue();
 		}
 		
 		
@@ -194,50 +204,66 @@ public class BTMeca implements BTIDrivetrain
 //		fl = fl * maxPower;
 //		bl = bl * maxPower;
 		
-//		encodeFR = storage.data.FRONT_RIGHT_ENCODER.getValue();
-//		encodeFL = storage.data.FRONT_LEFT_ENCODER.getValue();
-//		encodeBL = storage.data.BACK_LEFT_ENCODER.getValue();
-//		encodeBR = storage.data.BACK_RIGHT_ENCODER.getValue();
+		encodeFR = storage.robot.getFrontRightEncoder().getValue();
+		encodeFL = storage.robot.getFrontLeftEncoder().getValue();
+		encodeBL = storage.robot.getBackLeftEncoder().getValue();
+		encodeBR = storage.robot.getBackRightEncoder().getValue();
+		
+		SmartDashboard.putNumber("Front Right Encoder Reading", encodeFR);
+		SmartDashboard.putNumber("Back Right Encoder Reading", encodeFL);
+		SmartDashboard.putNumber("Front Left Encoder Reading", encodeBL);
+		SmartDashboard.putNumber("Back Left Encoder Reading", encodeBR);
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
 		
 		//double throttle = storage.controller.getDriveRotate().getValue();
 		//SmartDashboard.putNumber("Throttle Rotator", throttle);
 		
-		SmartDashboard.putNumber("Front Right Motor Power", fr);
-		SmartDashboard.putNumber("Back Right Motor Power", br);
-		SmartDashboard.putNumber("Front Left Motor Power", fl);
-		SmartDashboard.putNumber("Back Left Motor Power", bl);
+		
 		
 		//Set the motor powers
+		
+		SmartDashboard.putNumber("Front Right Motor Power Before", fr);
+		SmartDashboard.putNumber("Back Right Motor Power Before", br);
+		SmartDashboard.putNumber("Front Left Motor Power Before", fl);
+		SmartDashboard.putNumber("Back Left Motor Power Before", bl);
+				
+		flCurrent = storage.robot.getFrontLeftMotor().getCurrent();
+		frCurrent = storage.robot.getFrontRightMotor().getCurrent();
+		blCurrent = storage.robot.getBackLeftMotor().getCurrent();
+		brCurrent = storage.robot.getBackRightMotor().getCurrent();
+				
+		SmartDashboard.putNumber("Front Right Current Reading Before", frCurrent);
+		SmartDashboard.putNumber("Back Right Current Reading Before", brCurrent);
+		SmartDashboard.putNumber("Front Left Current Reading Before", flCurrent);
+		SmartDashboard.putNumber("Back Left Current Reading Before", blCurrent);
+		
+//		maxCurrent = Math.max(Math.max(Math.max(flCurrent, frCurrent), blCurrent), brCurrent);
+//		
+//		flCurrent = flCurrent / maxCurrent;
+//		frCurrent = frCurrent / maxCurrent;
+//		blCurrent = blCurrent / maxCurrent;
+//		brCurrent = brCurrent / maxCurrent;
+		
+		
+		fl = fl * BTConstants.FRONT_LEFT_SCALE;
+		fr = fr * BTConstants.FRONT_RIGHT_SCALE;
+		bl = bl * BTConstants.BACK_LEFT_SCALE;
+		br = br * BTConstants.BACK_RIGHT_SCALE;
+		
 		storage.robot.getFrontLeftMotor().setX(fl);
 		storage.robot.getBackLeftMotor().setX(bl);
 		storage.robot.getFrontRightMotor().setX(fr);
 		storage.robot.getBackRightMotor().setX(br);
 		
-		
-//		if(storage.controller.getToteCollect().getButtonValue())
-//		{
-//			storage.data.FRONT_RIGHT_MOTOR.setX(0.9);
-//			storage.data.BACK_RIGHT_MOTOR.setX(-0.9);
-//			storage.data.FRONT_LEFT_MOTOR.setX(0.9);
-//			storage.data.BACK_LEFT_MOTOR.setX(-0.9);
-//		}
-//		
-//		if(storage.controller.getToteRelease().getButtonValue())
-//		{
-//			storage.data.FRONT_RIGHT_MOTOR.setX(-0.9);
-//			storage.data.BACK_RIGHT_MOTOR.setX(0.9);
-//			storage.data.FRONT_LEFT_MOTOR.setX(0.9);
-//			storage.data.BACK_LEFT_MOTOR.setX(-0.9);
-//		}
-		
-		// test code for something
-//		storage.data.FRONT_RIGHT_MOTOR.setX(.2);
-//		storage.data.BACK_RIGHT_MOTOR.setX(.2);
-//		storage.data.FRONT_LEFT_MOTOR.setX(.2);
-//		storage.data.BACK_LEFT_MOTOR.setX(.2);
-//		
-	}
+		SmartDashboard.putNumber("Front Right Current Reading", frCurrent);
+		SmartDashboard.putNumber("Back Right Current Reading", brCurrent);
+		SmartDashboard.putNumber("Front Left Current Reading", flCurrent);
+		SmartDashboard.putNumber("Back Left Current Reading", blCurrent);
 
+		SmartDashboard.putNumber("Front Right Motor Power", fr);
+		SmartDashboard.putNumber("Back Right Motor Power", br);
+		SmartDashboard.putNumber("Front Left Motor Power", fl);
+		SmartDashboard.putNumber("Back Left Motor Power", bl);
+	}
 }

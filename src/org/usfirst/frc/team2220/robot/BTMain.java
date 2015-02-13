@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.SampleRobot;
 public class BTMain extends SampleRobot
 {
 	// Testing folders
-	//BTMeca meca;
+	BTMeca meca;
 	//BTOcto octo;
 	BTStorage storage;
 	BTIAutonomousRoutine auto;
@@ -29,16 +29,23 @@ public class BTMain extends SampleRobot
     public void robotInit()
     {
 		storage = new BTStorage();
-    	//meca = new BTMeca(storage);	
-    	//manipulator = new BTManipulator(storage);
-    	auto = new BTAuto(storage, manipulator);
-    	test = new BTTestClass(storage);
-    	//octo = new BTOcto(storage);
-    	
-    	//meca.init();
-    	
-    	storage.robot.getGyro().reset();
-    }
+		if(BTConstants.IS_TEST)
+		{
+			test = new BTTestClass(storage);
+			meca = new BTMeca(storage);
+		}
+		else
+		{
+			meca = new BTMeca(storage);
+			manipulator = new BTManipulator(storage);
+			auto = new BTAuto(storage, manipulator);
+		}
+    	//octo = new BTOcto(storage);   	
+		if (storage.robot.getGyro() != null)
+		{
+			storage.robot.getGyro().reset();
+		}
+	}
 	
 	//@Override
     public void autonomous()
@@ -53,8 +60,7 @@ public class BTMain extends SampleRobot
     	{
     		test.test();
     		//meca.drive();
-    		//[something].perform();
-    	}
+		}
     }
 	
 	//@Override

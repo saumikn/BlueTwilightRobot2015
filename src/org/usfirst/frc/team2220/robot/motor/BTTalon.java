@@ -17,4 +17,11 @@ public class BTTalon implements BTIMotor
 		talon.set(x);
 	}
 
+	@Override
+	public double getCurrent()
+	{
+		return 0;
+	}
+	
+
 }
