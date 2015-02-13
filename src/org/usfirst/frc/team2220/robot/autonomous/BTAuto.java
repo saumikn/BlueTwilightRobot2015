@@ -136,10 +136,10 @@ public class BTAuto implements BTIAutonomousRoutine
 		
 		invertMotors();
 		
-		storage.data.FRONT_LEFT_MOTOR.setX(fl);
-		storage.data.BACK_LEFT_MOTOR.setX(bl);
-		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
-		storage.data.BACK_RIGHT_MOTOR.setX(br);
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
 	}
 	
 	public void startMovingForward()
@@ -153,10 +153,10 @@ public class BTAuto implements BTIAutonomousRoutine
 		
 		invertMotors();
 		
-		storage.data.FRONT_LEFT_MOTOR.setX(fl);
-		storage.data.BACK_LEFT_MOTOR.setX(bl);
-		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
-		storage.data.BACK_RIGHT_MOTOR.setX(br);
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
 	}
 	
 	public void startStrafingRight()
@@ -170,10 +170,10 @@ public class BTAuto implements BTIAutonomousRoutine
 		
 		invertMotors();
 		
-		storage.data.FRONT_LEFT_MOTOR.setX(fl);
-		storage.data.BACK_LEFT_MOTOR.setX(bl);
-		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
-		storage.data.BACK_RIGHT_MOTOR.setX(br);
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
 	}
 	
 	public void invertMotors()
@@ -198,9 +198,9 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void stopMotors()
 	{
-		storage.data.FRONT_LEFT_MOTOR.setX(0);
-		storage.data.BACK_LEFT_MOTOR.setX(0);
-		storage.data.FRONT_RIGHT_MOTOR.setX(0);
-		storage.data.BACK_RIGHT_MOTOR.setX(0);	
+		storage.robot.getFrontLeftMotor().setX(0);
+		storage.robot.getBackLeftMotor().setX(0);
+		storage.robot.getFrontRightMotor().setX(0);
+		storage.robot.getBackRightMotor().setX(0);
 	}
 }

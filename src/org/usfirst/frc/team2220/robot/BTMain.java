@@ -37,7 +37,7 @@ public class BTMain extends SampleRobot
     	
     	//meca.init();
     	
-    	storage.data.GYRO.reset();
+    	storage.robot.getGyro().reset();
     }
 	
 	//@Override

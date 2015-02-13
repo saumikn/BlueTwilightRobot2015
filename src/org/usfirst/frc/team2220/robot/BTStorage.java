@@ -2,18 +2,17 @@ package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.controller.BTIController;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
+import org.usfirst.frc.team2220.robot.robottype.BTIRobotType;
 import org.usfirst.frc.team2220.robot.robottype.BTTestBot;
 
 public class BTStorage
 {
-    public BTData data;
+    public BTIRobotType robot;
     public BTIController controller;
-    public BTTestBot testbot = new BTTestBot(); // This lines determines which hardware the code is being sent to
-    public BTCompetitionRobot compbot = new BTCompetitionRobot();
     
     public BTStorage()
     {
-        data = new BTData(compbot);
+        robot = BTConstants.ROBOT_TYPE;
         controller = BTConstants.CONTROLLER;
     }
 }

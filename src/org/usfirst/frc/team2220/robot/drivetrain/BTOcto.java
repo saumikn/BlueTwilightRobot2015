@@ -19,7 +19,7 @@ public class BTOcto implements BTIDrivetrain
 	{
 		meca = new BTMeca(storage);
 		//tank = new BTTank(storage);
-		storage.data.DRIVETRAIN_PISTON.retract();
+		storage.robot.getDrivetrainSwitch().retract();
 		isExtended = true;		
 	}
 	

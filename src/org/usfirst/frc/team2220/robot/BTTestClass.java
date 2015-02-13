@@ -16,20 +16,11 @@ public class BTTestClass
 	
 	public BTTestClass(BTStorage storage)
 	{
-		this.storage = storage;
-		storage.data.GYRO.reset();
+		
 	}
 	
 	public void test()
 	{
-		angle = storage.data.GYRO.getAngle();
-		limit1 = storage.data.TOTE_LIMIT.getValue();
-		limit2 = storage.data.PRIMARY_LOWER_LIMIT_LEFT.getValue();
-		//storage.data.GYRO.reset();
-		SmartDashboard.putNumber("Angle", angle);
-		SmartDashboard.putBoolean("Limit 1", limit1);
-		SmartDashboard.putBoolean("Limit 2", limit2);
-		
-		
+				
 	}
 }

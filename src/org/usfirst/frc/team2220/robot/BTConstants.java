@@ -5,16 +5,21 @@ import org.usfirst.frc.team2220.robot.controller.BTIController;
 import org.usfirst.frc.team2220.robot.controller.BTLogitechJoystick1;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
+import org.usfirst.frc.team2220.robot.robottype.BTIRobotType;
 
 public class BTConstants
 {
 	
 	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;				// The current autonomous routine
 	public static final BTIController CONTROLLER = new BTLogitechJoystick1(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController 
-	public static final BTIDrivetrain DRIVETRAIN = null;						// The current drivetrain
+	public static final BTIDrivetrain DRIVETRAIN = null;
+	public static final BTIRobotType ROBOT_TYPE = new BTCompetitionRobot();// The current drivetrain
 	
 	
 	// Competition robot electronics ports
+	
+	// Gyro port
+	public static final int COMPETITION_GYRO = 0;
 	
 	// Motor ports
 	public static final int COMPETITION_FRONT_LEFT_MOTOR = 1;  // 1 

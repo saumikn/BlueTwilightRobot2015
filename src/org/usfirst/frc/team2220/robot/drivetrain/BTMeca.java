@@ -29,27 +29,6 @@ public class BTMeca implements BTIDrivetrain
 	double encodeBL;
 	double encodeBR;
 
-	// Commented out for now because the deadzone is
-	// now specified and coded in the curve function. -JE
-//	/**
-//	 * Applies the deadzone to the input axis
-//	 */
-//	public void setDeadzone()
-//	{
-//		if(strafe < BTConstants.MECANUM_DEADZONE && strafe > -BTConstants.MECANUM_DEADZONE)
-//		{
-//			strafe = 0;
-//		}
-//		if(forward < BTConstants.MECANUM_DEADZONE && forward > -BTConstants.MECANUM_DEADZONE)
-//		{
-//			forward = 0;
-//		}
-//		if(rotate < BTConstants.MECANUM_DEADZONE && rotate > -BTConstants.MECANUM_DEADZONE)
-//		{
-//			rotate = 0;
-//		}
-//	}
-
 	public double curve(double rawValue)
 	{
 		//Checks for and stores negative status of the input value, to be re-added at the end
@@ -231,10 +210,10 @@ public class BTMeca implements BTIDrivetrain
 		SmartDashboard.putNumber("Back Left Motor Power", bl);
 		
 		//Set the motor powers
-		storage.data.FRONT_RIGHT_MOTOR.setX(fr);
-		storage.data.BACK_RIGHT_MOTOR.setX(br);
-		storage.data.FRONT_LEFT_MOTOR.setX(fl);
-		storage.data.BACK_LEFT_MOTOR.setX(bl);
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
 		
 		
 //		if(storage.controller.getToteCollect().getButtonValue())

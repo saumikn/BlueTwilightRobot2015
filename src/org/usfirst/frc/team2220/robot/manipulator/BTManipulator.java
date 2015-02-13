@@ -14,51 +14,51 @@ public class BTManipulator implements BTIManipulator
 		totecount = 0;
 	}
 	
-	public static boolean isToteSwitch;
-	boolean isPrimaryLowerLeft;
-	boolean isPrimaryLowerRight;
-	boolean isPrimaryMiddleLeft;
-	boolean isPrimaryMiddleRight;
-	boolean isPrimaryUpperLeft;
-	boolean isPrimaryUpperRight;
-	boolean isSecondaryLower;
-	boolean isSecondaryUpper;
+	boolean isToteIn;
+	boolean isLeftToteLower;
+	boolean isRightToteLower;
+	boolean isLeftToteMiddle;
+	boolean isRightToteMiddle;
+	boolean isLeftToteUpper;
+	boolean isRightToteUpper;
+	boolean isBarrelLower;
+	boolean isBarrelUpper;
 	
-	boolean toteCollect;
-	boolean toteRelease;
+	boolean isToteCollectButton;
+	boolean isToteReleaseButton;
 	
-	boolean secondaryAct;
+	boolean isBarrelCollectButton;
 	
 	private int totecount = 0;
-	private boolean secondaryIsLifted = false;
+	private boolean isBarrelCollectorUpper = false;
 	
 	@Override
 	public void perform()
 	{
-		isToteSwitch = storage.data.TOTE_LIMIT.getValue();
-		isPrimaryLowerLeft = storage.data.PRIMARY_LOWER_LIMIT_LEFT.getValue();
-		isPrimaryLowerRight = storage.data.PRIMARY_LOWER_LIMIT_RIGHT.getValue();
-		isPrimaryMiddleLeft = storage.data.PRIMARY_MIDDLE_LIMIT_LEFT.getValue();
-		isPrimaryMiddleRight = storage.data.PRIMARY_MIDDLE_LIMIT_RIGHT.getValue();
-		isPrimaryUpperLeft = storage.data.PRIMARY_UPPER_LIMIT_LEFT.getValue();
-		isPrimaryUpperRight = storage.data.PRIMARY_UPPER_LIMIT_RIGHT.getValue();
-		isSecondaryLower = storage.data.SECONDARY_LOWER_LIMIT.getValue();
-		isSecondaryUpper = storage.data.SECONDARY_UPPER_LIMIT.getValue();
+		isToteIn = storage.robot.getToteLimit().getValue();
+		isLeftToteLower = storage.robot.getLeftToteLowerLimit().getValue();
+		isRightToteLower = storage.robot.getRightToteLowerLimit().getValue();
+		isLeftToteMiddle = storage.robot.getLeftToteMiddleLimit().getValue();
+		isRightToteMiddle = storage.robot.getRightToteMiddleLimit().getValue();
+		isLeftToteUpper = storage.robot.getLeftToteUpperLimit().getValue();
+		isRightToteUpper = storage.robot.getRightToteUpperLimit().getValue();
+		isBarrelLower = storage.robot.getBarrelLowerLimit().getValue();
+		isBarrelUpper = storage.robot.getBarrelUpperLimit().getValue();
 		
-		toteCollect = storage.controller.getToteCollect().getButtonValue();
-		toteRelease = storage.controller.getToteRelease().getButtonValue();
+		isToteCollectButton = storage.controller.getToteCollect().getButtonValue();
+		isToteReleaseButton = storage.controller.getToteRelease().getButtonValue();
 		
-		secondaryAct = storage.controller.getBarrelCollect().getButtonValue();
+		isBarrelCollectButton = storage.controller.getBarrelCollect().getButtonValue();
 		
-		if (toteCollect && totecount < BTConstants.MAX_TOTE_COUNT)
+		if (isToteCollectButton && totecount < BTConstants.MAX_TOTE_COUNT)
 			collectTote();
 		
-		if (toteRelease)
+		if (isToteReleaseButton)
 			releaseTotes();
 		
-		if (secondaryAct)
+		if (isBarrelCollectButton)
 		{
-			if (secondaryIsLifted)
+			if (isBarrelCollectorUpper)
 				lowerSecondary();
 			else
 				liftSecondary();
@@ -69,29 +69,19 @@ public class BTManipulator implements BTIManipulator
 	{
 		try
 		{
-			//Barrel manipulator starts going up
-			if (BTConstants.BARREL_REVERSED)
-			{
-				storage.data.BARREL_MOTOR_LEFT.setX(-BTConstants.BARREL_MOTOR_POWER);
-				storage.data.BARREL_MOTOR_RIGHT.setX(BTConstants.BARREL_MOTOR_POWER);
-			}
-			else
-			{
-				storage.data.BARREL_MOTOR_LEFT.setX(BTConstants.BARREL_MOTOR_POWER);
-				storage.data.BARREL_MOTOR_RIGHT.setX(-BTConstants.BARREL_MOTOR_POWER);
-			}
+			startBarrelMotors();
 			
 			long startTime = System.currentTimeMillis();
 			
 			//Fork stops when at Secondary Upper OR when it's been going for 3 seconds
-			while (!isSecondaryUpper)
+			while (!isBarrelUpper)
 			{
 				if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 					throw new BTSafetyTimeout();
 			}
 			stopBarrelMotors();
 			
-			secondaryIsLifted = true;
+			isBarrelCollectorUpper = true;
 		}
 		catch (BTSafetyTimeout safety)
 		{
@@ -104,29 +94,19 @@ public class BTManipulator implements BTIManipulator
 	{
 		try
 		{
-			//Barrel manipulator starts going up
-			if (BTConstants.BARREL_REVERSED)
-			{
-				storage.data.BARREL_MOTOR_LEFT.setX(BTConstants.BARREL_MOTOR_POWER);
-				storage.data.BARREL_MOTOR_RIGHT.setX(-BTConstants.BARREL_MOTOR_POWER);
-			}
-			else
-			{
-				storage.data.BARREL_MOTOR_LEFT.setX(-BTConstants.BARREL_MOTOR_POWER);
-				storage.data.BARREL_MOTOR_RIGHT.setX(BTConstants.BARREL_MOTOR_POWER);
-			}
+			startBarrelMotors();
 			
 			long startTime = System.currentTimeMillis();
 			
 			//Fork stops when at Secondary Lower OR when it's been going for 3 seconds
-			while (!isSecondaryLower)
+			while (!isBarrelLower)
 			{
 				if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 					throw new BTSafetyTimeout();
 			}
 			stopBarrelMotors();
 			
-			secondaryIsLifted = false;
+			isBarrelCollectorUpper = false;
 		}
 		catch (BTSafetyTimeout safety)
 		{
@@ -140,7 +120,7 @@ public class BTManipulator implements BTIManipulator
 		try
 		{
 			startCollectorMotors();
-			while (!isToteSwitch){}	//Don't continue until the tote switch is activated
+			while (!isToteIn){}	//Don't continue until the tote switch is activated
 			stopCollectorMotors();
 			
 			forkToMiddle();
@@ -148,12 +128,12 @@ public class BTManipulator implements BTIManipulator
 			//set robot color to red
 			
 			//Pistons retract
-			storage.data.TOTE_HOLDER.retract();
+			storage.robot.getToteClamp().retract();
 			
 			forkToUpper();
 			
 			//Pistons extend
-			storage.data.TOTE_HOLDER.extend();
+			storage.robot.getToteClamp().extend();
 			
 			totecount++;
 			
@@ -166,7 +146,7 @@ public class BTManipulator implements BTIManipulator
 		}
 		catch (BTSafetyTimeout safety)
 		{
-			storage.data.TOTE_MOTOR.setX(0);
+			storage.robot.getToteMotor().setX(0);
 			stopCollectorMotors();
 			System.out.println("Error: Motor timed out in collectTote method.");
 		}
@@ -184,7 +164,7 @@ public class BTManipulator implements BTIManipulator
 			}
 			
 			//Pistons retract
-			storage.data.TOTE_HOLDER.retract();
+			storage.robot.getToteClamp().retract();
 			
 			forkToLower();
 			
@@ -194,7 +174,7 @@ public class BTManipulator implements BTIManipulator
 		}
 		catch (BTSafetyTimeout safety)
 		{
-			storage.data.TOTE_MOTOR.setX(0);
+			storage.robot.getToteMotor().setX(0);
 			stopCollectorMotors();
 			System.out.println("Error: Motor timed out in releaseTotes method.");
 		}
@@ -203,72 +183,86 @@ public class BTManipulator implements BTIManipulator
 	public void forkToUpper() throws BTSafetyTimeout
 	{
 		//Fork starts moving up to Upper, which should cause TS to become false
-		storage.data.TOTE_MOTOR.setX(BTConstants.TOTE_MOTOR_POWER);
+		storage.robot.getToteMotor().setX(BTConstants.TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Upper OR when it's been going for 3 seconds
-		while (!isPrimaryUpperLeft)
+		while (!isLeftToteUpper)
 		{
 			if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 				throw new BTSafetyTimeout();
 		}
-		storage.data.TOTE_MOTOR.setX(0);
+		storage.robot.getToteMotor().setX(0);
 	}
 	
 	public void forkToMiddle() throws BTSafetyTimeout
 	{
 		//Fork starts moving up to Middle, which should cause TS to become false
-		storage.data.TOTE_MOTOR.setX(BTConstants.TOTE_MOTOR_POWER);
+		storage.robot.getToteMotor().setX(BTConstants.TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Middle OR when it's been going for 3 seconds
-		while (!isPrimaryMiddleLeft)
+		while (!isLeftToteMiddle)
 		{
 			if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 				throw new BTSafetyTimeout();
 		}
-		storage.data.TOTE_MOTOR.setX(0);
+		storage.robot.getToteMotor().setX(0);
 	}
 	
 	public void forkToLower() throws BTSafetyTimeout
 	{
 		//Fork starts moving down to Lower, which should cause TS to become false
-		storage.data.TOTE_MOTOR.setX(-BTConstants.TOTE_MOTOR_POWER);
+		storage.robot.getToteMotor().setX(-BTConstants.TOTE_MOTOR_POWER);
 		long startTime = System.currentTimeMillis();
 		
 		//Fork stops when at Lower OR when it's been going for 3 seconds
-		while (!isPrimaryLowerLeft)
+		while (!isLeftToteLower)
 		{
 			if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
 				throw new BTSafetyTimeout();
 		}
-		storage.data.TOTE_MOTOR.setX(0);
+		storage.robot.getToteMotor().setX(0);
 	}
 	
 	public void startCollectorMotors()
 	{
 		if (BTConstants.COLLECTORS_REVERSED)
 		{
-			storage.data.COLLECTOR_MOTOR_LEFT.setX(BTConstants.COLLECTOR_MOTOR_POWER);
-			storage.data.COLLECTOR_MOTOR_RIGHT.setX(-BTConstants.COLLECTOR_MOTOR_POWER);
+			storage.robot.getCollectorMotorLeft().setX(BTConstants.COLLECTOR_MOTOR_POWER);
+			storage.robot.getCollectorMotorRight().setX(-BTConstants.COLLECTOR_MOTOR_POWER);
 		}
 		else
 		{
-			storage.data.COLLECTOR_MOTOR_LEFT.setX(-BTConstants.COLLECTOR_MOTOR_POWER);
-			storage.data.COLLECTOR_MOTOR_RIGHT.setX(BTConstants.COLLECTOR_MOTOR_POWER);
+			storage.robot.getCollectorMotorLeft().setX(-BTConstants.COLLECTOR_MOTOR_POWER);
+			storage.robot.getCollectorMotorRight().setX(BTConstants.COLLECTOR_MOTOR_POWER);
 		}
 	}
 	
 	public void stopCollectorMotors()
 	{
-		storage.data.COLLECTOR_MOTOR_LEFT.setX(0);
-		storage.data.COLLECTOR_MOTOR_RIGHT.setX(0);
+		storage.robot.getCollectorMotorLeft().setX(0);
+		storage.robot.getCollectorMotorRight().setX(0);
+	}
+	
+	public void startBarrelMotors()
+	{
+		if (BTConstants.BARREL_REVERSED)
+		{
+			storage.robot.getBarrelMotorLeft().setX(-BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorRight().setX(BTConstants.BARREL_MOTOR_POWER);
+		}
+		else
+		{
+			storage.robot.getBarrelMotorLeft().setX(BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorRight().setX(-BTConstants.BARREL_MOTOR_POWER);
+		}
 	}
 	
 	public void stopBarrelMotors()
 	{
-		storage.data.BARREL_MOTOR_LEFT.setX(0);
-		storage.data.BARREL_MOTOR_RIGHT.setX(0);
+		storage.robot.getBarrelMotorLeft().setX(0);
+		storage.robot.getBarrelMotorLeft().setX(0);
 	}
 
 }

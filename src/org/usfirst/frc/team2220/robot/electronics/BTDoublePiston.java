@@ -2,14 +2,14 @@ package org.usfirst.frc.team2220.robot.electronics;
 
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class BTPiston
+public class BTDoublePiston implements BTIPiston
 {
 	private Solenoid left;
 	private Solenoid right;
 	
-	public BTPiston(){}
+	public BTDoublePiston(){}
 	
-	public BTPiston(int extend, int retract)
+	public BTDoublePiston(int extend, int retract)
 	{
 		left = new Solenoid(1, extend);
 		right = new Solenoid(1, retract);
