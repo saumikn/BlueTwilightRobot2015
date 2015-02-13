@@ -22,18 +22,18 @@ public class BTConstants
 	public static final int COMPETITION_GYRO = 0;
 	
 	// Motor ports
-	public static final int COMPETITION_FRONT_LEFT_MOTOR = 1;  // 1 
-	public static final int COMPETITION_BACK_LEFT_MOTOR = 2;   // 3
-	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 3; // 4
-	public static final int COMPETITION_BACK_RIGHT_MOTOR = 4; // 10
+	public static final int COMPETITION_FRONT_LEFT_MOTOR = 14;  // 1 
+	public static final int COMPETITION_BACK_LEFT_MOTOR = 15;   // 3
+	public static final int COMPETITION_FRONT_RIGHT_MOTOR = 0; // 4
+	public static final int COMPETITION_BACK_RIGHT_MOTOR = 1; // 10
 	public static final int COMPETITION_TOTE_MOTOR = -1;
-	public static final int COMPETITION_BARREL_MOTOR_LEFT = -1;
-	public static final int COMPETITION_BARREL_MOTOR_RIGHT = -1;
+	public static final int COMPETITION_BARREL_MOTOR_LEFT = 10;
+	public static final int COMPETITION_BARREL_MOTOR_RIGHT = 11;
 	public static final int COMPETITION_COLLECTOR_MOTOR_LEFT = -1;
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
 	// Limit switch ports
-	public static final int COMPETITION_TOTE_LIMIT = 0;
+	public static final int COMPETITION_TOTE_LIMIT = -1;
 	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_LEFT = 1;
 	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT = -1;
 	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT_LEFT = -1;
@@ -45,18 +45,18 @@ public class BTConstants
 	public static final int COMPETITION_LIMIT_SWITCH = -1;
 	
 	// Encoder ports
-	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 1;
-	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = 2;
-	public static final int COMPETITION_FRONT_LEFT_ENCODER_A = 3;
-	public static final int COMPETITION_FRONT_LEFT_ENCODER_B = 4;
-	public static final int COMPETITION_BACK_RIGHT_ENCODER_A = 7;
-	public static final int COMPETITION_BACK_RIGHT_ENCODER_B = 8;
-	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 5;
-	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 6;
+	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 8;
+	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = 9;
+	public static final int COMPETITION_FRONT_LEFT_ENCODER_A = 2;
+	public static final int COMPETITION_FRONT_LEFT_ENCODER_B = 3;
+	public static final int COMPETITION_BACK_RIGHT_ENCODER_A = 6;
+	public static final int COMPETITION_BACK_RIGHT_ENCODER_B = 7;
+	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 4;
+	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 5;
 	
 	// Solenoid ports
-	public static final int COMPETITION_TOTE_HOLDER_EXTEND = -1;
-	public static final int COMPETITION_TOTE_HOLDER_RETRACT = -1;
+	public static final int COMPETITION_TOTE_CLAMP_EXTEND = 0;
+	public static final int COMPETITION_TOTE_CLAMP_RETRACT = 1;
 	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND = -1;
 	public static final int COMPETITION_TOTE_COLLECTOR_RETRACT = -1;
 	public static final int COMPETITION_BARREL_HOLDER_EXTEND = -1;
