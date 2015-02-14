@@ -100,6 +100,11 @@ public class BTConstants
 	// Electronics Constants
 	public static final double KP = 0.03;
 	
+	// Light Constants
+	public static final int ARDUINO_BIT0 = 7;
+	public static final int ADRUINO_BIT1 = 8;
+	public static final int ARDUINO_BIT2 = 9;
+	
 	// Autonomous Constants
 	public static final int ACTIVE_AUTONOMOUS = 1;
 	public static final String AUTONOMOUS_METHOD_KEY = "AutonomousMethodKey";
