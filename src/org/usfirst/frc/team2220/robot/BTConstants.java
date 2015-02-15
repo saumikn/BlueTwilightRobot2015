@@ -2,7 +2,7 @@ package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
-import org.usfirst.frc.team2220.robot.controller.BTLogitechJoystick1;
+import org.usfirst.frc.team2220.robot.controller.BTXboxController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
 import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
 import org.usfirst.frc.team2220.robot.robottype.BTIRobotType;
@@ -11,7 +11,7 @@ public class BTConstants
 {
 	
 	public static final BTIAutonomousRoutine AUTON_ROUTINE = null;				// The current autonomous routine
-	public static final BTIController CONTROLLER = new BTLogitechJoystick1(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController 
+	public static final BTIController CONTROLLER = new BTXboxController(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController 
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	//public static final BTIRobotType ROBOT_TYPE = new BTCompetitionRobot();// The current drivetrain
 	public static final boolean IS_TEST = false;

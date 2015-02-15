@@ -94,7 +94,7 @@ public class BTXboxController implements BTIController
 	@Override
 	public BTIConButton getToteCollect()
 	{
-		return LEFT_BUMPER_BUTTON;
+		return X_BUTTON;
 	}
 
 	@Override
@@ -105,19 +105,19 @@ public class BTXboxController implements BTIController
 
 	@Override
 	public BTIConButton getDrivetrainOrientationSwitch() {
-		return Y_BUTTON;
+		return START_BUTTON;
 	}
 
 	@Override
 	public BTIConButton getBarrelCollect()
 	{
-		return RIGHT_BUMPER_BUTTON;
+		return Y_BUTTON;
 	}
 	
 	@Override
 	public BTIConButton getBarrelCollectDown()
 	{
-		return LEFT_BUMPER_BUTTON;
+		return B_BUTTON;
 	}
 
 	@Override
