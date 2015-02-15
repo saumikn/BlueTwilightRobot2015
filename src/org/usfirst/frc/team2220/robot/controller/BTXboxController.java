@@ -121,8 +121,15 @@ public class BTXboxController implements BTIController
 	}
 
 	@Override
-	public BTIConButton getToteCollectDown() {
+	public BTIConButton getToteCollectDown() 
+	{
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public BTIConButton getTurboToggle()
+	{
 		return null;
 	}
 

@@ -21,5 +21,6 @@ public interface BTIController
 	public BTIConButton getDrivetrainOrientationSwitch();
 	public BTIConButton getBarrelCollect();
 	public BTIConButton getBarrelCollectDown();
+	public BTIConButton getTurboToggle();
 
 }

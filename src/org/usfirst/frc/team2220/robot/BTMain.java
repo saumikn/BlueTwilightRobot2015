@@ -17,7 +17,7 @@ public class BTMain extends SampleRobot
 	//BTOcto octo;
 	BTStorage storage;
 	BTIAutonomousRoutine auto;
-	BTTestClass test;
+	//BTTestClass test;
 	BTManipulator manipulator;
 	
     public BTMain()
@@ -31,7 +31,7 @@ public class BTMain extends SampleRobot
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)
 		{
-			test = new BTTestClass(storage);
+		//	test = new BTTestClass(storage);
 			meca = new BTMeca(storage);
 		}
 		else
@@ -58,8 +58,9 @@ public class BTMain extends SampleRobot
     {
     	while(isOperatorControl())
     	{
-    		test.test();
-    		//meca.drive();
+    		//test.test();
+    		meca.drive();
+    		manipulator.perform();
 		}
     }
 	

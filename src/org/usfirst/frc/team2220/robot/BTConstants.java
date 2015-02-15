@@ -14,7 +14,7 @@ public class BTConstants
 	public static final BTIController CONTROLLER = new BTLogitechJoystick1(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController 
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	//public static final BTIRobotType ROBOT_TYPE = new BTCompetitionRobot();// The current drivetrain
-	public static final boolean IS_TEST = true;
+	public static final boolean IS_TEST = false;
 	
 	
 	// Competition robot electronics ports
@@ -74,19 +74,19 @@ public class BTConstants
 	// Drivetrain Constants: General
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	public static final double TOP_THROTTLE_MIN = 0.5;
-	public static final int TOTE_MAX = 4;
+	public static final int TOTE_MAX = 6;
 	public static final double FRONT_LEFT_SCALE = .8;
 	public static final double FRONT_RIGHT_SCALE = .8;
 	public static final double BACK_LEFT_SCALE = .8;
 	public static final double BACK_RIGHT_SCALE = 1;
 	
 	// Drivetrain Constants: Joystick curve
-	public static final double DEADZONE_MAX_RANGE = 0.4;		//Below this radius, doesn't move
-	public static final double SLOW_INCREASE_MAX_RANGE = 0.5;	//Below this radius, accelerates slowly
-	public static final double FAST_INCREASE_MAX_RANGE = 0.8;	//Below this radius, accelerates quickly
+	public static final double DEADZONE_MAX_RANGE = 0.2;		//Below this radius, doesn't move
+	public static final double SLOW_INCREASE_MAX_RANGE = 0.7;	//Below this radius, accelerates slowly
+	public static final double FAST_INCREASE_MAX_RANGE = 0.85;	//Below this radius, accelerates quickly
 	public static final double GLOBAL_MAX_RANGE = 1.0;			//Farthest that the joystick can be from center
 	
-	public static final double SLOW_INCREASE_MAX_SPEED = 0.3;	//Speed at SLOW_INCREASE_MAX_RANGE
+	public static final double SLOW_INCREASE_MAX_SPEED = 0.2;	//Speed at SLOW_INCREASE_MAX_RANGE
 	public static final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
 	public static final double GLOBAL_MAX_SPEED = 1.0;			//Speed at GLOBAL_MAX_RANGE
 	
@@ -94,7 +94,8 @@ public class BTConstants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME = 3000;
 	public static final double TOTE_MOTOR_POWER = 0.9;
-	public static final double BARREL_MOTOR_POWER = 0.9;
+	public static final double BARREL_MOTOR_POWER_DOWN = 0.9;
+	public static final double BARREL_MOTOR_POWER_UP = 0.5;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;
 	
 	// Electronics Constants
@@ -106,7 +107,7 @@ public class BTConstants
 	public static final int ARDUINO_BIT2 = 9;
 	
 	// Autonomous Constants
-	public static final int ACTIVE_AUTONOMOUS = 1;
+	public static final int ACTIVE_AUTONOMOUS = 5;
 	public static final String AUTONOMOUS_METHOD_KEY = "AutonomousMethodKey";
 	public static final String AUTONOMOUS_STAGE_KEY = "AutonomousStageKey";
 	public static final int MOVE_BACK_TIME_SHORT = 1000;

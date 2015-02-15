@@ -49,11 +49,12 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void runAutonomousTest()
 	{
-		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
-		strafeRight(BTConstants.STRAFE_RIGHT_TIME);
-		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
-		manipulator.collectTote();
-		moveBack(BTConstants.MOVE_BACK_TIME_LONG);
+		long startTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() - startTime < 10000){}
+		manipulator.liftSecondary();
+		startTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() - startTime < 4000){}
+		manipulator.stopSecondary();
 	}
 	
 	public void runAutonomous4()

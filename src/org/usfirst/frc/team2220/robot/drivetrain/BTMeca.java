@@ -36,7 +36,7 @@ public class BTMeca implements BTIDrivetrain
 	double maxCurrent;
 	
 	boolean isToteFront = true;
-	
+	boolean isTurbo = false;
 	
 	public double curve(double rawValue)
 	{
@@ -61,6 +61,12 @@ public class BTMeca implements BTIDrivetrain
 		if (rawValue < DEADZONE_MAX_RANGE)
 		{
 			result = 0;
+		}
+		
+		//If driver has activated turbo mode, full power immediately outside deadzone
+		else if(isTurbo)
+		{
+			result = 1;
 		}
 		
 		//Range 2: Slow increase zone
@@ -98,7 +104,8 @@ public class BTMeca implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
-
+		if(storage.controller.getTurboToggle().getLeadingEdge())
+			isTurbo = !isTurbo;
 
 		if(storage.controller.getDrivetrainOrientationSwitch().getLeadingEdge())
 		{

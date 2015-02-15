@@ -12,6 +12,7 @@ public class BTManipulator implements BTIManipulator
 	{
 		this.storage = storage;
 		totecount = 0;
+		stopSecondary();
 	}
 	
 	boolean isToteIn;
@@ -27,7 +28,8 @@ public class BTManipulator implements BTIManipulator
 	boolean isToteCollectButton;
 	boolean isToteReleaseButton;
 	
-	boolean isBarrelCollectButton;
+	boolean isBarrelCollectButtonUp;
+	boolean isBarrelCollectButtonDown;
 	
 	private int totecount = 0;
 	private boolean isBarrelCollectorUpper = false;
@@ -48,71 +50,44 @@ public class BTManipulator implements BTIManipulator
 		isToteCollectButton = storage.controller.getToteCollect().getButtonValue();
 		isToteReleaseButton = storage.controller.getToteRelease().getButtonValue();
 		
-		isBarrelCollectButton = storage.controller.getBarrelCollect().getButtonValue();
+		isBarrelCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
+		isBarrelCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
-		if (isToteCollectButton && totecount < BTConstants.MAX_TOTE_COUNT)
-			collectTote();
+//		if (isToteCollectButton && totecount < BTConstants.MAX_TOTE_COUNT)
+//			collectTote();
+//		
+//		if (isToteReleaseButton)
+//			releaseTotes();
 		
-		if (isToteReleaseButton)
-			releaseTotes();
-		
-		if (isBarrelCollectButton)
+		if (isBarrelCollectButtonUp)
 		{
-			if (isBarrelCollectorUpper)
-				lowerSecondary();
-			else
-				liftSecondary();
+			liftSecondary();
+		}
+		
+		else if (isBarrelCollectButtonDown)
+		{
+			lowerSecondary();
+		}
+		
+		else
+		{
+			stopSecondary();
 		}
 	}
 	
 	public void liftSecondary()
 	{
-		try
-		{
-			startBarrelMotors();
-			
-			long startTime = System.currentTimeMillis();
-			
-			//Fork stops when at Secondary Upper OR when it's been going for 3 seconds
-			while (!isBarrelUpper)
-			{
-				if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
-					throw new BTSafetyTimeout();
-			}
-			stopBarrelMotors();
-			
-			isBarrelCollectorUpper = true;
-		}
-		catch (BTSafetyTimeout safety)
-		{
-			stopBarrelMotors();
-			System.out.println("Error: Motor timed out in liftSecondary method.");
-		}
+		startBarrelMotors(true);
 	}
 	
 	public void lowerSecondary()
 	{
-		try
-		{
-			startBarrelMotors();
-			
-			long startTime = System.currentTimeMillis();
-			
-			//Fork stops when at Secondary Lower OR when it's been going for 3 seconds
-			while (!isBarrelLower)
-			{
-				if (System.currentTimeMillis() - startTime > BTConstants.EMERGENCY_STOP_TIME)
-					throw new BTSafetyTimeout();
-			}
-			stopBarrelMotors();
-			
-			isBarrelCollectorUpper = false;
-		}
-		catch (BTSafetyTimeout safety)
-		{
-			stopBarrelMotors();
-			System.out.println("Error: Motor timed out in lowerSecondary method.");
-		}
+		startBarrelMotors(false);
+	}
+	
+	public void stopSecondary()
+	{
+		stopBarrelMotors();
 	}
 	
 	public void collectTote()
@@ -245,24 +220,24 @@ public class BTManipulator implements BTIManipulator
 		storage.robot.getCollectorMotorRight().setX(0);
 	}
 	
-	public void startBarrelMotors()
+	public void startBarrelMotors(boolean goUp)
 	{
-		if (BTConstants.BARREL_REVERSED)
+		if (!goUp)
 		{
-			storage.robot.getBarrelMotorLeft().set(-BTConstants.BARREL_MOTOR_POWER);
-			storage.robot.getBarrelMotorRight().set(BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorLeft().set(-BTConstants.BARREL_MOTOR_POWER_DOWN);
+			storage.robot.getBarrelMotorRight().set(BTConstants.BARREL_MOTOR_POWER_DOWN);
 		}
 		else
 		{
-			storage.robot.getBarrelMotorLeft().set(BTConstants.BARREL_MOTOR_POWER);
-			storage.robot.getBarrelMotorRight().set(-BTConstants.BARREL_MOTOR_POWER);
+			storage.robot.getBarrelMotorLeft().set(BTConstants.BARREL_MOTOR_POWER_UP);
+			storage.robot.getBarrelMotorRight().set(-BTConstants.BARREL_MOTOR_POWER_UP);
 		}
 	}
 	
 	public void stopBarrelMotors()
 	{
 		storage.robot.getBarrelMotorLeft().set(0);
-		storage.robot.getBarrelMotorLeft().set(0);
+		storage.robot.getBarrelMotorRight().set(0);
 	}
 	
 	public void moveForkMotors(double x)
