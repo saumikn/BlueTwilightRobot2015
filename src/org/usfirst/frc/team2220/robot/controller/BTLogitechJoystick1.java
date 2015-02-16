@@ -130,4 +130,28 @@ public class BTLogitechJoystick1 implements BTIController
 	{
 		return BUTTON_7;
 	}
+
+	@Override
+	public BTIConAxis getLeftJoystickFrontBack() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConAxis getLeftJoystickLeftRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConAxis getRightJoystickFrontBack() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConAxis getRightJoystickLeftRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

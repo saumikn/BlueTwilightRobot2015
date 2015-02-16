@@ -14,6 +14,12 @@ public interface BTIController
 	public BTIConAxis getDriveRotate();
 	public BTIConAxis getMaxSpeed();
 	
+	// Tank drivetrain parameters
+	public BTIConAxis getLeftJoystickFrontBack();
+	public BTIConAxis getLeftJoystickLeftRight();
+	public BTIConAxis getRightJoystickFrontBack();
+	public BTIConAxis getRightJoystickLeftRight();
+	
 	// Manipulator parameters
 	public BTIConButton getToteCollect();
 	public BTIConButton getToteCollectDown();

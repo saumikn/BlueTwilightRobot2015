@@ -6,13 +6,23 @@ public class BTCANTalon implements BTIMotor
 {
 	private CANTalon canTalon = null;
 	
-	public BTCANTalon(int port)
+//	public BTCANTalon(int port)
+//	{
+//		if (port != -1)
+//		{
+//			canTalon = new CANTalon(port);
+//		}
+//	}
+	
+	public BTCANTalon(int port, boolean isBrake)
 	{
 		if (port != -1)
 		{
 			canTalon = new CANTalon(port);
+			canTalon.enableBrakeMode(isBrake);
 		}
 	}
+	
 
 	@Override
 	public void setX(double x)
@@ -31,6 +41,13 @@ public class BTCANTalon implements BTIMotor
 			return canTalon.getOutputCurrent();
 		}
 		return 0.0d;
+	}
+
+
+	@Override
+	public double get()
+	{
+		return canTalon.get();
 	}
 	
 	

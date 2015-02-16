@@ -4,4 +4,5 @@ public interface BTIMotor
 {
 	public void setX(double x);
 	public double getCurrent();
+	public double get();
 }

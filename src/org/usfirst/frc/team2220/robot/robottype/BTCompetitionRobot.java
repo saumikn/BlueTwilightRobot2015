@@ -7,6 +7,7 @@ import org.usfirst.frc.team2220.robot.electronics.BTEncoder;
 import org.usfirst.frc.team2220.robot.electronics.BTGyro;
 import org.usfirst.frc.team2220.robot.electronics.BTIPiston;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
+import org.usfirst.frc.team2220.robot.electronics.BTSinglePiston;
 import org.usfirst.frc.team2220.robot.motor.BTCANTalon;
 import org.usfirst.frc.team2220.robot.motor.BTIMotor;
 import org.usfirst.frc.team2220.robot.motor.BTTalonSRX;
@@ -20,8 +21,8 @@ public class BTCompetitionRobot implements BTIRobotType
 	private final BTIMotor BACK_LEFT_MOTOR;
 	private final BTIMotor BACK_RIGHT_MOTOR;
 	
-	private final CANTalon BARREL_MOTOR_LEFT;
-	private final CANTalon BARREL_MOTOR_RIGHT;
+	private final BTIMotor BARREL_MOTOR_LEFT;
+	private final BTIMotor BARREL_MOTOR_RIGHT;
 	private final BTIMotor COLLECTOR_MOTOR_LEFT;
 	private final BTIMotor COLLECTOR_MOTOR_RIGHT;
 	
@@ -33,12 +34,10 @@ public class BTCompetitionRobot implements BTIRobotType
 	private final BTLimitSwitch TOTE_LIMIT;
 	private final BTLimitSwitch LEFT_TOTE_LOWER_LIMIT;
 	private final BTLimitSwitch RIGHT_TOTE_LOWER_LIMIT;
-	private final BTLimitSwitch LEFT_TOTE_MIDDLE_LIMIT;
-	private final BTLimitSwitch RIGHT_TOTE_MIDDLE_LIMIT;
+	private final BTLimitSwitch TOTE_MIDDLE_LIMIT;
 	private final BTLimitSwitch LEFT_TOTE_UPPER_LIMIT;
 	private final BTLimitSwitch RIGHT_TOTE_UPPER_LIMIT;
-	private final BTLimitSwitch BARREL_LOWER_LIMIT;
-	private final BTLimitSwitch BARREL_UPPER_LIMIT;
+	private final BTLimitSwitch SECONDARY_UPPER_LIMIT;
 	
 	private final BTEncoder FRONT_LEFT_ENCODER;
 	private final BTEncoder FRONT_RIGHT_ENCODER;
@@ -56,34 +55,32 @@ public class BTCompetitionRobot implements BTIRobotType
 	
 	public BTCompetitionRobot()
 	{
-		FRONT_LEFT_MOTOR  = new BTCANTalon(BTConstants.COMPETITION_FRONT_LEFT_MOTOR);
-		FRONT_RIGHT_MOTOR = new BTCANTalon(BTConstants.COMPETITION_FRONT_RIGHT_MOTOR);
-		BACK_LEFT_MOTOR   = new BTCANTalon(BTConstants.COMPETITION_BACK_LEFT_MOTOR);
-		BACK_RIGHT_MOTOR  = new BTCANTalon(BTConstants.COMPETITION_BACK_RIGHT_MOTOR);
+		FRONT_LEFT_MOTOR  = new BTCANTalon(BTConstants.COMPETITION_FRONT_LEFT_MOTOR, false);
+		FRONT_RIGHT_MOTOR = new BTCANTalon(BTConstants.COMPETITION_FRONT_RIGHT_MOTOR, false);
+		BACK_LEFT_MOTOR   = new BTCANTalon(BTConstants.COMPETITION_BACK_LEFT_MOTOR, false);
+		BACK_RIGHT_MOTOR  = new BTCANTalon(BTConstants.COMPETITION_BACK_RIGHT_MOTOR, false);
 		
 		
 		TOTE_LIMIT              = new BTLimitSwitch(BTConstants.COMPETITION_TOTE_LIMIT);
 		LEFT_TOTE_LOWER_LIMIT   = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_LOWER_LIMIT_LEFT);
 		RIGHT_TOTE_LOWER_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT);
-		LEFT_TOTE_MIDDLE_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_MIDDLE_LIMIT_LEFT);
-		RIGHT_TOTE_MIDDLE_LIMIT = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_MIDDLE_LIMIT_RIGHT);
+		TOTE_MIDDLE_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_MIDDLE_LIMIT);
 		LEFT_TOTE_UPPER_LIMIT   = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_UPPER_LIMIT_LEFT);
 		RIGHT_TOTE_UPPER_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT);
-		BARREL_LOWER_LIMIT      = new BTLimitSwitch(BTConstants.COMPETITION_SECONDARY_LOWER_LIMIT);
-		BARREL_UPPER_LIMIT      = new BTLimitSwitch(BTConstants.COMPETITION_SECONDARY_UPPER_LIMIT);
+		SECONDARY_UPPER_LIMIT	= new BTLimitSwitch(BTConstants.COMPETITION_SECONDARY_UPPER_LIMIT);
 		
 		FRONT_RIGHT_ENCODER = new BTEncoder(BTConstants.COMPETITION_FRONT_RIGHT_ENCODER_A,BTConstants.COMPETITION_FRONT_RIGHT_ENCODER_B);
 		FRONT_LEFT_ENCODER  = new BTEncoder(BTConstants.COMPETITION_FRONT_LEFT_ENCODER_A,BTConstants.COMPETITION_FRONT_LEFT_ENCODER_B);
 		BACK_RIGHT_ENCODER  = new BTEncoder(BTConstants.COMPETITION_BACK_RIGHT_ENCODER_A,BTConstants.COMPETITION_BACK_RIGHT_ENCODER_B);
 		BACK_LEFT_ENCODER   = new BTEncoder(BTConstants.COMPETITION_BACK_LEFT_ENCODER_A,BTConstants.COMPETITION_BACK_LEFT_ENCODER_B);
 		
-		LEFT_FORK_LEFT   = new BTCANTalon(BTConstants.COMPETITION_LEFT_FORK_LEFT);
-		LEFT_FORK_RIGHT  = new BTCANTalon(BTConstants.COMPETITION_LEFT_FORK_LEFT);
-		RIGHT_FORK_LEFT  = new BTCANTalon(BTConstants.COMPETITION_RIGHT_FORK_LEFT);
-		RIGHT_FORK_RIGHT = new BTCANTalon(BTConstants.COMPETITION_RIGHT_FORK_LEFT);
+		LEFT_FORK_LEFT   = new BTCANTalon(BTConstants.COMPETITION_LEFT_FORK_LEFT, true);
+		LEFT_FORK_RIGHT  = new BTCANTalon(BTConstants.COMPETITION_LEFT_FORK_LEFT, true);
+		RIGHT_FORK_LEFT  = new BTCANTalon(BTConstants.COMPETITION_RIGHT_FORK_LEFT, true);
+		RIGHT_FORK_RIGHT = new BTCANTalon(BTConstants.COMPETITION_RIGHT_FORK_LEFT, true);
 		
-		BARREL_MOTOR_LEFT     = new CANTalon(BTConstants.COMPETITION_BARREL_MOTOR_LEFT);
-		BARREL_MOTOR_RIGHT    = new CANTalon(BTConstants.COMPETITION_BARREL_MOTOR_RIGHT);
+		BARREL_MOTOR_LEFT     = new BTCANTalon(BTConstants.COMPETITION_BARREL_MOTOR_LEFT, true);
+		BARREL_MOTOR_RIGHT    = new BTCANTalon(BTConstants.COMPETITION_BARREL_MOTOR_RIGHT, true);
 		COLLECTOR_MOTOR_LEFT  = new BTTalonSRX(BTConstants.COMPETITION_COLLECTOR_MOTOR_LEFT);
 		COLLECTOR_MOTOR_RIGHT = new BTTalonSRX(BTConstants.COMPETITION_COLLECTOR_MOTOR_RIGHT);
 		
@@ -124,13 +121,13 @@ public class BTCompetitionRobot implements BTIRobotType
 	}
 
 	@Override
-	public CANTalon getBarrelMotorLeft()
+	public BTIMotor getBarrelMotorLeft()
 	{
 		return BARREL_MOTOR_LEFT;
 	}
 
 	@Override
-	public CANTalon getBarrelMotorRight()
+	public BTIMotor getBarrelMotorRight()
 	{
 		return BARREL_MOTOR_RIGHT;
 	}
@@ -166,17 +163,11 @@ public class BTCompetitionRobot implements BTIRobotType
 	}
 
 	@Override
-	public BTLimitSwitch getLeftToteMiddleLimit()
+	public BTLimitSwitch getToteMiddleLimit()
 	{
-		return LEFT_TOTE_MIDDLE_LIMIT;
+		return TOTE_MIDDLE_LIMIT;
 	}
-
-	@Override
-	public BTLimitSwitch getRightToteMiddleLimit()
-	{
-		return RIGHT_TOTE_MIDDLE_LIMIT;
-	}
-
+	
 	@Override
 	public BTLimitSwitch getLeftToteUpperLimit()
 	{
@@ -190,15 +181,9 @@ public class BTCompetitionRobot implements BTIRobotType
 	}
 
 	@Override
-	public BTLimitSwitch getBarrelLowerLimit()
+	public BTLimitSwitch getSecondaryUpperLimit()
 	{
-		return BARREL_LOWER_LIMIT;
-	}
-
-	@Override
-	public BTLimitSwitch getBarrelUpperLimit()
-	{
-		return BARREL_UPPER_LIMIT;
+		return SECONDARY_UPPER_LIMIT;
 	}
 
 	@Override

@@ -52,10 +52,10 @@ public class BTTestBoard implements BTIRobotType
 	
 	public BTTestBoard()
 	{
-		FRONT_LEFT_MOTOR = new BTCANTalon(2);
-		FRONT_RIGHT_MOTOR = new BTCANTalon(3);
-		BACK_LEFT_MOTOR = new BTCANTalon(1);
-		BACK_RIGHT_MOTOR = new BTCANTalon(4);
+		FRONT_LEFT_MOTOR = new BTCANTalon(2, false);
+		FRONT_RIGHT_MOTOR = new BTCANTalon(3, false);
+		BACK_LEFT_MOTOR = new BTCANTalon(1, false);
+		BACK_RIGHT_MOTOR = new BTCANTalon(4, false);
 		
 	//	FRONT_LEFT_ENCODER = new BTEncoder(1,2);
 	}
@@ -118,14 +118,14 @@ public class BTTestBoard implements BTIRobotType
 	}
 
 	@Override
-	public CANTalon getBarrelMotorLeft()
+	public BTIMotor getBarrelMotorLeft()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CANTalon getBarrelMotorRight()
+	public BTIMotor getBarrelMotorRight()
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -167,14 +167,7 @@ public class BTTestBoard implements BTIRobotType
 	}
 
 	@Override
-	public BTLimitSwitch getLeftToteMiddleLimit() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public BTLimitSwitch getRightToteMiddleLimit() 
+	public BTLimitSwitch getToteMiddleLimit() 
 	{
 		// TODO Auto-generated method stub
 		return null;
@@ -194,15 +187,9 @@ public class BTTestBoard implements BTIRobotType
 		return null;
 	}
 
-	@Override
-	public BTLimitSwitch getBarrelLowerLimit() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public BTLimitSwitch getBarrelUpperLimit() 
+	public BTLimitSwitch getSecondaryUpperLimit() 
 	{
 		// TODO Auto-generated method stub
 		return null;

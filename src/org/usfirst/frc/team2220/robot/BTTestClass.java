@@ -34,18 +34,18 @@ public class BTTestClass
 		
 		if(barrelUp)
 		{
-			storage.robot.getBarrelMotorLeft().set(-.9);
-			storage.robot.getBarrelMotorRight().set(.9);
+			storage.robot.getBarrelMotorLeft().setX(-.9);
+			storage.robot.getBarrelMotorRight().setX(.9);
 		}
 		else if(barrelDown)
 		{
-			storage.robot.getBarrelMotorLeft().set(.9);
-			storage.robot.getBarrelMotorRight().set(.9);
+			storage.robot.getBarrelMotorLeft().setX(.9);
+			storage.robot.getBarrelMotorRight().setX(.9);
 		}
 		else
 		{
-			storage.robot.getBarrelMotorLeft().set(0);
-			storage.robot.getBarrelMotorRight().set(0);
+			storage.robot.getBarrelMotorLeft().setX(0);
+			storage.robot.getBarrelMotorRight().setX(0);
 		}
 		
 		if(toteUp)

@@ -22,6 +22,12 @@ public class BTTalon implements BTIMotor
 	{
 		return 0;
 	}
+
+	@Override
+	public double get() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 }

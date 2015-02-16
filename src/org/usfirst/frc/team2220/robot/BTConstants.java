@@ -39,49 +39,48 @@ public class BTConstants
 	public static final int COMPETITION_COLLECTOR_MOTOR_RIGHT = -1;
 	
 	// Limit switch ports
-	public static final int COMPETITION_TOTE_LIMIT = -1;
-	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_LEFT = 1;
-	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT = -1;
-	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT_LEFT = -1;
-	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT_RIGHT = -1;
-	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_LEFT = -1;
-	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT = -1;
-	public static final int COMPETITION_SECONDARY_LOWER_LIMIT = -1;
-	public static final int COMPETITION_SECONDARY_UPPER_LIMIT = -1;
-	public static final int COMPETITION_LIMIT_SWITCH = -1;
+	public static final int COMPETITION_TOTE_LIMIT 					= -1;
+	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_LEFT 	= 6;
+	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT 	= 5;
+	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT 		= 3;
+	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_LEFT	= 1;
+	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT 	= 0;
+	public static final int COMPETITION_SECONDARY_LOWER_LIMIT 		= -1;
+	public static final int COMPETITION_SECONDARY_UPPER_LIMIT 		= 2;
+	public static final int COMPETITION_LIMIT_SWITCH 				= -1;
 	
 	// Encoder ports
-	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A = 8;
-	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B = 9;
-	public static final int COMPETITION_FRONT_LEFT_ENCODER_A = 2;
-	public static final int COMPETITION_FRONT_LEFT_ENCODER_B = 3;
-	public static final int COMPETITION_BACK_RIGHT_ENCODER_A = 6;
-	public static final int COMPETITION_BACK_RIGHT_ENCODER_B = 7;
-	public static final int COMPETITION_BACK_LEFT_ENCODER_A = 4;
-	public static final int COMPETITION_BACK_LEFT_ENCODER_B = 5;
+	public static final int COMPETITION_FRONT_RIGHT_ENCODER_A 	= 14;
+	public static final int COMPETITION_FRONT_RIGHT_ENCODER_B 	= 15;
+	public static final int COMPETITION_FRONT_LEFT_ENCODER_A 	= 8;
+	public static final int COMPETITION_FRONT_LEFT_ENCODER_B 	= 9;
+	public static final int COMPETITION_BACK_RIGHT_ENCODER_A	= 12;
+	public static final int COMPETITION_BACK_RIGHT_ENCODER_B	= 13;
+	public static final int COMPETITION_BACK_LEFT_ENCODER_A 	= 10;
+	public static final int COMPETITION_BACK_LEFT_ENCODER_B 	= 11;
 	
 	// Solenoid ports
-	public static final int COMPETITION_TOTE_CLAMP_EXTEND = 0;
-	public static final int COMPETITION_TOTE_CLAMP_RETRACT = 1;
-	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND = -1;
-	public static final int COMPETITION_TOTE_COLLECTOR_RETRACT = -1;
-	public static final int COMPETITION_BARREL_HOLDER_EXTEND = -1;
-	public static final int COMPETITION_BARREL_HOLDER_RETRACT = -1;
+	public static final int COMPETITION_TOTE_CLAMP_EXTEND 		= 2;
+	public static final int COMPETITION_TOTE_CLAMP_RETRACT 		= 3;
+	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND 	= -1;
+	public static final int COMPETITION_TOTE_COLLECTOR_RETRACT 	= -1;
+	public static final int COMPETITION_BARREL_HOLDER_EXTEND 	= 1;
+	public static final int COMPETITION_BARREL_HOLDER_RETRACT 	= 0;
 	
 	// Analog Potentiometer port
 	public static final int COMPEITION_ANALOG_POT_TEST = 2;
 	
 	// Drivetrain Constants: General
-	public static final double MECANUM_SCALE_VALUE = 0.9;
-	public static final double TOP_THROTTLE_MIN = 0.5;
-	public static final int TOTE_MAX = 6;
-	public static final double FRONT_LEFT_SCALE = .8;
-	public static final double FRONT_RIGHT_SCALE = .8;
-	public static final double BACK_LEFT_SCALE = .8;
-	public static final double BACK_RIGHT_SCALE = 1;
+	public static final double MECANUM_SCALE_VALUE 	= 1.0;
+	public static final double TOP_THROTTLE_MIN 	= 0.5;
+	public static final int TOTE_MAX 				= 6;
+	public static final double FRONT_LEFT_SCALE 	= .8;
+	public static final double FRONT_RIGHT_SCALE 	= .8;
+	public static final double BACK_LEFT_SCALE 		= .8;
+	public static final double BACK_RIGHT_SCALE 	= 1;
 	
 	// Drivetrain Constants: Joystick curve
-	public static final double DEADZONE_MAX_RANGE = 0.2;		//Below this radius, doesn't move
+	public static final double DEADZONE_MAX_RANGE	= 0.25;		//Below this radius, doesn't move
 	public static final double SLOW_INCREASE_MAX_RANGE = 0.7;	//Below this radius, accelerates slowly
 	public static final double FAST_INCREASE_MAX_RANGE = 0.85;	//Below this radius, accelerates quickly
 	public static final double GLOBAL_MAX_RANGE = 1.0;			//Farthest that the joystick can be from center
@@ -92,8 +91,9 @@ public class BTConstants
 	
 	// Manipulator Constants
 	public static final int MAX_TOTE_COUNT = 6;
-	public static final int EMERGENCY_STOP_TIME = 3000;
-	public static final double TOTE_MOTOR_POWER = 0.9;
+	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
+	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
+	public static final double TOTE_MOTOR_POWER = 0.8;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.9;
 	public static final double BARREL_MOTOR_POWER_UP = 0.5;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;

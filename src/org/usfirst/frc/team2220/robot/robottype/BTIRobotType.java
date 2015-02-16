@@ -21,20 +21,18 @@ public interface BTIRobotType
 	public BTIMotor getRightForkLeft();
 	public BTIMotor getRightForkRight();
 
-	public CANTalon getBarrelMotorLeft();
-	public CANTalon getBarrelMotorRight();
+	public BTIMotor getBarrelMotorLeft();
+	public BTIMotor getBarrelMotorRight();
 	public BTIMotor getCollectorMotorLeft();
 	public BTIMotor getCollectorMotorRight();
 	
 	public BTLimitSwitch getToteLimit();
 	public BTLimitSwitch getLeftToteLowerLimit();
 	public BTLimitSwitch getRightToteLowerLimit();
-	public BTLimitSwitch getLeftToteMiddleLimit();
-	public BTLimitSwitch getRightToteMiddleLimit();
+	public BTLimitSwitch getToteMiddleLimit();
 	public BTLimitSwitch getLeftToteUpperLimit();
 	public BTLimitSwitch getRightToteUpperLimit();
-	public BTLimitSwitch getBarrelLowerLimit();
-	public BTLimitSwitch getBarrelUpperLimit();
+	public BTLimitSwitch getSecondaryUpperLimit();
 	
 	public BTEncoder getFrontLeftEncoder();
 	public BTEncoder getFrontRightEncoder();

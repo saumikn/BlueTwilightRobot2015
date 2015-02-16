@@ -20,7 +20,7 @@ public class BTLimitSwitch
 	{
 		if (limitSwitch != null)
 		{
-			return limitSwitch.get();
+			return !limitSwitch.get();
 		}
 		return false;
 	}

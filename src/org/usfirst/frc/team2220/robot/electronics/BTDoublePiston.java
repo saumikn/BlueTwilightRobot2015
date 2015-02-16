@@ -13,8 +13,8 @@ public class BTDoublePiston implements BTIPiston
 	{
 		if (extend != -1 && retract != -1)
 		{
-			left = new Solenoid(1, extend);
-			right = new Solenoid(1, retract);
+			left = new Solenoid(extend);
+			right = new Solenoid(retract);
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2220.robot.controller;
 
-import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
-import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConAxis;
 import org.usfirst.frc.team2220.robot.controller.modules.BTIConButton;
 import org.usfirst.frc.team2220.robot.controller.modules.BTJoyAxis;
@@ -55,82 +53,111 @@ public class BTXboxController implements BTIController
 
 	}
 
-	@Override
 	public BTIConAxis getAxis(int port)
 	{
 		return new BTJoyAxis(joy, port);
 	}
 
-	@Override
 	public BTIConButton getButton(int port)
 	{
 		return new BTJoyButton(joy, port);
 	}
 
-	@Override
-	public BTIConAxis getDriveLeftRight()
-	{
-		return LEFT_STICK_X_AXIS;
-	}
-
-	@Override
-	public BTIConAxis getDriveFrontBack()
+	public BTIConAxis getDriveLeftWheelsFrontBack()
 	{
 		return LEFT_STICK_Y_AXIS;
 	}
 
-	@Override
-	public BTIConAxis getDriveRotate()
+	public BTIConAxis getDriveLeftWheelsLeftRight()
+	{
+		return LEFT_STICK_X_AXIS;
+	}
+
+	public BTIConAxis getDriveRightWheelsFrontBack()
+	{
+		return RIGHT_STICK_Y_AXIS;
+	}
+	
+	public BTIConAxis getDriveRightWheelsLeftRight()
 	{
 		return RIGHT_STICK_X_AXIS;
 	}
 	
-	@Override
 	public BTIConAxis getMaxSpeed()
 	{
 		return null;
 	}
 	
-	@Override
 	public BTIConButton getToteCollect()
 	{
 		return X_BUTTON;
 	}
 
-	@Override
 	public BTIConButton getToteRelease()
 	{
-		return A_BUTTON;
+		return LEFT_BUMPER_BUTTON;
 	}
 
-	@Override
 	public BTIConButton getDrivetrainOrientationSwitch() {
 		return START_BUTTON;
 	}
 
-	@Override
 	public BTIConButton getBarrelCollect()
 	{
 		return Y_BUTTON;
 	}
 	
-	@Override
 	public BTIConButton getBarrelCollectDown()
 	{
 		return B_BUTTON;
 	}
 
-	@Override
 	public BTIConButton getToteCollectDown() 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return A_BUTTON;
 	}
 	
-	@Override
 	public BTIConButton getTurboToggle()
 	{
 		return null;
+	}
+
+	@Override
+	public BTIConAxis getDriveLeftRight() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConAxis getDriveFrontBack() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConAxis getDriveRotate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConAxis getLeftJoystickFrontBack() {
+		return LEFT_STICK_Y_AXIS;
+	}
+
+	@Override
+	public BTIConAxis getLeftJoystickLeftRight() {
+		return LEFT_STICK_X_AXIS;
+	}
+
+	@Override
+	public BTIConAxis getRightJoystickFrontBack() {
+		return RIGHT_STICK_Y_AXIS;
+	}
+
+	@Override
+	public BTIConAxis getRightJoystickLeftRight() {
+		return RIGHT_STICK_X_AXIS;
 	}
 
 }

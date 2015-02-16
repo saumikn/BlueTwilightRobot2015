@@ -75,12 +75,12 @@ public class BTAuto implements BTIAutonomousRoutine
 	{
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Completing left staging zone");
 		// start collection motors
-		manipulator.startCollectorMotors();
+//		manipulator.startCollectorMotors();
 		// move forward slowly
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		manipulator.collectTote();
 		runAutonomous1();
-		manipulator.releaseTotes();
+//		manipulator.releaseTotes();
 	}
 	
 	public void runAutonomous1()
@@ -92,7 +92,7 @@ public class BTAuto implements BTIAutonomousRoutine
 	public void completeZone()
 	{
 		// start collection motors
-		manipulator.startCollectorMotors();
+//		manipulator.startCollectorMotors();
 		// move forward slowly
 		moveForward(BTConstants.MOVE_FORWARD_TIME_SHORT);
 		manipulator.collectTote();
