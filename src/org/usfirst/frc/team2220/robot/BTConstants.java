@@ -14,7 +14,7 @@ public class BTConstants
 	public static final BTIController CONTROLLER = new BTXboxController(0);	// The current controller. Either use BTLogitechJoystick1 or BTXboxController 
 	public static final BTIDrivetrain DRIVETRAIN = null;
 	//public static final BTIRobotType ROBOT_TYPE = new BTCompetitionRobot();// The current drivetrain
-	public static final boolean IS_TEST = false;
+	public static final boolean IS_TEST = true;
 	
 	
 	// Competition robot electronics ports
@@ -63,8 +63,6 @@ public class BTConstants
 	// Solenoid ports
 	public static final int COMPETITION_TOTE_CLAMP_EXTEND = 0;
 	public static final int COMPETITION_TOTE_CLAMP_RETRACT = 1;
-	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND = -1;
-	public static final int COMPETITION_TOTE_COLLECTOR_RETRACT = -1;
 	public static final int COMPETITION_BARREL_HOLDER_EXTEND = -1;
 	public static final int COMPETITION_BARREL_HOLDER_RETRACT = -1;
 	
@@ -74,11 +72,10 @@ public class BTConstants
 	// Drivetrain Constants: General
 	public static final double MECANUM_SCALE_VALUE = 0.9;
 	public static final double TOP_THROTTLE_MIN = 0.5;
-	public static final int TOTE_MAX = 6;
-	public static final double FRONT_LEFT_SCALE = .8;
-	public static final double FRONT_RIGHT_SCALE = .8;
+	public static final double FRONT_LEFT_SCALE = .5;
+	public static final double FRONT_RIGHT_SCALE = .7;
 	public static final double BACK_LEFT_SCALE = .8;
-	public static final double BACK_RIGHT_SCALE = 1;
+	public static final double BACK_RIGHT_SCALE = .9;
 	
 	// Drivetrain Constants: Joystick curve
 	public static final double DEADZONE_MAX_RANGE = 0.2;		//Below this radius, doesn't move

@@ -130,7 +130,7 @@ public class BTXboxController implements BTIController
 	@Override
 	public BTIConButton getTurboToggle()
 	{
-		return null;
+		return LEFT_BUMPER_BUTTON;
 	}
 
 }

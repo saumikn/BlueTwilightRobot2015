@@ -53,8 +53,8 @@ public class BTManipulator implements BTIManipulator
 		isBarrelCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isBarrelCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
-//		if (isToteCollectButton && totecount < BTConstants.MAX_TOTE_COUNT)
-//			collectTote();
+		if (isToteCollectButton && totecount < BTConstants.MAX_TOTE_COUNT)
+			collectTote();
 //		
 //		if (isToteReleaseButton)
 //			releaseTotes();
@@ -94,9 +94,9 @@ public class BTManipulator implements BTIManipulator
 	{
 		try
 		{
-			startCollectorMotors();
-			while (!isToteIn){}	//Don't continue until the tote switch is activated
-			stopCollectorMotors();
+			//startCollectorMotors();
+			//while (!isToteIn){}	//Don't continue until the tote switch is activated
+			//stopCollectorMotors();
 			
 			forkToMiddle();
 			
@@ -104,15 +104,17 @@ public class BTManipulator implements BTIManipulator
 			
 			//Pistons retract
 			storage.robot.getToteClamp().retract();
+			storage.robot.getBarrelHolder().retract();
 			
 			forkToUpper();
 			
 			//Pistons extend
 			storage.robot.getToteClamp().extend();
+			storage.robot.getBarrelHolder().extend();
 			
 			totecount++;
 			
-			if(totecount < BTConstants.TOTE_MAX)
+			if(totecount < BTConstants.MAX_TOTE_COUNT)
 			{
 				forkToLower();
 			}
@@ -133,7 +135,7 @@ public class BTManipulator implements BTIManipulator
 		{
 			//set robot color to green
 			
-			if(totecount < BTConstants.TOTE_MAX)
+			if(totecount < BTConstants.MAX_TOTE_COUNT)
 			{
 				forkToUpper();
 			}

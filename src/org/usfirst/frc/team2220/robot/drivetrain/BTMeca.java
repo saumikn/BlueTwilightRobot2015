@@ -211,6 +211,11 @@ public class BTMeca implements BTIDrivetrain
 //		fl = fl * maxPower;
 //		bl = bl * maxPower;
 		
+		fl = fl * BTConstants.FRONT_LEFT_SCALE;
+		fr = fr * BTConstants.FRONT_RIGHT_SCALE;
+		bl = bl * BTConstants.BACK_LEFT_SCALE;
+		br = br * BTConstants.BACK_RIGHT_SCALE;
+		
 		encodeFR = storage.robot.getFrontRightEncoder().getValue();
 		encodeFL = storage.robot.getFrontLeftEncoder().getValue();
 		encodeBL = storage.robot.getBackLeftEncoder().getValue();
@@ -251,12 +256,6 @@ public class BTMeca implements BTIDrivetrain
 //		frCurrent = frCurrent / maxCurrent;
 //		blCurrent = blCurrent / maxCurrent;
 //		brCurrent = brCurrent / maxCurrent;
-		
-		
-		fl = fl * BTConstants.FRONT_LEFT_SCALE;
-		fr = fr * BTConstants.FRONT_RIGHT_SCALE;
-		bl = bl * BTConstants.BACK_LEFT_SCALE;
-		br = br * BTConstants.BACK_RIGHT_SCALE;
 		
 		storage.robot.getFrontLeftMotor().setX(fl);
 		storage.robot.getBackLeftMotor().setX(bl);

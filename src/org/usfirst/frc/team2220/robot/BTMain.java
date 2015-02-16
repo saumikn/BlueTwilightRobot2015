@@ -8,7 +8,9 @@ import org.usfirst.frc.team2220.robot.drivetrain.BTMeca;
 import org.usfirst.frc.team2220.robot.drivetrain.BTOcto;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BTMain extends SampleRobot
 {
@@ -17,8 +19,11 @@ public class BTMain extends SampleRobot
 	//BTOcto octo;
 	BTStorage storage;
 	BTIAutonomousRoutine auto;
-	//BTTestClass test;
+	BTTestClass test;
 	BTManipulator manipulator;
+	
+	
+	Compressor comp;
 	
     public BTMain()
     {
@@ -28,11 +33,14 @@ public class BTMain extends SampleRobot
 	@Override
     public void robotInit()
     {
+		comp = new Compressor();
+		SmartDashboard.putBoolean("isPressure", comp.getPressureSwitchValue());
+		
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)
 		{
-		//	test = new BTTestClass(storage);
-			meca = new BTMeca(storage);
+			test = new BTTestClass(storage);
+			//meca = new BTMeca(storage);
 		}
 		else
 		{
@@ -58,9 +66,15 @@ public class BTMain extends SampleRobot
     {
     	while(isOperatorControl())
     	{
-    		//test.test();
-    		meca.drive();
-    		manipulator.perform();
+    		if(BTConstants.IS_TEST)
+    		{
+    			test.test();
+    		}
+    		else
+    		{
+    			meca.drive();
+    			manipulator.perform();
+    		}
 		}
     }
 	
