@@ -65,7 +65,10 @@ public class BTManipulator implements BTIManipulator
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
-		collectTote();
+		if(isCollecting || isCollectingDown)
+		{
+			collectTote();
+		}
 		
 		if(isReleasing)
 		{
@@ -185,12 +188,12 @@ public class BTManipulator implements BTIManipulator
 			}
 		}
 		
-		if(isLeftToteUpper && isRightToteUpper)
+		else if(isLeftToteUpper && isRightToteUpper)
 		{
 			storage.robot.getToteClamp().extend();
 		}
 		
-		if(storage.robot.getToteClamp().isExtended())
+		else if(storage.robot.getToteClamp().isExtended())
 		{
 			if(!isLeftToteLower)
 			{

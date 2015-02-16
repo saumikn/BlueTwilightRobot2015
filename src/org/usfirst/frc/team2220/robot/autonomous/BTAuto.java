@@ -28,7 +28,7 @@ public class BTAuto implements BTIAutonomousRoutine
 		switch (BTConstants.ACTIVE_AUTONOMOUS)
 		{
 		case 5: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Test Autonomous");
-				runAutonomousTest();
+				runAutonomousCoop();
 				break;
 		case 4: SmartDashboard.putString(BTConstants.AUTONOMOUS_METHOD_KEY, "Running Autonomous 4");
 				runAutonomous4();
@@ -47,14 +47,10 @@ public class BTAuto implements BTIAutonomousRoutine
 		}
 	}
 	
-	public void runAutonomousTest()
+	public void runAutonomousCoop()
 	{
-		long startTime = System.currentTimeMillis();
-		while(System.currentTimeMillis() - startTime < 10000){}
-		manipulator.liftSecondary();
-		startTime = System.currentTimeMillis();
-		while(System.currentTimeMillis() - startTime < 4000){}
-		manipulator.stopSecondary();
+		manipulator.lowerSecondary();
+		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 	}
 	
 	public void runAutonomous4()
@@ -195,6 +191,17 @@ public class BTAuto implements BTIAutonomousRoutine
 		{
 			br = -br;
 		}
+	}
+	
+	public void rotate180()
+	{
+		storage.robot.getFrontLeftMotor().setX(0);
+		storage.robot.getBackLeftMotor().setX(0);
+		storage.robot.getFrontRightMotor().setX(0);
+		storage.robot.getBackRightMotor().setX(0);
+		
+		long currentTime = System.currentTimeMillis();
+		
 	}
 	
 	public void stopMotors()
