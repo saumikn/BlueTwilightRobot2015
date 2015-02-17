@@ -111,7 +111,7 @@ public class BTMeca implements BTIDrivetrain
 		{
 			isToteFront = !isToteFront;
 		}
-		SmartDashboard.putBoolean("Is tote collector front", isToteFront);
+		//SmartDashboard.putBoolean("Is tote collector front", isToteFront);
 		
 		if(isToteFront)
 		{
@@ -135,18 +135,18 @@ public class BTMeca implements BTIDrivetrain
 		
 		
 		
-		SmartDashboard.putNumber("Y Axis Input", forward);
-		SmartDashboard.putNumber("X Axis Input", strafe);
-		SmartDashboard.putNumber("Z Axis Input", rotate);
+		//SmartDashboard.putNumber("Y Axis Input", forward);
+		//SmartDashboard.putNumber("X Axis Input", strafe);
+		//SmartDashboard.putNumber("Z Axis Input", rotate);
 		
 		// Curves the strafe, forward, and rotate values according to a piecewise function
 		strafe = curve(strafe);
 		forward = curve(forward);
 		rotate = curve(rotate);
 		
-		SmartDashboard.putNumber("Curved Y Axis Input", forward);
-		SmartDashboard.putNumber("Curved X Axis Input", strafe);
-		SmartDashboard.putNumber("Curved Z Axis Input", rotate);
+		//SmartDashboard.putNumber("Curved Y Axis Input", forward);
+		//SmartDashboard.putNumber("Curved X Axis Input", strafe);
+		//SmartDashboard.putNumber("Curved Z Axis Input", rotate);
 		
 		//setDeadzone();
 		
@@ -216,10 +216,10 @@ public class BTMeca implements BTIDrivetrain
 		encodeBL = storage.robot.getBackLeftEncoder().getValue();
 		encodeBR = storage.robot.getBackRightEncoder().getValue();
 		
-		SmartDashboard.putNumber("Front Right Encoder Reading", encodeFR);
-		SmartDashboard.putNumber("Back Right Encoder Reading", encodeFL);
-		SmartDashboard.putNumber("Front Left Encoder Reading", encodeBL);
-		SmartDashboard.putNumber("Back Left Encoder Reading", encodeBR);
+		//SmartDashboard.putNumber("Front Right Encoder Reading", encodeFR);
+		//SmartDashboard.putNumber("Back Right Encoder Reading", encodeFL);
+		//SmartDashboard.putNumber("Front Left Encoder Reading", encodeBL);
+		//SmartDashboard.putNumber("Back Left Encoder Reading", encodeBR);
 
 		//System.out.println(storage.data.FRONT_RIGHT_MOTOR == null);
 		
@@ -230,20 +230,20 @@ public class BTMeca implements BTIDrivetrain
 		
 		//Set the motor powers
 		
-		SmartDashboard.putNumber("Front Right Motor Power Before", fr);
-		SmartDashboard.putNumber("Back Right Motor Power Before", br);
-		SmartDashboard.putNumber("Front Left Motor Power Before", fl);
-		SmartDashboard.putNumber("Back Left Motor Power Before", bl);
+		//SmartDashboard.putNumber("Front Right Motor Power Before", fr);
+		//SmartDashboard.putNumber("Back Right Motor Power Before", br);
+		//SmartDashboard.putNumber("Front Left Motor Power Before", fl);
+		//SmartDashboard.putNumber("Back Left Motor Power Before", bl);
 				
 		flCurrent = storage.robot.getFrontLeftMotor().getCurrent();
 		frCurrent = storage.robot.getFrontRightMotor().getCurrent();
 		blCurrent = storage.robot.getBackLeftMotor().getCurrent();
 		brCurrent = storage.robot.getBackRightMotor().getCurrent();
 				
-		SmartDashboard.putNumber("Front Right Current Reading Before", frCurrent);
-		SmartDashboard.putNumber("Back Right Current Reading Before", brCurrent);
-		SmartDashboard.putNumber("Front Left Current Reading Before", flCurrent);
-		SmartDashboard.putNumber("Back Left Current Reading Before", blCurrent);
+		//SmartDashboard.putNumber("Front Right Current Reading Before", frCurrent);
+		//SmartDashboard.putNumber("Back Right Current Reading Before", brCurrent);
+		//SmartDashboard.putNumber("Front Left Current Reading Before", flCurrent);
+		//SmartDashboard.putNumber("Back Left Current Reading Before", blCurrent);
 		
 //		maxCurrent = Math.max(Math.max(Math.max(flCurrent, frCurrent), blCurrent), brCurrent);
 //		
@@ -263,14 +263,14 @@ public class BTMeca implements BTIDrivetrain
 		storage.robot.getFrontRightMotor().setX(fr);
 		storage.robot.getBackRightMotor().setX(br);
 		
-		SmartDashboard.putNumber("Front Right Current Reading", frCurrent);
-		SmartDashboard.putNumber("Back Right Current Reading", brCurrent);
-		SmartDashboard.putNumber("Front Left Current Reading", flCurrent);
-		SmartDashboard.putNumber("Back Left Current Reading", blCurrent);
+		//SmartDashboard.putNumber("Front Right Current Reading", frCurrent);
+		//SmartDashboard.putNumber("Back Right Current Reading", brCurrent);
+		//SmartDashboard.putNumber("Front Left Current Reading", flCurrent);
+		//SmartDashboard.putNumber("Back Left Current Reading", blCurrent);
 
-		SmartDashboard.putNumber("Front Right Motor Power", fr);
-		SmartDashboard.putNumber("Back Right Motor Power", br);
-		SmartDashboard.putNumber("Front Left Motor Power", fl);
-		SmartDashboard.putNumber("Back Left Motor Power", bl);
+		//SmartDashboard.putNumber("Front Right Motor Power", fr);
+		//SmartDashboard.putNumber("Back Right Motor Power", br);
+		//SmartDashboard.putNumber("Front Left Motor Power", fl);
+		//SmartDashboard.putNumber("Back Left Motor Power", bl);
 	}
 }

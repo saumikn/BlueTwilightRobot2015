@@ -93,7 +93,7 @@ public class BTConstants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
 	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
-	public static final double TOTE_MOTOR_POWER = 0.8;
+	public static final double TOTE_MOTOR_POWER = 0.2;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.9;
 	public static final double BARREL_MOTOR_POWER_UP = 0.5;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;

@@ -42,6 +42,8 @@ public class BTManipulator implements BTIManipulator
 	@Override
 	public void perform()
 	{
+		System.out.println();
+		System.out.println();
 		isToteIn = storage.robot.getToteLimit().getValue();
 		isLeftToteLower = storage.robot.getLeftToteLowerLimit().getValue();
 		isRightToteLower = storage.robot.getRightToteLowerLimit().getValue();
@@ -65,15 +67,22 @@ public class BTManipulator implements BTIManipulator
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
+		// Fork Motor Code
 		if(isCollecting || isCollectingDown)
 		{
 			collectTote();
 		}
-		
-		if(isReleasing)
+		else if(isReleasing)
 		{
 			releaseTotes();
 		}
+		else
+		{
+			moveRightForkMotors(0);
+			moveLeftForkMotors(0);
+		}
+		
+		// Clamp Code
 		if(isCollecting)
 		{
 			if ((isToteMiddle && (!isLeftToteUpper || !isRightToteUpper)))
@@ -96,11 +105,11 @@ public class BTManipulator implements BTIManipulator
 		
 		if (isSecondaryCollectButtonDown )
 		{
-			liftSecondary();
+			lowerSecondary();
 		}
 		else if (isSecondaryCollectButtonUp && !isSecondaryUpper)
 		{
-			lowerSecondary();
+			liftSecondary();
 		}
 		
 		else
@@ -186,13 +195,12 @@ public class BTManipulator implements BTIManipulator
 			{
 				moveRightForkMotors(0);
 			}
-		}
-		
-		else if(isLeftToteUpper && isRightToteUpper)
-		{
-			storage.robot.getToteClamp().extend();
-		}
-		
+			
+			if(isLeftToteUpper && isRightToteUpper)
+			{
+				storage.robot.getToteClamp().extend();
+			}
+		}		
 		else if(storage.robot.getToteClamp().isExtended())
 		{
 			if(!isLeftToteLower)
@@ -258,12 +266,14 @@ public class BTManipulator implements BTIManipulator
 	{
 		storage.robot.getLeftForkLeft().setX(x);
 		storage.robot.getLeftForkRight().setX(x);
+		System.out.print("Left Fork" + x + "\t");
 	}
 	
 	public void moveRightForkMotors(double x)
 	{
 		storage.robot.getRightForkLeft().setX(x);
 		storage.robot.getRightForkRight().setX(x);
+		System.out.print("Right Fork" + x);
 	}
 	
 //	public boolean emergencyTimeMiddleForkTest(String methodname)
