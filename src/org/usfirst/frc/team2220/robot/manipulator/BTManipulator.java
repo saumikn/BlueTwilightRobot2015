@@ -27,11 +27,13 @@ public class BTManipulator implements BTIManipulator
 	boolean isCollecting;
 	boolean isCollectingDown;
 	boolean isReleasing;
+	boolean isCollectingContinuous;
 	
 	boolean isSecondaryCollectButtonUp;
 	boolean isSecondaryCollectButtonDown;
 	
-	boolean isGoingUp;
+	boolean isGoingUp = false;
+	boolean isGoingDown = false;
 	
 	private int totecount = 0;
 	private boolean isBarrelCollectorUpper = false;
@@ -59,19 +61,18 @@ public class BTManipulator implements BTIManipulator
 		SmartDashboard.putBoolean("Right Upper", isRightToteUpper);
 		SmartDashboard.putBoolean("Secondary Upper", isSecondaryUpper);
 		
-		isCollecting = storage.controller.getToteCollect().getButtonValue();
+		isCollecting = storage.controller.getToteCollect().getLeadingEdge();
 		isCollectingDown = storage.controller.getToteCollectDown().getButtonValue();
 		isReleasing = storage.controller.getToteRelease().getButtonValue();
+		
+		isCollectingContinuous = storage.controller.getToteCollect().getButtonValue();
 		
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
 		// Fork Motor Code
-		if(isCollecting || isCollectingDown)
-		{
-			collectTote();
-		}
-		else if(isReleasing)
+		collectTote();
+		if(isReleasing)
 		{
 			releaseTotes();
 		}
@@ -118,18 +119,21 @@ public class BTManipulator implements BTIManipulator
 	
 	public void collectTote()
 	{
-		boolean goingUp;
-		
-//			startCollectorMotors();
-//			while (!isToteIn){}	//Don't continue until the tote switch is activated
-//				stopCollectorMotors();
-			
-			//forkToMiddle();
-			
-			//set robot color to red
-		
-		if(!storage.robot.getToteClamp().isExtended())
+		SmartDashboard.putBoolean("Going Up?", isGoingUp);
+		SmartDashboard.putString("Im Here", "In collectTote");
+		if(storage.controller.getToteCollect().getLeadingEdge())
 		{
+			isGoingUp = true;
+		}
+		
+		if(isGoingUp)
+		{
+			SmartDashboard.putString("Im Here", "In isGoingUp");
+			if(isToteMiddle)
+			{
+				
+				storage.robot.getToteClamp().retract();
+			}
 			if(!isLeftToteUpper)
 			{
 				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
@@ -151,36 +155,103 @@ public class BTManipulator implements BTIManipulator
 			if(isLeftToteUpper && isRightToteUpper)
 			{
 				storage.robot.getToteClamp().extend();
+				isGoingUp = false;
+				isGoingDown = true;
 			}
 		}
 		
-		
+		if(isGoingDown)
+		{
+			SmartDashboard.putString("Im Here", "In isGoingDown");
+			if(!isLeftToteLower)
+			{
+				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
+			}
+			else
+			{
+				moveLeftForkMotors(0);
+			}
 			
-		if(isCollecting && !isLeftToteUpper)
-		{
-			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
-		}
-		else if(isCollectingDown && !isLeftToteLower)
-		{
-			moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-		}
-		else
-		{
-			moveLeftForkMotors(0);
+			if(!isRightToteLower)
+			{
+				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
+			}
+			else
+			{
+				moveRightForkMotors(0);
+			}
+			
+			if(isLeftToteLower && isRightToteLower)
+			{
+				SmartDashboard.putString("Im Here", "Done");
+				isGoingUp = false;
+				isGoingDown = false;
+			}
 		}
 		
-		if(isCollecting && !isRightToteUpper)
-		{
-			moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
-		}
-		else if(isCollectingDown && !isRightToteLower)
-		{
-			moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-		}
-		else
-		{
-			moveRightForkMotors(0);
-		}
+//			startCollectorMotors();
+//			while (!isToteIn){}	//Don't continue until the tote switch is activated
+//				stopCollectorMotors();
+//			
+//			//forkToMiddle();
+//			
+//			//set robot color to red
+//		
+//		
+//		
+//		if(!storage.robot.getToteClamp().isExtended())
+//		{
+//			if(!isLeftToteUpper)
+//			{
+//				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
+//			}
+//			else
+//			{
+//				moveLeftForkMotors(0);
+//			}
+//			
+//			if(!isRightToteUpper)
+//			{
+//				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
+//			}
+//			else
+//			{
+//				moveRightForkMotors(0);
+//			}
+//			
+//			if(isLeftToteUpper && isRightToteUpper)
+//			{
+//				storage.robot.getToteClamp().extend();
+//			}
+//		}
+//		
+//		
+//			
+//		if(isCollecting && !isLeftToteUpper)
+//		{
+//			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
+//		}
+//		else if(isCollectingDown && !isLeftToteLower)
+//		{
+//			moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
+//		}
+//		else
+//		{
+//			moveLeftForkMotors(0);
+//		}
+//		
+//		if(isCollecting && !isRightToteUpper)
+//		{
+//			moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
+//		}
+//		else if(isCollectingDown && !isRightToteLower)
+//		{
+//			moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
+//		}
+//		else
+//		{
+//			moveRightForkMotors(0);
+//		}
 			
 			//set robot color to blue
 	}

@@ -9,6 +9,7 @@ import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.drivetrain.BTTankMeca;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
 
@@ -22,6 +23,8 @@ public class BTMain extends SampleRobot
 	BTTestClass test;
 	BTManipulator manipulator;
 	
+	CameraServer server;
+	
     public BTMain()
     {
     	
@@ -30,6 +33,9 @@ public class BTMain extends SampleRobot
 	@Override
     public void robotInit()
     {
+		server = CameraServer.getInstance();
+		server.setQuality(50);
+		server.startAutomaticCapture("cam0");
 		Compressor comp = new Compressor();
 		
 		storage = new BTStorage();
