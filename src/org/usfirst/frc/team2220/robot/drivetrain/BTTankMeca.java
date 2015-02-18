@@ -44,6 +44,7 @@ public BTStorage storage;
 	boolean isToteFront = true;
 	boolean isTurbo = false;
 
+	boolean isAdjusting = false;
 	@Override
 	public void drive() 
 	{
@@ -87,38 +88,44 @@ public BTStorage storage;
 		}
 		
 		//gyro
-		currentHeading = storage.robot.getGyro().getAngle();
+		if(isAdjusting = false)
+		{
+			currentHeading = storage.robot.getGyro().getAngle();
+		}
+		SmartDashboard.putBoolean("adjusting", isAdjusting);
 		if (left_joystick_front_back <= right_joystick_front_back + BTConstants.JOYSTICK_ERROR
 				&& left_joystick_front_back >= right_joystick_front_back - BTConstants.JOYSTICK_ERROR)
 		{
+			isAdjusting = true;
+			SmartDashboard.putBoolean("adjusting", isAdjusting);
 			SmartDashboard.putNumber("currentHeading", currentHeading);
 			if (storage.robot.getGyro().getAngle() > currentHeading + BTConstants.ERROR_ANGLE)
 			{
-				if (left_joystick_front_back > 0)
-				{
-					front_left_motor = front_left_motor - BTConstants.GYRO_OFFSET;
-					back_left_motor = back_left_motor - BTConstants.GYRO_OFFSET;
-				}
-				if (left_joystick_front_back < 0)
-				{
-					front_left_motor = front_left_motor + BTConstants.GYRO_OFFSET;
-					back_left_motor = back_left_motor + BTConstants.GYRO_OFFSET;
-				}
+				if(front_left_motor > 0)
+					front_left_motor -= BTConstants.GYRO_OFFSET;
+				else if(front_left_motor < 0)
+					front_left_motor += BTConstants.GYRO_OFFSET;
+				
+				if(back_left_motor > 0)
+					back_left_motor -= BTConstants.GYRO_OFFSET;
+				else if(back_left_motor < 0)
+					back_left_motor += BTConstants.GYRO_OFFSET;
 			}
 			if (storage.robot.getGyro().getAngle() > currentHeading - BTConstants.ERROR_ANGLE)
 			{
-				if (left_joystick_front_back > 0)
-				{
-					front_left_motor = front_left_motor - BTConstants.GYRO_OFFSET;
-					back_left_motor = back_left_motor - BTConstants.GYRO_OFFSET;
-				}
-				if (left_joystick_front_back < 0)
-				{
-					front_left_motor = front_left_motor + BTConstants.GYRO_OFFSET;
-					back_left_motor = back_left_motor + BTConstants.GYRO_OFFSET;
-				}
+				if(front_right_motor > 0)
+					front_right_motor -= BTConstants.GYRO_OFFSET;
+				else if(front_right_motor < 0)
+					front_right_motor += BTConstants.GYRO_OFFSET;
+				
+				if(back_right_motor > 0)
+					back_right_motor -= BTConstants.GYRO_OFFSET;
+				else if(back_right_motor < 0)
+					back_right_motor += BTConstants.GYRO_OFFSET;
 			}
 		}
+		else
+			isAdjusting = false;
 		
 				
 		// Reverse front and back left motors
@@ -234,10 +241,10 @@ public BTStorage storage;
 //		SmartDashboard.putNumber("Front Left Current Reading", flCurrent);
 //		SmartDashboard.putNumber("Back Left Current Reading", blCurrent);
 
-//		SmartDashboard.putNumber("Front Right Motor Power", front_right_motor);
-//		SmartDashboard.putNumber("Back Right Motor Power", back_right_motor);
-//		SmartDashboard.putNumber("Front Left Motor Power", front_left_motor);
-//		SmartDashboard.putNumber("Back Left Motor Power", back_left_motor);
+		SmartDashboard.putNumber("Front Right Motor Power", front_right_motor);
+		SmartDashboard.putNumber("Back Right Motor Power", back_right_motor);
+		SmartDashboard.putNumber("Front Left Motor Power", front_left_motor);
+		SmartDashboard.putNumber("Back Left Motor Power", back_left_motor);
 	}
 
 }

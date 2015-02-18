@@ -50,7 +50,17 @@ public class BTAuto implements BTIAutonomousRoutine
 	public void runAutonomousCoop()
 	{
 		manipulator.startBarrelMotors(true);
+		while(!storage.robot.getSecondaryUpperLimit().getValue()){}
+		System.out.println("Limit Activated");
+		manipulator.stopBarrelMotors();
 		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		rotate();
+		moveForward(BTConstants.MOVE_FORWARD_TIME_LONG);
+		long currentTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() < currentTime + BTConstants.AUTONOMOUS_FORWARD_TIME) {}
+		manipulator.startBarrelMotors(false);
+		currentTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() < currentTime + BTConstants.AUTONOMOUS_LOWER_BARREL_TIME) {}
 	}
 	
 	public void runAutonomous4()
@@ -193,14 +203,20 @@ public class BTAuto implements BTIAutonomousRoutine
 		}
 	}
 	
-	public void rotate180()
+	public void rotate()
 	{
-		storage.robot.getFrontLeftMotor().setX(0);
-		storage.robot.getBackLeftMotor().setX(0);
-		storage.robot.getFrontRightMotor().setX(0);
-		storage.robot.getBackRightMotor().setX(0);
+		storage.robot.getFrontLeftMotor().setX(-BTConstants.AUTONOMOUS_ROTATE_SPEED);
+		storage.robot.getBackLeftMotor().setX(-BTConstants.AUTONOMOUS_ROTATE_SPEED);
+		storage.robot.getFrontRightMotor().setX(BTConstants.AUTONOMOUS_ROTATE_SPEED);
+		storage.robot.getBackRightMotor().setX(BTConstants.AUTONOMOUS_ROTATE_SPEED);
 		
 		long currentTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() < currentTime + BTConstants.AUTONOMOUS_ROTATE_TIME) {}
+		
+		storage.robot.getFrontLeftMotor().setX(BTConstants.AUTONOMOUS_ROTATE_SPEED);
+		storage.robot.getBackLeftMotor().setX(BTConstants.AUTONOMOUS_ROTATE_SPEED);
+		storage.robot.getFrontRightMotor().setX(BTConstants.AUTONOMOUS_ROTATE_SPEED);
+		storage.robot.getBackRightMotor().setX(BTConstants.AUTONOMOUS_ROTATE_SPEED);
 		
 	}
 	
