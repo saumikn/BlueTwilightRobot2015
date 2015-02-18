@@ -39,6 +39,8 @@ public BTStorage storage;
 	double brCurrent = 0;
 	double maxCurrent = 0;
 	
+	double currentHeading = 0;
+	
 	boolean isToteFront = true;
 	boolean isTurbo = false;
 
@@ -82,6 +84,40 @@ public BTStorage storage;
 		{
 			front_right_motor = 0;
 			back_right_motor = 0;
+		}
+		
+		//gyro
+		currentHeading = storage.robot.getGyro().getAngle();
+		if (left_joystick_front_back <= right_joystick_front_back + BTConstants.JOYSTICK_ERROR
+				&& left_joystick_front_back >= right_joystick_front_back - BTConstants.JOYSTICK_ERROR)
+		{
+			SmartDashboard.putNumber("currentHeading", currentHeading)
+			if (storage.robot.getGyro().getAngle() > currentHeading + BTConstants.ERROR_ANGLE)
+			{
+				if (left_joystick_front_back > 0)
+				{
+					front_left_motor = front_left_motor - BTConstants.GYRO_OFFSET;
+					back_left_motor = back_left_motor - BTConstants.GYRO_OFFSET;
+				}
+				if (left_joystick_front_back < 0)
+				{
+					front_left_motor = front_left_motor + BTConstants.GYRO_OFFSET;
+					back_left_motor = back_left_motor + BTConstants.GYRO_OFFSET;
+				}
+			}
+			if (storage.robot.getGyro().getAngle() > currentHeading - BTConstants.ERROR_ANGLE)
+			{
+				if (left_joystick_front_back > 0)
+				{
+					front_left_motor = front_left_motor - BTConstants.GYRO_OFFSET;
+					back_left_motor = back_left_motor - BTConstants.GYRO_OFFSET;
+				}
+				if (left_joystick_front_back < 0)
+				{
+					front_left_motor = front_left_motor + BTConstants.GYRO_OFFSET;
+					back_left_motor = back_left_motor + BTConstants.GYRO_OFFSET;
+				}
+			}
 		}
 		
 				
