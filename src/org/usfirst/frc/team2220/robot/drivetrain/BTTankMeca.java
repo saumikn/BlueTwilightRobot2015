@@ -45,6 +45,7 @@ public BTStorage storage;
 	@Override
 	public void drive() 
 	{
+		SmartDashboard.putNumber("GyroAngle", storage.robot.getGyro().getAngle());
 		
 		left_joystick_front_back = storage.controller.getLeftJoystickFrontBack().getValue();
 		left_joystick_left_right = storage.controller.getLeftJoystickLeftRight().getValue();

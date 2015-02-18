@@ -22,4 +22,9 @@ public class BTGyro
     {
     	return gyro.getAngle();
     }
+    
+    public double getRate()
+    {
+    	return gyro.getRate();
+    }
 }

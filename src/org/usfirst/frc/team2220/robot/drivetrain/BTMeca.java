@@ -35,6 +35,8 @@ public class BTMeca implements BTIDrivetrain
 	double brCurrent;
 	double maxCurrent;
 	
+	double gyroAngle;
+	
 	boolean isToteFront = true;
 	boolean isTurbo = false;
 	
@@ -104,6 +106,7 @@ public class BTMeca implements BTIDrivetrain
 	@Override
 	public void drive()
 	{
+		
 		if(storage.controller.getTurboToggle().getLeadingEdge())
 			isTurbo = !isTurbo;
 

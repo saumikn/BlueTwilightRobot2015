@@ -14,7 +14,6 @@ public class BTManipulator implements BTIManipulator
 	{
 		this.storage = storage;
 		totecount = 0;
-		stopSecondary();
 	}
 	
 	boolean isToteIn;
@@ -105,36 +104,21 @@ public class BTManipulator implements BTIManipulator
 		
 		if (isSecondaryCollectButtonDown )
 		{
-			lowerSecondary();
+			startBarrelMotors(false);
 		}
 		else if (isSecondaryCollectButtonUp && !isSecondaryUpper)
 		{
-			liftSecondary();
+			startBarrelMotors(true);
 		}
-		
 		else
 		{
-			stopSecondary();
+			stopBarrelMotors();
 		}
-	}
-	
-	public void liftSecondary()
-	{
-		startBarrelMotors(true);
-	}
-	
-	public void lowerSecondary()
-	{
-		startBarrelMotors(false);
-	}
-	
-	public void stopSecondary()
-	{
-		stopBarrelMotors();
 	}
 	
 	public void collectTote()
 	{
+		boolean goingUp;
 		
 //			startCollectorMotors();
 //			while (!isToteIn){}	//Don't continue until the tote switch is activated
@@ -143,6 +127,34 @@ public class BTManipulator implements BTIManipulator
 			//forkToMiddle();
 			
 			//set robot color to red
+		
+		if(!storage.robot.getToteClamp().isExtended())
+		{
+			if(!isLeftToteUpper)
+			{
+				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
+			}
+			else
+			{
+				moveLeftForkMotors(0);
+			}
+			
+			if(!isRightToteUpper)
+			{
+				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
+			}
+			else
+			{
+				moveRightForkMotors(0);
+			}
+			
+			if(isLeftToteUpper && isRightToteUpper)
+			{
+				storage.robot.getToteClamp().extend();
+			}
+		}
+		
+		
 			
 		if(isCollecting && !isLeftToteUpper)
 		{

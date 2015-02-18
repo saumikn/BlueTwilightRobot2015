@@ -49,7 +49,7 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void runAutonomousCoop()
 	{
-		manipulator.lowerSecondary();
+		manipulator.startBarrelMotors(true);
 		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
 	}
 	
