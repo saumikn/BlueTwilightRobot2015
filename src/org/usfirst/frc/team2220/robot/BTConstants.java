@@ -78,6 +78,9 @@ public class BTConstants
 	public static final double FRONT_RIGHT_SCALE 	= .8;
 	public static final double BACK_LEFT_SCALE 		= .8;
 	public static final double BACK_RIGHT_SCALE 	= 1;
+	public static final double GYRO_OFFSET 			= .4;
+	public static final double ERROR_ANGLE			= 5;
+	public static final double JOYSTICK_ERROR		= 0.25;
 	
 	// Drivetrain Constants: Joystick curve
 	public static final double DEADZONE_MAX_RANGE	= 0.25;		//Below this radius, doesn't move
