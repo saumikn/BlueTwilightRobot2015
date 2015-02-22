@@ -60,12 +60,12 @@ public class BTConstants
 	public static final int COMPETITION_BACK_LEFT_ENCODER_B 	= 11;
 	
 	// Solenoid ports
-	public static final int COMPETITION_TOTE_CLAMP_EXTEND 		= 2;
-	public static final int COMPETITION_TOTE_CLAMP_RETRACT 		= 3;
+	public static final int COMPETITION_TOTE_CLAMP_EXTEND 		= 1;
+	public static final int COMPETITION_TOTE_CLAMP_RETRACT 		= 0;
 	public static final int COMPETITION_TOTE_COLLECTOR_EXTEND 	= -1;
 	public static final int COMPETITION_TOTE_COLLECTOR_RETRACT 	= -1;
-	public static final int COMPETITION_BARREL_HOLDER_EXTEND 	= 1;
-	public static final int COMPETITION_BARREL_HOLDER_RETRACT 	= 0;
+	public static final int COMPETITION_BARREL_HOLDER_EXTEND 	= 2;
+	public static final int COMPETITION_BARREL_HOLDER_RETRACT 	= 3;
 	
 	// Analog Potentiometer port
 	public static final int COMPEITION_ANALOG_POT_TEST = 2;
@@ -93,7 +93,7 @@ public class BTConstants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
 	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
-	public static final double TOTE_MOTOR_POWER = 0.8;
+	public static final double TOTE_MOTOR_POWER = 0.2;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.9;
 	public static final double BARREL_MOTOR_POWER_UP = 0.5;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;
@@ -115,7 +115,7 @@ public class BTConstants
 	public static final int MOVE_FORWARD_TIME_SHORT = 1000;
 	public static final int STRAFE_RIGHT_TIME = 4000;
 	public static final double FORWARD_SPEED = 0.3;
-	public static final double STRAFE_SPEED = 0.3;
+	public static final double STRAFE_SPEED = 0.5;
 	public static final double BACK_SHORT_SPEED = 0.3;
 	public static final double BACK_LONG_SPEED = 0.3;
 	

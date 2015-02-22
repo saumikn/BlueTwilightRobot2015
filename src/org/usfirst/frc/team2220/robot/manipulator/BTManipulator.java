@@ -65,15 +65,27 @@ public class BTManipulator implements BTIManipulator
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
+		SmartDashboard.putBoolean("Collecting", isCollecting);
+		SmartDashboard.putBoolean("Collecting Down", isCollectingDown);
+		SmartDashboard.putBoolean("Releasing", isReleasing);
+		SmartDashboard.putBoolean("Secondary Up", isSecondaryCollectButtonUp);
+		SmartDashboard.putBoolean("Secondary Down", isSecondaryCollectButtonDown);
+		
 		if(isCollecting || isCollectingDown)
 		{
 			collectTote();
+		}
+		else 
+		{
+			moveRightForkMotors(0);
+			moveLeftForkMotors(0);
 		}
 		
 		if(isReleasing)
 		{
 			releaseTotes();
 		}
+		
 		if(isCollecting)
 		{
 			if ((isToteMiddle && (!isLeftToteUpper || !isRightToteUpper)))
@@ -87,26 +99,24 @@ public class BTManipulator implements BTIManipulator
 				storage.robot.getBarrelHolder().retract();
 			}
 		}
-		
-//		if (collectStartTime != 0)	//indicates if tote collection is in progress
-//		{	
-//			collectTote();	
-//		}
+			
 		
 		
-		if (isSecondaryCollectButtonDown )
+		if (isSecondaryCollectButtonDown)
 		{
-			liftSecondary();
+			lowerSecondary();
 		}
 		else if (isSecondaryCollectButtonUp && !isSecondaryUpper)
 		{
-			lowerSecondary();
+			liftSecondary();
 		}
 		
 		else
 		{
 			stopSecondary();
 		}
+		
+		
 	}
 	
 	public void liftSecondary()
@@ -212,6 +222,7 @@ public class BTManipulator implements BTIManipulator
 				moveRightForkMotors(0);
 			}
 		}
+		
 	}
 	
 //	public void startCollectorMotors()
@@ -258,12 +269,14 @@ public class BTManipulator implements BTIManipulator
 	{
 		storage.robot.getLeftForkLeft().setX(x);
 		storage.robot.getLeftForkRight().setX(x);
+		System.out.println("LL:\t" + x);
 	}
 	
 	public void moveRightForkMotors(double x)
 	{
 		storage.robot.getRightForkLeft().setX(x);
 		storage.robot.getRightForkRight().setX(x);
+		System.out.println("LL:\t" + x);
 	}
 	
 //	public boolean emergencyTimeMiddleForkTest(String methodname)
