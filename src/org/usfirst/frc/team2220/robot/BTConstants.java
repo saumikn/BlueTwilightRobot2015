@@ -77,7 +77,7 @@ public class BTConstants
 	public static final double FRONT_LEFT_SCALE 	= .8;
 	public static final double FRONT_RIGHT_SCALE 	= .8;
 	public static final double BACK_LEFT_SCALE 		= .8;
-	public static final double BACK_RIGHT_SCALE 	= 1;
+	public static final double BACK_RIGHT_SCALE 	= .8;
 	
 	// Drivetrain Constants: Joystick curve
 	public static final double DEADZONE_MAX_RANGE	= 0.25;		//Below this radius, doesn't move
@@ -93,7 +93,7 @@ public class BTConstants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
 	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
-	public static final double TOTE_MOTOR_POWER = 0.2;
+	public static final double TOTE_MOTOR_POWER = 0.5;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.9;
 	public static final double BARREL_MOTOR_POWER_UP = 0.5;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;

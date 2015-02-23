@@ -13,6 +13,7 @@ import org.usfirst.frc.team2220.robot.motor.BTIMotor;
 import org.usfirst.frc.team2220.robot.motor.BTTalonSRX;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CameraServer;
 
 public class BTCompetitionRobot implements BTIRobotType
 {
@@ -52,6 +53,7 @@ public class BTCompetitionRobot implements BTIRobotType
 	
 	private final BTCompressor COMPRESSOR;
 	
+   	
 	
 	public BTCompetitionRobot()
 	{
@@ -91,6 +93,7 @@ public class BTCompetitionRobot implements BTIRobotType
 		GYRO = new BTGyro(BTConstants.COMPETITION_GYRO);
 		
 		COMPRESSOR = new BTCompressor();
+
 	}
 	
 	

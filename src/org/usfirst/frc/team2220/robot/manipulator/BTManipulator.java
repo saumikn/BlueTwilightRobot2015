@@ -25,13 +25,16 @@ public class BTManipulator implements BTIManipulator
 	boolean isRightToteUpper;
 	boolean isSecondaryUpper = false;
 	
-	boolean isCollecting;
-	boolean isCollectingDown;
-	boolean isReleasing;
+	boolean isCollecting = false;
+	boolean isCollectingDown = false;
+	boolean isReleasing = false;
+	boolean isReleasingDown = false;
 	
 	boolean isSecondaryCollectButtonUp;
 	boolean isSecondaryCollectButtonDown;
 	
+	boolean isExtended = false;
+	boolean keepExtended = false;
 	boolean isGoingUp;
 	
 	private int totecount = 0;
@@ -75,25 +78,33 @@ public class BTManipulator implements BTIManipulator
 		{
 			collectTote();
 		}
-		else 
-		{
-			moveRightForkMotors(0);
-			moveLeftForkMotors(0);
-		}
 		
 		if(isReleasing)
 		{
 			releaseTotes();
 		}
 		
+		if (!isCollecting && !isCollectingDown && !isReleasing)
+		{
+			moveRightForkMotors(0);
+			moveLeftForkMotors(0);
+		}
+		
 		if(isCollecting)
 		{
-			if ((isToteMiddle && (!isLeftToteUpper || !isRightToteUpper)))
+			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)))
 			{
+				keepExtended = true; 
 				storage.robot.getToteClamp().extend(); // retract claws to let tote go by
 				storage.robot.getBarrelHolder().extend();
 			}
-			else
+			else if (keepExtended && isLeftToteUpper && isRightToteUpper)
+			{
+				keepExtended = false;
+				storage.robot.getToteClamp().retract();
+				storage.robot.getBarrelHolder().retract();
+			}
+			else if (!keepExtended)
 			{
 				storage.robot.getToteClamp().retract();
 				storage.robot.getBarrelHolder().retract();
@@ -143,8 +154,7 @@ public class BTManipulator implements BTIManipulator
 			
 			//forkToMiddle();
 			
-			//set robot color to red
-			
+			//set robot color to red	
 		if(isCollecting && !isLeftToteUpper)
 		{
 			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
@@ -177,52 +187,62 @@ public class BTManipulator implements BTIManipulator
 	
 	public void releaseTotes()
 	{
-		if(!storage.robot.getToteClamp().isExtended())
-		{
-			if(!isLeftToteUpper)
+		if (!isExtended)
+		{ 
+			if (!isLeftToteUpper)
 			{
 				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
 			}
-			else
+			else 
+			{
+				moveLeftForkMotors(0);
+			}
+			if (!isRightToteUpper)
+			{
+				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
+			}
+			else 
+			{
+				moveRightForkMotors(0);
+			}
+			
+			if (isLeftToteUpper && isRightToteUpper)
+			{
+				storage.robot.getToteClamp().extend();
+				isExtended = true;
+				moveRightForkMotors(0);
+				moveLeftForkMotors(0);
+			}
+		}
+		
+		else
+		{
+			
+			if (!isLeftToteLower)
+			{
+				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
+			}
+			else 
 			{
 				moveLeftForkMotors(0);
 			}
 			
-			if(!isRightToteUpper)
-			{
-				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
-			}
-			else
-			{
-				moveRightForkMotors(0);
-			}
-		}
-		
-		else if(isLeftToteUpper && isRightToteUpper)
-		{
-			storage.robot.getToteClamp().extend();
-		}
-		
-		else if(storage.robot.getToteClamp().isExtended())
-		{
-			if(!isLeftToteLower)
-			{
-				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-			}
-			else
-			{
-				moveLeftForkMotors(0);
-			}
-			if(!isRightToteLower)
+			if (!isRightToteLower)
 			{
 				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
 			}
-			else
+			else 
 			{
 				moveRightForkMotors(0);
 			}
+			
+			if (isLeftToteLower && isRightToteLower)
+			{
+				isExtended = false;
+				moveRightForkMotors(0);
+				moveLeftForkMotors(0);
+			}
 		}
-		
 	}
 	
 //	public void startCollectorMotors()
@@ -267,16 +287,16 @@ public class BTManipulator implements BTIManipulator
 	
 	public void moveLeftForkMotors(double x)
 	{
-		storage.robot.getLeftForkLeft().setX(x);
-		storage.robot.getLeftForkRight().setX(x);
-		System.out.println("LL:\t" + x);
+		storage.robot.getLeftForkLeft().setX(-x);
+		storage.robot.getLeftForkRight().setX(-x);
+		System.out.println("Fork Left:\t" + x);
 	}
 	
 	public void moveRightForkMotors(double x)
 	{
 		storage.robot.getRightForkLeft().setX(x);
 		storage.robot.getRightForkRight().setX(x);
-		System.out.println("LL:\t" + x);
+		System.out.println("Fork Right:\t" + x);
 	}
 	
 //	public boolean emergencyTimeMiddleForkTest(String methodname)
