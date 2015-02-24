@@ -115,9 +115,13 @@ public class BTConstants
 	public static final int MOVE_FORWARD_TIME_SHORT = 1000;
 	public static final int STRAFE_RIGHT_TIME = 4000;
 	public static final double FORWARD_SPEED = 0.3;
-	public static final double STRAFE_SPEED = 0.5;
+	public static final double STRAFE_SPEED = 0.8;
 	public static final double BACK_SHORT_SPEED = 0.3;
 	public static final double BACK_LONG_SPEED = 0.3;
+	public static final double ROTATE_RIGHT_TIME = 0.3;
+	public static final double ROTATE_RIGHT_SPEED = 0.3;
+	public static final double MOVE_RIGHT_SPEED = .5;
+	
 	
 //	public static final int COLLECT_TIME = 1000;
 	

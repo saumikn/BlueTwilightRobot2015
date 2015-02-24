@@ -49,10 +49,16 @@ public class BTAuto implements BTIAutonomousRoutine
 	
 	public void runAutonomousCoop()
 	{
-		manipulator.lowerSecondary();
-		moveBack(BTConstants.MOVE_BACK_TIME_SHORT);
+		manipulator.liftSecondary();
+		long startTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() - startTime < 6500){}	
+		manipulator.stopBarrelMotors();
+		moveRight(3750);
+		startTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() - startTime < 3750){}	
+		rotateRight(500);
 	}
-	
+
 	public void runAutonomous4()
 	{
 		SmartDashboard.putString(BTConstants.AUTONOMOUS_STAGE_KEY, "Autonomous: Completing right staging zone");
@@ -210,5 +216,45 @@ public class BTAuto implements BTIAutonomousRoutine
 		storage.robot.getBackLeftMotor().setX(0);
 		storage.robot.getFrontRightMotor().setX(0);
 		storage.robot.getBackRightMotor().setX(0);
+	}
+	
+	public void rotateRight(double rotateRightTime)
+	{
+		fl = BTConstants.ROTATE_RIGHT_SPEED;
+		fr = -BTConstants.ROTATE_RIGHT_SPEED;
+		bl = BTConstants.ROTATE_RIGHT_SPEED;
+		br = -BTConstants.ROTATE_RIGHT_SPEED;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(fr);
+		storage.robot.getFrontRightMotor().setX(bl);
+		storage.robot.getBackRightMotor().setX(br);
+		
+		long startTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() - startTime < rotateRightTime){}
+		stopMotors();
+		
+	}
+	
+	public void moveRight(double rotateRightTime)
+	{
+		fl = BTConstants.MOVE_RIGHT_SPEED;
+		fr = -BTConstants.MOVE_RIGHT_SPEED;
+		bl = -BTConstants.MOVE_RIGHT_SPEED;
+		br = BTConstants.MOVE_RIGHT_SPEED;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(fr);
+		storage.robot.getFrontRightMotor().setX(bl);
+		storage.robot.getBackRightMotor().setX(br);
+		
+		long startTime = System.currentTimeMillis();
+		while(System.currentTimeMillis() - startTime < rotateRightTime){}
+		stopMotors();
+		
 	}
 }
