@@ -187,6 +187,7 @@ public class BTManipulator implements BTIManipulator
 	
 	public void releaseTotes()
 	{
+		/*
 		if (!isExtended)
 		{ 
 			if (!isLeftToteUpper)
@@ -242,7 +243,12 @@ public class BTManipulator implements BTIManipulator
 				moveRightForkMotors(0);
 				moveLeftForkMotors(0);
 			}
+			
+			
 		}
+		*/
+		storage.robot.getToteClamp().extend();
+		isExtended = true;
 	}
 	
 //	public void startCollectorMotors()
