@@ -257,4 +257,10 @@ public class BTAuto implements BTIAutonomousRoutine
 		stopMotors();
 		
 	}
+
+	@Override
+	public void resetTimer() {
+		// TODO Auto-generated method stub
+		
+	}
 }

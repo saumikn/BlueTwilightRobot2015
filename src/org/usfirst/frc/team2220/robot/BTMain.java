@@ -64,6 +64,7 @@ public class BTMain extends SampleRobot
 	//@Override
     public void autonomous()
     {
+    	auto.resetTimer();
 		while (isAutonomous())
 		{
 			auto.runAutonomous();

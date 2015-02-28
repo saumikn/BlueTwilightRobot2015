@@ -152,22 +152,22 @@ public class BTXboxController implements BTIController
 
 	@Override
 	public BTIConAxis getLeftJoystickFrontBack() {
-		return null;
+		return LEFT_STICK_Y_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getLeftJoystickLeftRight() {
-		return null;
+		return LEFT_STICK_X_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getRightJoystickFrontBack() {
-		return null;
+		return RIGHT_STICK_Y_AXIS;
 	}
 
 	@Override
 	public BTIConAxis getRightJoystickLeftRight() {
-		return null;
+		return RIGHT_STICK_X_AXIS;
 	}
 
 }

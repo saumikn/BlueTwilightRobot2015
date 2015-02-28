@@ -120,7 +120,7 @@ public class BTConstants
 	public static final double BACK_LONG_SPEED = 0.3;
 	public static final double ROTATE_RIGHT_TIME = 0.3;
 	public static final double ROTATE_RIGHT_SPEED = 0.3;
-	public static final double MOVE_RIGHT_SPEED = .5;
+	public static final double MOVE_RIGHT_SPEED = 0.9;
 	
 	
 //	public static final int COLLECT_TIME = 1000;

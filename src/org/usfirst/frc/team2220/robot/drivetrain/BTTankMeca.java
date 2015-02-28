@@ -46,7 +46,10 @@ public BTStorage storage;
 	public void drive() 
 	{
 		
-		left_joystick_front_back = storage.controller.getLeftJoystickFrontBack().getValue();
+		left_joystick_front_back = storage.
+				controller
+				.getLeftJoystickFrontBack().
+				getValue();
 		left_joystick_left_right = storage.controller.getLeftJoystickLeftRight().getValue();
 		right_joystick_front_back = storage.controller.getRightJoystickFrontBack().getValue();
 		right_joystick_left_right = storage.controller.getRightJoystickLeftRight().getValue();
