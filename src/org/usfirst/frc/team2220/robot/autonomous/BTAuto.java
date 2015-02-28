@@ -53,9 +53,9 @@ public class BTAuto implements BTIAutonomousRoutine
 		long startTime = System.currentTimeMillis();
 		while(System.currentTimeMillis() - startTime < 6500){}	
 		manipulator.stopBarrelMotors();
-		moveRight(3750);
+		moveRight(25000);
 		startTime = System.currentTimeMillis();
-		while(System.currentTimeMillis() - startTime < 3750){}	
+		while(System.currentTimeMillis() - startTime < 2500){}	
 		rotateRight(500);
 	}
 

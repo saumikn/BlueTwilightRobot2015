@@ -24,8 +24,8 @@ public class BTTestClass
 	public void test()
 	{
 		SmartDashboard.putNumber("aaasd", storage.robot.getFrontLeftEncoder().getValue() / 256.);
-		barrelUp = storage.controller.getBarrelCollect().getButtonValue();
-		barrelDown = storage.controller.getBarrelCollectDown().getButtonValue();
+		//barrelUp = storage.controller.getBarrelCollect().getButtonValue();
+		//barrelDown = storage.controller.getBarrelCollectDown().getButtonValue();
 
 		toteUp = storage.controller.getToteCollect().getButtonValue();
 		toteDown = storage.controller.getToteCollectDown().getButtonValue();

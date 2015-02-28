@@ -25,8 +25,10 @@ public interface BTIController
 	public BTIConButton getToteCollectDown();
 	public BTIConButton getToteRelease();
 	public BTIConButton getDrivetrainOrientationSwitch();
-	public BTIConButton getBarrelCollect();
-	public BTIConButton getBarrelCollectDown();
+	public BTIConAxis getBarrelCollect();
+	public BTIConAxis getBarrelCollectDown();
 	public BTIConButton getTurboToggle();
+	public BTIConButton getBarrelRelease();
+	public BTIConButton getClaspRelease();
 
 }

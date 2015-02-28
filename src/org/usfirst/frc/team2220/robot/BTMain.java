@@ -3,11 +3,13 @@ package org.usfirst.frc.team2220.robot;
 
 
 import org.usfirst.frc.team2220.robot.autonomous.BTAuto;
+import org.usfirst.frc.team2220.robot.autonomous.BTAutoContinuous;
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 //import org.usfirst.frc.team2220.robot.drivetrain.BTMeca;
 //import org.usfirst.frc.team2220.robot.drivetrain.BTOcto;
 import org.usfirst.frc.team2220.robot.drivetrain.BTTankMeca;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
+
 
 //import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -34,6 +36,7 @@ public class BTMain extends SampleRobot
     {
 		Compressor comp = new Compressor();
 		
+		
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)
 		{
@@ -44,7 +47,7 @@ public class BTMain extends SampleRobot
 		{
 			meca = new BTTankMeca(storage);
 			manipulator = new BTManipulator(storage);
-			auto = new BTAuto(storage, manipulator);
+			auto = new BTAutoContinuous(storage, manipulator);
 		}
     	//octo = new BTOcto(storage);   	
 		if (storage.robot.getGyro() != null)
@@ -52,6 +55,7 @@ public class BTMain extends SampleRobot
 			storage.robot.getGyro().reset();
 		}
 		
+		storage.robot.getBarrelHolder().retract();
 //	   	server = CameraServer.getInstance();
 //        server.setQuality(50);
 //        server.startAutomaticCapture("cam0");
@@ -60,7 +64,11 @@ public class BTMain extends SampleRobot
 	//@Override
     public void autonomous()
     {
-		auto.runAutonomous();
+		while (isAutonomous())
+		{
+			auto.runAutonomous();
+		}
+    	
     }
 	
 	//@Override

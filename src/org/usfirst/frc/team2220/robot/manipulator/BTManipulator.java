@@ -29,10 +29,11 @@ public class BTManipulator implements BTIManipulator
 	boolean isCollectingDown = false;
 	boolean isReleasing = false;
 	boolean isReleasingDown = false;
+	boolean isClaspRelease = false;
 	
-	boolean isSecondaryCollectButtonUp;
-	boolean isSecondaryCollectButtonDown;
-	
+	double secondaryCollectButtonUp;
+	double secondaryCollectButtonDown;
+	boolean isBarrelRelease = false;
 	boolean isExtended = false;
 	boolean keepExtended = false;
 	boolean isGoingUp;
@@ -53,30 +54,38 @@ public class BTManipulator implements BTIManipulator
 		isRightToteUpper = storage.robot.getRightToteUpperLimit().getValue();
 		isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
 		
-		SmartDashboard.putBoolean("Tote In", isToteIn);
-		SmartDashboard.putBoolean("Left Lower", isLeftToteLower);
-		SmartDashboard.putBoolean("Right Lower", isRightToteLower);
-		SmartDashboard.putBoolean("Tote Middle", isToteMiddle);
-		SmartDashboard.putBoolean("Left Upper", isLeftToteUpper);
-		SmartDashboard.putBoolean("Right Upper", isRightToteUpper);
-		SmartDashboard.putBoolean("Secondary Upper", isSecondaryUpper);
+		
+//		SmartDashboard.putBoolean("Tote In", isToteIn);
+//		SmartDashboard.putBoolean("Left Lower", isLeftToteLower);
+//		SmartDashboard.putBoolean("Right Lower", isRightToteLower);
+//		SmartDashboard.putBoolean("Tote Middle", isToteMiddle);
+//		SmartDashboard.putBoolean("Left Upper", isLeftToteUpper);
+//		SmartDashboard.putBoolean("Right Upper", isRightToteUpper);
+//		SmartDashboard.putBoolean("Secondary Upper", isSecondaryUpper);
 		
 		isCollecting = storage.controller.getToteCollect().getButtonValue();
 		isCollectingDown = storage.controller.getToteCollectDown().getButtonValue();
 		isReleasing = storage.controller.getToteRelease().getButtonValue();
+		isBarrelRelease = storage.controller.getBarrelRelease().getLeadingEdge();
+		isClaspRelease = storage.controller.getClaspRelease().getLeadingEdge();
 		
-		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
-		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
+		secondaryCollectButtonUp = storage.controller.getBarrelCollect().getValue();
+		secondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getValue();
 		
-		SmartDashboard.putBoolean("Collecting", isCollecting);
-		SmartDashboard.putBoolean("Collecting Down", isCollectingDown);
-		SmartDashboard.putBoolean("Releasing", isReleasing);
-		SmartDashboard.putBoolean("Secondary Up", isSecondaryCollectButtonUp);
-		SmartDashboard.putBoolean("Secondary Down", isSecondaryCollectButtonDown);
+//		SmartDashboard.putBoolean("Collecting", isCollecting);
+//		SmartDashboard.putBoolean("Collecting Down", isCollectingDown);
+//		SmartDashboard.putBoolean("Releasing", isReleasing);
+//		SmartDashboard.putBoolean("Secondary Up", isSecondaryCollectButtonUp);
+//		SmartDashboard.putBoolean("Secondary Down", isSecondaryCollectButtonDown);
 		
 		if(isCollecting || isCollectingDown)
 		{
 			collectTote();
+		}
+		
+		if(isClaspRelease)
+		{
+			claspRelease();
 		}
 		
 		if(isReleasing)
@@ -92,32 +101,37 @@ public class BTManipulator implements BTIManipulator
 		
 		if(isCollecting)
 		{
-			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)))
+			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)) && !isToteIn)
 			{
 				keepExtended = true; 
-				storage.robot.getToteClamp().extend(); // retract claws to let tote go by
-				storage.robot.getBarrelHolder().extend();
+				storage.robot.getToteClamp().retract(); // retract claws to let tote go by
+				storage.robot.getBarrelHolder().retract();
 			}
 			else if (keepExtended && isLeftToteUpper && isRightToteUpper)
 			{
 				keepExtended = false;
-				storage.robot.getToteClamp().retract();
-				storage.robot.getBarrelHolder().retract();
+				storage.robot.getToteClamp().extend();
+				//storage.robot.getBarrelHolder().extend();
 			}
 			else if (!keepExtended)
 			{
-				storage.robot.getToteClamp().retract();
-				storage.robot.getBarrelHolder().retract();
+				storage.robot.getToteClamp().extend();
+				//storage.robot.getBarrelHolder().extend();
 			}
+		}
+		
+		if (isBarrelRelease)
+		{
+			releaseBarrel();
 		}
 			
 		
 		
-		if (isSecondaryCollectButtonDown)
+		if (secondaryCollectButtonDown > 0)
 		{
 			lowerSecondary();
 		}
-		else if (isSecondaryCollectButtonUp && !isSecondaryUpper)
+		else if ((secondaryCollectButtonUp > 0) && !isSecondaryUpper)
 		{
 			liftSecondary();
 		}
@@ -147,21 +161,14 @@ public class BTManipulator implements BTIManipulator
 	
 	public void collectTote()
 	{
-		
-//			startCollectorMotors();
-//			while (!isToteIn){}	//Don't continue until the tote switch is activated
-//				stopCollectorMotors();
 			
-			//forkToMiddle();
-			
-			//set robot color to red	
 		if(isCollecting && !isLeftToteUpper)
 		{
-			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
+			moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
 		}
 		else if(isCollectingDown && !isLeftToteLower)
 		{
-			moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
+			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
 		}
 		else
 		{
@@ -182,6 +189,18 @@ public class BTManipulator implements BTIManipulator
 		}
 			
 			//set robot color to blue
+	}
+	
+	public void claspRelease()
+	{
+		if (storage.robot.getToteClamp().isExtended())
+		{
+			storage.robot.getToteClamp().retract();
+		}
+		else
+		{
+			storage.robot.getToteClamp().extend();
+		}
 	}
 			
 	
@@ -247,8 +266,21 @@ public class BTManipulator implements BTIManipulator
 			
 		}
 		*/
-		storage.robot.getToteClamp().extend();
+		storage.robot.getToteClamp().retract();
+		storage.robot.getBarrelHolder().retract();
 		isExtended = true;
+	}
+	
+	public void releaseBarrel()
+	{
+		if(storage.robot.getBarrelHolder().isExtended())
+		{
+			storage.robot.getBarrelHolder().retract();
+		}
+		else
+		{
+			storage.robot.getBarrelHolder().extend();
+		}
 	}
 	
 //	public void startCollectorMotors()
@@ -293,16 +325,16 @@ public class BTManipulator implements BTIManipulator
 	
 	public void moveLeftForkMotors(double x)
 	{
-		storage.robot.getLeftForkLeft().setX(-x);
-		storage.robot.getLeftForkRight().setX(-x);
-		System.out.println("Fork Left:\t" + x);
+		storage.robot.getLeftForkLeft().setX(x);
+		storage.robot.getLeftForkRight().setX(x);
+//		System.out.println("Fork Left:\t" + x);
 	}
 	
 	public void moveRightForkMotors(double x)
 	{
 		storage.robot.getRightForkLeft().setX(x);
 		storage.robot.getRightForkRight().setX(x);
-		System.out.println("Fork Right:\t" + x);
+//		System.out.println("Fork Right:\t" + x);
 	}
 	
 //	public boolean emergencyTimeMiddleForkTest(String methodname)

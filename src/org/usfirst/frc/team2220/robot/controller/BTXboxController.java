@@ -102,14 +102,14 @@ public class BTXboxController implements BTIController
 		return START_BUTTON;
 	}
 
-	public BTIConButton getBarrelCollect()
+	public BTIConAxis getBarrelCollect()
 	{
-		return Y_BUTTON;
+		return LEFT_TRIGGER;
 	}
 	
-	public BTIConButton getBarrelCollectDown()
+	public BTIConAxis getBarrelCollectDown()
 	{
-		return B_BUTTON;
+		return RIGHT_TRIGGER;
 	}
 
 	public BTIConButton getToteCollectDown() 
@@ -120,6 +120,16 @@ public class BTXboxController implements BTIController
 	public BTIConButton getTurboToggle()
 	{
 		return null;
+	}
+	
+	public BTIConButton getBarrelRelease()
+	{
+		return RIGHT_BUMPER_BUTTON;
+	}
+	
+	public BTIConButton getClaspRelease()
+	{
+		return START_BUTTON;
 	}
 
 	@Override
