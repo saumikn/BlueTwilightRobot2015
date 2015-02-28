@@ -24,7 +24,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 //	DigitalInput barrelUpper= new DigitalInput(BTConstants.COMPETITION_SECONDARY_UPPER_LIMIT);
 	
-	long elapseTime = 0;
+	long elapsedTime = 0;
 	long startTime = 0;
 	long moveRightTime = 0;
 	long moveLeftTime = 0;
@@ -66,73 +66,118 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	public void runAutonomousCoop()
 	{	
-		
+		if(startTime == 0)
+		{
+			startTime = System.currentTimeMillis();
+		}
+		elapsedTime = System.currentTimeMillis() - startTime;
 		isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
 		
 //		SmartDashboard.putBoolean("Barrel Switch", barrelUpper.get());
 		if(!isSecondaryUpper)
 		{
-			startTime = System.currentTimeMillis();
 			manipulator.startBarrelMotors(true);
 		}
-		else if (!rightWheelsMoving && !movingLeft && !movingForward)
+		else
 		{
-			SmartDashboard.putString("Here", "Inside else");
 			manipulator.stopBarrelMotors();
-			rightForward();
-			rightWheelsMoving = true;
-			moveRightTime = System.currentTimeMillis();
 		}
-
-		if(moveRightTime - System.currentTimeMillis() > 500 && rightWheelsMoving && !movingLeft && !movingForward)
+		
+		//rotate right
+		if((elapsedTime > 2000) && (elapsedTime <= 2500))
 		{
-			stopMotors();
+			rotateRight();
+		}
+		//move right
+		if((elapsedTime > 2500) && (elapsedTime <= 3000))
+		{
+			moveRight();
+		}
+		//capture tote
+		if((elapsedTime > 3000) && (elapsedTime <= 3500))
+		{
+			moveForward();
+		}
+		//move to autonomous step
+		if((elapsedTime > 3500) && (elapsedTime <= 4000))
+		{
 			moveLeft();
-			movingForward = true;
-			moveForwardTime = System.currentTimeMillis();
 		}
-
-		if(moveLeftTime - System.currentTimeMillis() > 2000)
+		//back up
+		if((elapsedTime > 4000) && (elapsedTime <= 4500))
+		{
+			moveBackward();
+		}
+		//move right
+		if((elapsedTime > 4500) && (elapsedTime <= 5000))
+		{
+			moveRight();
+		}
+		//align with tote feeding station
+		if((elapsedTime > 5000) && (elapsedTime <= 5500))
+		{
+			rotateLeft();
+		}
+		//move forward to feeding station
+		if((elapsedTime > 5500) && (elapsedTime <= 6000))
+		{
+			moveForward();
+		}
+		//stop motors
+		if(elapsedTime > 6000)
 		{
 			stopMotors();
 		}
+		
+//		if(moveRightTime - System.currentTimeMillis() > 500 && rightWheelsMoving && !movingLeft && !movingForward)
+//		{
+//			stopMotors();
+//			moveLeft();
+//			movingForward = true;
+//			moveForwardTime = System.currentTimeMillis();
+//		}
+//
+//		if(moveLeftTime - System.currentTimeMillis() > 2000)
+//		{
+//			stopMotors();
+//		}
 		
 		
 //		elapseTime = System.currentTimeMillis() - startTime;
 	
 	}
-		public void BarrelToteFeederAuto()
-		{
-			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
-			
-//			SmartDashboard.putBoolean("Barrel Switch", barrelUpper.get());
-			if(!isSecondaryUpper)
-			{
-				startTime = System.currentTimeMillis();
-				manipulator.startBarrelMotors(true);
-			}
-			else if (!rightWheelsMoving)
-			{
-				SmartDashboard.putString("Here", "Inside else");
-				manipulator.stopBarrelMotors();
-				rightForward();
-				rightWheelsMoving = true;
-				moveRightTime = System.currentTimeMillis();
-			}
-			
-			if(moveRightTime - System.currentTimeMillis() > 500 && rightWheelsMoving && !movingLeft)
-			{
-				stopMotors();
-				moveLeft();
-				movingLeft = true;
-				moveLeftTime = System.currentTimeMillis();
-			}
-
-			if(moveLeftTime - System.currentTimeMillis() > 2000)
-			{
-				stopMotors();
-			}
-		}
+//		public void BarrelToteFeederAuto()
+//		{
+//			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
+//			
+////			SmartDashboard.putBoolean("Barrel Switch", barrelUpper.get());
+//			if(!isSecondaryUpper)
+//			{
+//				startTime = System.currentTimeMillis();
+//				manipulator.startBarrelMotors(true);
+//			}
+//			else if (!rightWheelsMoving)
+//			{
+//				SmartDashboard.putString("Here", "Inside else");
+//				manipulator.stopBarrelMotors();
+//				rightForward();
+//				rightWheelsMoving = true;
+//				moveRightTime = System.currentTimeMillis();
+//			}
+//			
+//			if(moveRightTime - System.currentTimeMillis() > 500 && rightWheelsMoving && !movingLeft)
+//			{
+//				stopMotors();
+//				moveLeft();
+//				movingLeft = true;
+//				moveLeftTime = System.currentTimeMillis();
+//			}
+//
+//			if(moveLeftTime - System.currentTimeMillis() > 2000)
+//			{
+//				stopMotors();
+//			}
+//		}
 //
 //	public void runAutonomous4()
 //	{
@@ -328,6 +373,36 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		storage.robot.getBackRightMotor().setX(br);
 	}
 	
+	public void moveForward()
+	{
+		fl = BTConstants.MOVE_RIGHT_SPEED;
+		fr = BTConstants.MOVE_RIGHT_SPEED;
+		bl = BTConstants.MOVE_RIGHT_SPEED;
+		br = BTConstants.MOVE_RIGHT_SPEED;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(fr);
+		storage.robot.getFrontRightMotor().setX(bl);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
+	public void moveBackward()
+	{
+		fl = -BTConstants.MOVE_RIGHT_SPEED;
+		fr = -BTConstants.MOVE_RIGHT_SPEED;
+		bl = -BTConstants.MOVE_RIGHT_SPEED;
+		br = -BTConstants.MOVE_RIGHT_SPEED;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(fr);
+		storage.robot.getFrontRightMotor().setX(bl);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
 	public void moveLeft()
 	{
 		fl = -BTConstants.MOVE_RIGHT_SPEED;
@@ -343,25 +418,34 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		storage.robot.getBackRightMotor().setX(br);
 	}
 	
-	public void rightForward()
-	{
-		fl = BTConstants.MOVE_RIGHT_SPEED;
-		fr = BTConstants.MOVE_RIGHT_SPEED;
-		
-		invertMotors();
-		
-		storage.robot.getFrontLeftMotor().setX(fl);
-		storage.robot.getBackLeftMotor().setX(fr);
-	}
 	
-	public void leftForward()
+	public void rotateRight()
 	{
-		bl = BTConstants.MOVE_RIGHT_SPEED;
+		fl = -BTConstants.MOVE_RIGHT_SPEED;
+		fr = BTConstants.MOVE_RIGHT_SPEED;
+		bl = -BTConstants.MOVE_RIGHT_SPEED;
 		br = BTConstants.MOVE_RIGHT_SPEED;
 		
 		invertMotors();
 		
 		storage.robot.getFrontLeftMotor().setX(fl);
 		storage.robot.getBackLeftMotor().setX(fr);
+		storage.robot.getFrontRightMotor().setX(bl);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
+	public void rotateLeft()
+	{
+		fl = BTConstants.MOVE_RIGHT_SPEED;
+		fr = -BTConstants.MOVE_RIGHT_SPEED;
+		bl = BTConstants.MOVE_RIGHT_SPEED;
+		br = -BTConstants.MOVE_RIGHT_SPEED;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(fr);
+		storage.robot.getFrontRightMotor().setX(bl);
+		storage.robot.getBackRightMotor().setX(br);
 	}
 }
