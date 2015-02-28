@@ -88,33 +88,33 @@ public class BTXboxController implements BTIController
 		return null;
 	}
 	
-	public BTIConButton getToteCollect()
-	{
-		return X_BUTTON;
-	}
-
-	public BTIConButton getToteRelease()
-	{
-		return LEFT_BUMPER_BUTTON;
-	}
-
-	public BTIConButton getDrivetrainOrientationSwitch() {
-		return START_BUTTON;
-	}
-
-	public BTIConAxis getBarrelCollect()
-	{
-		return LEFT_TRIGGER;
-	}
-	
-	public BTIConAxis getBarrelCollectDown()
+	public BTIConAxis getToteCollect()
 	{
 		return RIGHT_TRIGGER;
 	}
 
-	public BTIConButton getToteCollectDown() 
+	public BTIConButton getToteRelease()
 	{
 		return A_BUTTON;
+	}
+
+	public BTIConButton getDrivetrainOrientationSwitch() {
+		return null;
+	}
+
+	public BTIConButton getBarrelCollect()
+	{
+		return RIGHT_BUMPER_BUTTON;
+	}
+	
+	public BTIConButton getBarrelCollectDown()
+	{
+		return LEFT_BUMPER_BUTTON;
+	}
+
+	public BTIConAxis getToteCollectDown() 
+	{
+		return LEFT_TRIGGER;
 	}
 	
 	public BTIConButton getTurboToggle()
@@ -124,12 +124,12 @@ public class BTXboxController implements BTIController
 	
 	public BTIConButton getBarrelRelease()
 	{
-		return RIGHT_BUMPER_BUTTON;
+		return RIGHT_STICK_BUTTON;
 	}
 	
 	public BTIConButton getClaspRelease()
 	{
-		return START_BUTTON;
+		return LEFT_STICK_BUTTON;
 	}
 
 	@Override
@@ -152,22 +152,22 @@ public class BTXboxController implements BTIController
 
 	@Override
 	public BTIConAxis getLeftJoystickFrontBack() {
-		return LEFT_STICK_Y_AXIS;
+		return null;
 	}
 
 	@Override
 	public BTIConAxis getLeftJoystickLeftRight() {
-		return LEFT_STICK_X_AXIS;
+		return null;
 	}
 
 	@Override
 	public BTIConAxis getRightJoystickFrontBack() {
-		return RIGHT_STICK_Y_AXIS;
+		return null;
 	}
 
 	@Override
 	public BTIConAxis getRightJoystickLeftRight() {
-		return RIGHT_STICK_X_AXIS;
+		return null;
 	}
 
 }

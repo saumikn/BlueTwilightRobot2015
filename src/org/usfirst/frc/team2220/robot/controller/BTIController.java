@@ -21,12 +21,12 @@ public interface BTIController
 	public BTIConAxis getRightJoystickLeftRight();
 	
 	// Manipulator parameters
-	public BTIConButton getToteCollect();
-	public BTIConButton getToteCollectDown();
+	public BTIConAxis getToteCollect();
+	public BTIConAxis getToteCollectDown();
 	public BTIConButton getToteRelease();
 	public BTIConButton getDrivetrainOrientationSwitch();
-	public BTIConAxis getBarrelCollect();
-	public BTIConAxis getBarrelCollectDown();
+	public BTIConButton getBarrelCollect();
+	public BTIConButton getBarrelCollectDown();
 	public BTIConButton getTurboToggle();
 	public BTIConButton getBarrelRelease();
 	public BTIConButton getClaspRelease();

@@ -27,8 +27,8 @@ public class BTTestClass
 		//barrelUp = storage.controller.getBarrelCollect().getButtonValue();
 		//barrelDown = storage.controller.getBarrelCollectDown().getButtonValue();
 
-		toteUp = storage.controller.getToteCollect().getButtonValue();
-		toteDown = storage.controller.getToteCollectDown().getButtonValue();
+		//toteUp = storage.controller.getToteCollect().getButtonValue();
+		//toteDown = storage.controller.getToteCollectDown().getButtonValue();
 
 		SmartDashboard.putBoolean("Test", toteUp);
 		

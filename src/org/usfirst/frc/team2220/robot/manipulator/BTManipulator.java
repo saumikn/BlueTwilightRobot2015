@@ -25,14 +25,14 @@ public class BTManipulator implements BTIManipulator
 	boolean isRightToteUpper;
 	boolean isSecondaryUpper = false;
 	
-	boolean isCollecting = false;
-	boolean isCollectingDown = false;
+	double toteCollectUp = 0.0;
+	double toteCollectDown = 0.0;
 	boolean isReleasing = false;
 	boolean isReleasingDown = false;
 	boolean isClaspRelease = false;
 	
-	double secondaryCollectButtonUp;
-	double secondaryCollectButtonDown;
+	boolean isSecondaryCollectButtonUp;
+	boolean isSecondaryCollectButtonDown;
 	boolean isBarrelRelease = false;
 	boolean isExtended = false;
 	boolean keepExtended = false;
@@ -63,14 +63,14 @@ public class BTManipulator implements BTIManipulator
 //		SmartDashboard.putBoolean("Right Upper", isRightToteUpper);
 //		SmartDashboard.putBoolean("Secondary Upper", isSecondaryUpper);
 		
-		isCollecting = storage.controller.getToteCollect().getButtonValue();
-		isCollectingDown = storage.controller.getToteCollectDown().getButtonValue();
+		toteCollectUp = storage.controller.getToteCollect().getValue();
+		toteCollectDown = storage.controller.getToteCollectDown().getValue();
 		isReleasing = storage.controller.getToteRelease().getButtonValue();
 		isBarrelRelease = storage.controller.getBarrelRelease().getLeadingEdge();
 		isClaspRelease = storage.controller.getClaspRelease().getLeadingEdge();
 		
-		secondaryCollectButtonUp = storage.controller.getBarrelCollect().getValue();
-		secondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getValue();
+		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
+		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
 //		SmartDashboard.putBoolean("Collecting", isCollecting);
 //		SmartDashboard.putBoolean("Collecting Down", isCollectingDown);
@@ -78,7 +78,7 @@ public class BTManipulator implements BTIManipulator
 //		SmartDashboard.putBoolean("Secondary Up", isSecondaryCollectButtonUp);
 //		SmartDashboard.putBoolean("Secondary Down", isSecondaryCollectButtonDown);
 		
-		if(isCollecting || isCollectingDown)
+		if((toteCollectUp > 0)||(toteCollectDown > 0))
 		{
 			collectTote();
 		}
@@ -93,13 +93,13 @@ public class BTManipulator implements BTIManipulator
 			releaseTotes();
 		}
 		
-		if (!isCollecting && !isCollectingDown && !isReleasing)
+		if ((toteCollectUp == 0) && (toteCollectDown == 0) && !isReleasing)
 		{
 			moveRightForkMotors(0);
 			moveLeftForkMotors(0);
 		}
 		
-		if(isCollecting)
+		if(toteCollectUp > 0)
 		{
 			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)) && !isToteIn)
 			{
@@ -127,11 +127,11 @@ public class BTManipulator implements BTIManipulator
 			
 		
 		
-		if (secondaryCollectButtonDown > 0)
+		if (isSecondaryCollectButtonDown)
 		{
 			lowerSecondary();
 		}
-		else if ((secondaryCollectButtonUp > 0) && !isSecondaryUpper)
+		else if ((isSecondaryCollectButtonUp) && !isSecondaryUpper)
 		{
 			liftSecondary();
 		}
@@ -162,11 +162,11 @@ public class BTManipulator implements BTIManipulator
 	public void collectTote()
 	{
 			
-		if(isCollecting && !isLeftToteUpper)
+		if((toteCollectUp > 0) && !isLeftToteUpper)
 		{
 			moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
 		}
-		else if(isCollectingDown && !isLeftToteLower)
+		else if((toteCollectDown > 0) && !isLeftToteLower)
 		{
 			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
 		}
@@ -175,11 +175,11 @@ public class BTManipulator implements BTIManipulator
 			moveLeftForkMotors(0);
 		}
 		
-		if(isCollecting && !isRightToteUpper)
+		if((toteCollectUp > 0) && !isRightToteUpper)
 		{
 			moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
 		}
-		else if(isCollectingDown && !isRightToteLower)
+		else if((toteCollectDown > 0) && !isRightToteLower)
 		{
 			moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
 		}

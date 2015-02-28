@@ -90,15 +90,15 @@ public class BTLogitechJoystick1 implements BTIController
 	}
 
 	@Override
-	public BTIConButton getToteCollect()
+	public BTIConAxis getToteCollect()
 	{
-		return BUTTON_6;
+		return null;
 	}
 	
 	@Override
-	public BTIConButton getToteCollectDown()
+	public BTIConAxis getToteCollectDown()
 	{
-		return BUTTON_4;
+		return null;
 	}
 
 	@Override
@@ -114,13 +114,13 @@ public class BTLogitechJoystick1 implements BTIController
 	}
 	
 	@Override
-	public BTIConAxis getBarrelCollect()
+	public BTIConButton getBarrelCollect()
 	{
 		return null;
 	}
 	
 	@Override
-	public BTIConAxis getBarrelCollectDown()
+	public BTIConButton getBarrelCollectDown()
 	{
 		return null;
 	}
