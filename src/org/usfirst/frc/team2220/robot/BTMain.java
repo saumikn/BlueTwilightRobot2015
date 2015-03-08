@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team2220.robot;
 
-
+import org.usfirst.frc.team2220.robot.electronics.BTCameraThreaded;
 import org.usfirst.frc.team2220.robot.autonomous.BTAuto;
 import org.usfirst.frc.team2220.robot.autonomous.BTAutoContinuous;
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
@@ -10,10 +10,15 @@ import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.drivetrain.BTTankMeca;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.DrawMode;
+import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.ShapeMode;
 
-//import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.Timer;
 
 public class BTMain extends SampleRobot
 {
@@ -24,7 +29,9 @@ public class BTMain extends SampleRobot
 	BTIAutonomousRoutine auto;
 	//BTTestClass test;
 	BTManipulator manipulator;
-	//CameraServer server;
+	CameraServer server;
+	BTCameraThreaded T1 = new BTCameraThreaded();
+	
 	
     public BTMain()
     {
@@ -56,9 +63,19 @@ public class BTMain extends SampleRobot
 		}
 		
 		storage.robot.getBarrelHolder().retract();
+		
+		
+		T1.start();
+		T1.setPriority(Thread.MIN_PRIORITY);
+		T1.frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+        T1.session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        NIVision.IMAQdxConfigureGrab(T1.session);
+        
 //	   	server = CameraServer.getInstance();
 //        server.setQuality(50);
 //        server.startAutomaticCapture("cam0");
+		
+		
 	}
 	
 	//@Override
@@ -75,12 +92,17 @@ public class BTMain extends SampleRobot
 	//@Override
     public void operatorControl()
     {
+    	NIVision.IMAQdxStartAcquisition(T1.session);
+        
+        
     	while(isOperatorControl())
     	{
-    		//test.test();
+    		T1.run();
+         
     		meca.drive();
     		manipulator.perform();
 		}
+    	NIVision.IMAQdxStopAcquisition(T1.session);
     }
 	
 	//@Override

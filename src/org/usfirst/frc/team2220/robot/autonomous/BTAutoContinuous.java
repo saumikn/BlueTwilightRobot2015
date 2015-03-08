@@ -19,6 +19,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	long elapsedTime = 0;
 	long startTime = 0;
+	long moveForwardTime = 0;
 	
 	public BTAutoContinuous(BTStorage storage, BTManipulator manipulator)
 	{
@@ -74,6 +75,73 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		else 
 		{
 			stopMotors();
+		}
+	}
+	
+	public void barrelSteal()
+	{
+		if(startTime == 0)
+		{
+			startTime = System.currentTimeMillis();
+		}
+		
+		elapsedTime = System.currentTimeMillis() - startTime;
+		
+		liftBarrel(barrelTime)
+		
+	}
+		
+	public void liftBarrel (int time)
+	{
+		if (elapsedTime >= 0 && elapsedTime < (0 + moveForwardTime))
+		{
+			moveForward();
+			manipulator.startBarrelMotors(false);
+		}
+		
+		else if (elapsedTime == moveForwardTime)
+		{
+			manipulator.stopBarrelMotors();
+		}
+		
+		else if(elapsedTime > (0 + moveForwardTime) && elapsedTime <= (250 + moveForwardTime))
+		{
+			secondaryActuate();
+		}
+		
+		else if(elapsedTime > (250 + moveForwardTime) && elapsedTime < (1000 + moveForwardTime))
+		{
+			manipulator.startBarrelMotors(true);
+		}
+		
+		else if (elapsedTime == 1000)
+		{
+			manipulator.stopBarrelMotors();
+		}
+		
+		else if (elapsedTime > (1000 + moveForwardTime) && elapsedTime <= (3000 + moveForwardTime))
+		{
+			rotateOnlyLeftWheels();
+		}
+		
+		else if (elapsedTime > (3000 + moveForwardTime) && elapsedTime < (5000 + moveForwardTime))
+		{
+			manipulator.startBarrelMotors(false);
+		}
+		
+		else if (elapsedTime == 5000)
+		{
+			manipulator.stopBarrelMotors();
+		}
+		
+		else if (elapsedTime > (5000 + moveForwardTime) && elapsedTime <= (5250 + moveForwardTime))
+		{
+			secondaryActuate();
+		}
+		
+		else if (elapsedTime > (5250 + moveForwardTime) && elapsedTime < (7250 + moveForwardTime))
+		{
+			
 		}
 	}
 
@@ -164,6 +232,22 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		storage.robot.getFrontRightMotor().setX(fr);
 		storage.robot.getBackRightMotor().setX(br);
 	}
+	
+	public void rotateOnlyLeftWheels()
+	{
+		fr = 0;
+		br = 0;
+		fl = wheelSpeed;
+		bl = -wheelSpeed;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
 	
 	public void resetTimer()
 	{

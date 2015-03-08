@@ -92,13 +92,13 @@ public class BTLogitechJoystick1 implements BTIController
 	@Override
 	public BTIConAxis getToteCollect()
 	{
-		return null;
+		return SLIDER;
 	}
 	
 	@Override
 	public BTIConAxis getToteCollectDown()
 	{
-		return null;
+		return SLIDER;
 	}
 
 	@Override
