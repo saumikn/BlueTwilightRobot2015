@@ -14,16 +14,21 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	double bl = 0.0;
 	double fr = 0.0;
 	double br = 0.0;
+	double degree = 0.0;
 	
 	int barrelCount = 0;
 	
 	boolean isSecondaryUpper;
+	boolean correcting = false;
+	boolean barrelCollectComplete = false;
 	
 	long elapsedTime = 0;
 	long startTime = 0;
-	long moveForwardTime = 0;
+	long setUpTime = 2500;
 	long extraMoveLeftTime = 0;
 	long moveLeftTime = 0;
+	long moveLeftStartTime = 0;
+	long moveLeftElapsedTime = 0;
 	
 	public BTAutoContinuous(BTStorage storage, BTManipulator manipulator)
 	{
@@ -34,7 +39,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	@Override
 	public void runAutonomous()
 	{
-		runAutonomousCoop();
+		barrelSteal();
 	}
 	
 	public void runAutonomousCoop()
@@ -56,23 +61,23 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.stopBarrelMotors();
 		}
 		
-		if((elapsedTime > 4500) && (elapsedTime <= 5400))
+		if((elapsedTime > 45000) && (elapsedTime <= 54000))
 		{
 			moveForward();
 		}
-		else if((elapsedTime > 5400) && (elapsedTime <= 6750))
+		else if((elapsedTime > 54000) && (elapsedTime <= 67500))
 		{
-			rotateOnlyRightWheels();
+			rotateOnlyRightWheels(true);
 		}
-		else if((elapsedTime > 6750) && (elapsedTime <= 8000))
+		else if((elapsedTime > 67500) && (elapsedTime <= 80000))
 		{
 			moveLeft();
 		}
-		else if ((elapsedTime > 8000) && (elapsedTime <= 8900))
+		else if ((elapsedTime > 80000) && (elapsedTime <= 89000))
 		{
 			moveBackward();
 		}
-		else if((elapsedTime > 8900) && (elapsedTime <= 10150))
+		else if((elapsedTime > 89000) && (elapsedTime <= 101500))
 		{
 			moveLeft();
 		}
@@ -84,42 +89,118 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	public void barrelSteal()
 	{
-
-		if (barrelCount == 2)
-		{
-			if (extraMoveLeftTime == 0)
-			{
-				extraMoveLeftTime = System.currentTimeMillis();
-			}
-			
-			if (extraMoveLeftTime - System.currentTimeMillis() <= 250)
-			{
-				moveLeft();
-			}
-			else
-			{
-				stopMotors();
-			}
-		}
+//		if (barrelCount == 2)
+//		{
+//			if (extraMoveLeftTime == 0)
+//			{
+//				extraMoveLeftTime = System.currentTimeMillis();
+//			}
+//			
+//			if (extraMoveLeftTime - System.currentTimeMillis() <= 2500)
+//			{
+//				if (!correcting)
+//				{
+//					moveLeft();
+//				}
+//				
+//				degree = storage.robot.getGyro().getAngle();
+//				
+//				if(degree < (-BTConstants.ANGLE_ERROR)) //adjust front wheel speed to turn robot 
+//				{
+//					fr = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+//					fl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+//		
+//					invertMotors();
+//		
+//					storage.robot.getFrontLeftMotor().setX(fl);
+//					storage.robot.getFrontRightMotor().setX(fr);
+//					correcting = true;
+//				}
+//				else if(degree > (BTConstants.ANGLE_ERROR)) //adjust back wheel speed to turn robot 
+//				{
+//					br = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);					
+//					bl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+//		
+//					invertMotors();
+//		
+//					storage.robot.getBackLeftMotor().setX(bl);
+//					storage.robot.getBackRightMotor().setX(br);	
+//					correcting = true;
+//				}
+//				else
+//				{
+//					correcting = false;
+//				}
+//			}
+//			else
+//			{
+//				stopMotors();
+//			}
+//		}
 		
 		if (barrelCount <= 3)
 		{
-			liftBarrel();
-			if (moveLeftTime == 0)
+			
+			
+			if (!barrelCollectComplete)
 			{
-				moveLeftTime = System.currentTimeMillis();
+				liftBarrel();
 			}
 			
-			if (moveLeftTime - System.currentTimeMillis() <= 125)
+			correcting = false;
+			
+			if(moveLeftStartTime == 0)
 			{
-				moveLeft();
+				moveLeftStartTime = System.currentTimeMillis();
 			}
-			else
+			
+			moveLeftElapsedTime = System.currentTimeMillis() - moveLeftStartTime;
+			
+			
+			
+			if (barrelCollectComplete && moveLeftElapsedTime >= 0 && moveLeftElapsedTime < (10_000+setUpTime))
+			{
+				if (!correcting)
+				{
+					moveLeft();
+				}
+				
+				degree = storage.robot.getGyro().getAngle();
+				
+				if(degree < (-BTConstants.ANGLE_ERROR)) //adjust front wheel speed to turn robot 
+				{
+					fr = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+					fl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+		
+					invertMotors();
+		
+					storage.robot.getFrontLeftMotor().setX(fl);
+					storage.robot.getFrontRightMotor().setX(fr);
+					correcting = true;
+				}
+				else if(degree > (BTConstants.ANGLE_ERROR)) //adjust back wheel speed to turn robot 
+				{
+					br = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);					
+					bl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+		
+					invertMotors();
+		
+					storage.robot.getBackLeftMotor().setX(bl);
+					storage.robot.getBackRightMotor().setX(br);	
+					correcting = true;
+				}
+				else
+				{
+					correcting = false;
+				}
+				
+			}
+			if( moveLeftElapsedTime > 10_000 + setUpTime)
 			{
 				stopMotors();
+				barrelCollectComplete = false;
 			}
 		}
-		
 
 	}
 		
@@ -132,23 +213,22 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		
 		elapsedTime = System.currentTimeMillis() - startTime;
 		
-		if (elapsedTime >= 0 && elapsedTime < (0 + moveForwardTime))
+		if (elapsedTime >= 0 && elapsedTime < (0 + setUpTime))
 		{
-			moveForward();
 			manipulator.startBarrelMotors(false);
 		}
 		
-		else if (elapsedTime == moveForwardTime)
+		else if (elapsedTime == setUpTime)
 		{
 			manipulator.stopBarrelMotors();
 		}
 		
-		else if(elapsedTime > (0 + moveForwardTime) && elapsedTime <= (250 + moveForwardTime))
+		else if(elapsedTime > (00 + setUpTime) && elapsedTime <= (250 + setUpTime))
 		{
 			secondaryActuate();
 		}
 		
-		else if(elapsedTime > (250 + moveForwardTime) && elapsedTime < (1000 + moveForwardTime))
+		else if(elapsedTime > (250 + setUpTime) && elapsedTime < (1000 + setUpTime))
 		{
 			manipulator.startBarrelMotors(true);
 		}
@@ -158,7 +238,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.stopBarrelMotors();
 		}
 		
-		else if (elapsedTime > (1000 + moveForwardTime) && elapsedTime <= (3000 + moveForwardTime))
+		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3_000 + setUpTime))
 		{
 			if(barrelCount <=3)
 			{
@@ -170,7 +250,12 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			}
 		}
 		
-		else if (elapsedTime > (3000 + moveForwardTime) && elapsedTime < (5000 + moveForwardTime))
+		else if (elapsedTime == 3_000)
+		{
+			stopMotors();
+		}
+		
+		else if (elapsedTime > (3000 + setUpTime) && elapsedTime < (5000 + setUpTime))
 		{
 			manipulator.startBarrelMotors(false);
 		}
@@ -180,22 +265,22 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.stopBarrelMotors();
 		}
 		
-		else if (elapsedTime > (5000 + moveForwardTime) && elapsedTime <= (5250 + moveForwardTime))
+		else if (elapsedTime > (5000 + setUpTime) && elapsedTime <= (5250 + setUpTime))
 		{
 			secondaryActuate();
 		}
 		
-		else if (elapsedTime > (5250 + moveForwardTime) && elapsedTime < (7250 + moveForwardTime))
+		else if (elapsedTime > (5250 + setUpTime) && elapsedTime < (7250 + setUpTime))
 		{
 			manipulator.startBarrelMotors(true);	
 		}
 		
-		else if (elapsedTime == 7250+moveForwardTime)
+		else if (elapsedTime == 7250+setUpTime)
 		{
 			manipulator.stopBarrelMotors();
 		}
 		
-		else if	(elapsedTime > (7250 + moveForwardTime) && elapsedTime <= (9250 + moveForwardTime))
+		else if	(elapsedTime > (7250 + setUpTime) && elapsedTime <= (9250 + setUpTime))
 		{
 			if(barrelCount <=3)
 			{
@@ -207,10 +292,11 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			}
 		}
 		
-		else if(elapsedTime > (9250 + moveForwardTime))
+		else if(elapsedTime > (9250 + setUpTime))
 		{
 			startTime = 0;
 			barrelCount++;
+			barrelCollectComplete= true;
 		}
 	}
 	
@@ -219,14 +305,14 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	//barrelClamp does not exist yet, will be written in storage once solenoid ports have been determined
 	
-		if (storage.robot.getBarrelClamp.isExtended())
-		{
-			storage.robot.getBarrelClamp().retract();
-		}
-		else
-		{
-			storage.robot.getBarrelClamp().extend();
-		}
+//		if (storage.robot.getBarrelHolder().isExtended())
+//		{
+//			storage.robot.getBarrelHolder().retract();
+//		}
+//		else
+//		{
+//			storage.robot.getBarrelHolder().extend();
+//		}
 		
 	}
 

@@ -121,6 +121,8 @@ public class BTConstants
 	public static final double ROTATE_RIGHT_TIME = 0.3;
 	public static final double ROTATE_RIGHT_SPEED = 0.3;
 	public static final double MOVE_RIGHT_SPEED = 0.9;
+	public static final double ANGLE_ERROR = 5;
+	public static final double MOTOR_ERROR = 0;
 	
 	
 //	public static final int COLLECT_TIME = 1000;
