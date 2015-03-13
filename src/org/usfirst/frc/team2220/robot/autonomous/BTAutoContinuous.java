@@ -137,8 +137,13 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 //				stopMotors();
 //			}
 //		}
+		if (barrelCount >= 4)
+		{
+			stopMotors();
+			manipulator.stopBarrelMotors();
+		}
 		
-		if (barrelCount <= 3)
+		else if (barrelCount <= 3)
 		{
 			
 			
@@ -158,7 +163,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			
 			
 			
-			if (barrelCollectComplete && moveLeftElapsedTime >= 0 && moveLeftElapsedTime < (10_000+setUpTime))
+			if (barrelCollectComplete && moveLeftElapsedTime >= 0 && moveLeftElapsedTime < (12_000+setUpTime))
 			{
 				if (!correcting)
 				{
@@ -200,13 +205,21 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				stopMotors();
 				barrelCollectComplete = false;
 				moveLeftStartTime = 0;
+				if (barrelCount == 3)
+				{
+					liftBarrel(); 
+				}
 			}
 			
-			if (barrelCount == 2)
+			if (moveLeftElapsedTime > 12_000 + setUpTime && barrelCount == 2)
 			{
-				
+				stopMotors();
+				barrelCollectComplete = false;
+				moveLeftStartTime = 0;
 			}
 		}
+		
+		
 
 	}
 		
@@ -247,7 +260,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		
 		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3_000 + setUpTime))
 		{
-			if(barrelCount <=3)
+			if(barrelCount < 3)
 			{
 				manipulator.stopBarrelMotors();
 				rotateOnlyLeftWheels(false);
@@ -293,7 +306,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		
 		else if	(elapsedTime > (7250 + setUpTime) && elapsedTime <= (9250 + setUpTime))
 		{
-			if(barrelCount <=3)
+			if(barrelCount < 3)
 			{
 				manipulator.stopBarrelMotors();
 				rotateOnlyLeftWheels(true);
@@ -307,6 +320,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		
 		else if(elapsedTime > (9250 + setUpTime))
 		{
+			stopMotors();
 			startTime = 0;
 			barrelCount++;
 			barrelCollectComplete= true;
