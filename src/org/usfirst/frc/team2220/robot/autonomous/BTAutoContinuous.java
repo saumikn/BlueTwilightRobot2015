@@ -195,10 +195,16 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				}
 				
 			}
-			if( moveLeftElapsedTime > 10_000 + setUpTime)
+			if( moveLeftElapsedTime > 10_000 + setUpTime && barrelCount != 2)
 			{
 				stopMotors();
 				barrelCollectComplete = false;
+				moveLeftStartTime = 0;
+			}
+			
+			if (barrelCount == 2)
+			{
+				
 			}
 		}
 
@@ -218,13 +224,14 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.startBarrelMotors(false);
 		}
 		
-		else if (elapsedTime == setUpTime)
-		{
-			manipulator.stopBarrelMotors();
-		}
+//		else if (elapsedTime == setUpTime)
+//		{
+//			manipulator.stopBarrelMotors();
+//		}
 		
 		else if(elapsedTime > (00 + setUpTime) && elapsedTime <= (250 + setUpTime))
 		{
+			manipulator.stopBarrelMotors();
 			secondaryActuate();
 		}
 		
@@ -233,35 +240,39 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.startBarrelMotors(true);
 		}
 		
-		else if (elapsedTime == 1000)
-		{
-			manipulator.stopBarrelMotors();
-		}
+//		else if (elapsedTime == 10000 + setUpTime)
+//		{
+//			manipulator.stopBarrelMotors();
+//		}
 		
 		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3_000 + setUpTime))
 		{
 			if(barrelCount <=3)
 			{
+				manipulator.stopBarrelMotors();
 				rotateOnlyLeftWheels(false);
 			}
 			else
 			{
+				manipulator.stopBarrelMotors();
 				rotateOnlyRightWheels(false);
 			}
 		}
 		
-		else if (elapsedTime == 3_000)
-		{
-			stopMotors();
-		}
+//		else if (elapsedTime == 3000 + setUpTime)
+//		{
+//			stopMotors();
+//		}
 		
 		else if (elapsedTime > (3000 + setUpTime) && elapsedTime < (5000 + setUpTime))
 		{
+			stopMotors();
 			manipulator.startBarrelMotors(false);
 		}
 		
-		else if (elapsedTime == 5000)
+		else if (elapsedTime == 5000 + setUpTime)
 		{
+			stopMotors();
 			manipulator.stopBarrelMotors();
 		}
 		
@@ -275,19 +286,21 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.startBarrelMotors(true);	
 		}
 		
-		else if (elapsedTime == 7250+setUpTime)
-		{
-			manipulator.stopBarrelMotors();
-		}
+//		else if (elapsedTime == 72500+setUpTime)
+//		{
+//			manipulator.stopBarrelMotors();
+//		}
 		
 		else if	(elapsedTime > (7250 + setUpTime) && elapsedTime <= (9250 + setUpTime))
 		{
 			if(barrelCount <=3)
 			{
+				manipulator.stopBarrelMotors();
 				rotateOnlyLeftWheels(true);
 			}
 			else
 			{
+				manipulator.stopBarrelMotors();
 				rotateOnlyRightWheels(true);
 			}
 		}
