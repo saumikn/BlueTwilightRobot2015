@@ -137,7 +137,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 //				stopMotors();
 //			}
 //		}
-		if (barrelCount >= 4)
+		if (barrelCount >= 4)	//We don't expect this to happen given the short time for autonomous
 		{
 			stopMotors();
 			manipulator.stopBarrelMotors();
@@ -152,7 +152,9 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				liftBarrel();
 			}
 			
-			correcting = false;
+//			correcting = false;	//Commented out by Jacob E. because this would *keep* being set to false with every pass through this method,
+								//meaning that the corrections would never actually happen. The initialization as false in the definition
+								//should be enough.
 			
 			if(moveLeftStartTime == 0)
 			{
@@ -163,7 +165,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			
 			
 			
-			if (barrelCollectComplete && moveLeftElapsedTime >= 0 && moveLeftElapsedTime < (12_000+setUpTime))
+			if (barrelCollectComplete && moveLeftElapsedTime < (12_000 + setUpTime))
 			{
 				if (!correcting)
 				{
@@ -172,7 +174,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				
 				degree = storage.robot.getGyro().getAngle();
 				
-				if(degree < (-BTConstants.ANGLE_ERROR)) //adjust front wheel speed to turn robot 
+				if(degree < (-BTConstants.ANGLE_ERROR)) //If robot pointing too far left, adjust front wheel speed to turn robot 
 				{
 					fr = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
 					fl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
@@ -183,7 +185,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 					storage.robot.getFrontRightMotor().setX(fr);
 					correcting = true;
 				}
-				else if(degree > (BTConstants.ANGLE_ERROR)) //adjust back wheel speed to turn robot 
+				else if(degree > (BTConstants.ANGLE_ERROR)) //If robot pointing too far right, adjust back wheel speed to turn robot 
 				{
 					br = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);					
 					bl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
@@ -223,18 +225,18 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 
 	}
 		
-	public void liftBarrel ()
+	public void liftBarrel()
 	{
 		if(startTime == 0)
 		{
 			startTime = System.currentTimeMillis();
 		}
 		
-		elapsedTime = System.currentTimeMillis() - startTime;
+		elapsedTime = System.currentTimeMillis() - startTime;	//Time since the operation began running
 		
 		if (elapsedTime >= 0 && elapsedTime < (0 + setUpTime))
 		{
-			manipulator.startBarrelMotors(false);
+			manipulator.startBarrelMotors(false);	//Barrel motors start moving down
 		}
 		
 //		else if (elapsedTime == setUpTime)
@@ -242,15 +244,15 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 //			manipulator.stopBarrelMotors();
 //		}
 		
-		else if(elapsedTime > (00 + setUpTime) && elapsedTime <= (250 + setUpTime))
+		else if(elapsedTime > (0 + setUpTime) && elapsedTime <= (250 + setUpTime))
 		{
 			manipulator.stopBarrelMotors();
-			secondaryActuate();
+			secondaryActuate();	//Currently does nothing
 		}
 		
 		else if(elapsedTime > (250 + setUpTime) && elapsedTime < (1000 + setUpTime))
 		{
-			manipulator.startBarrelMotors(true);
+			manipulator.startBarrelMotors(true);	//Barrel motors start moving up
 		}
 		
 //		else if (elapsedTime == 10000 + setUpTime)
@@ -258,17 +260,17 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 //			manipulator.stopBarrelMotors();
 //		}
 		
-		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3_000 + setUpTime))
+		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3000 + setUpTime))
 		{
 			if(barrelCount < 3)
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyLeftWheels(false);
+				rotateOnlyLeftWheels(false);	//Rotates only the left wheels, moving the robot (clockwise?)
 			}
 			else
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyRightWheels(false);
+				rotateOnlyRightWheels(false);	//Rotates only the right wheels, moving the robot (clockwise?)
 			}
 		}
 		
@@ -280,23 +282,25 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		else if (elapsedTime > (3000 + setUpTime) && elapsedTime < (5000 + setUpTime))
 		{
 			stopMotors();
-			manipulator.startBarrelMotors(false);
+			manipulator.startBarrelMotors(false);	//Barrel motors start moving down
 		}
 		
-		else if (elapsedTime == 5000 + setUpTime)
-		{
-			stopMotors();
-			manipulator.stopBarrelMotors();
-		}
+//		else if (elapsedTime == 5000 + setUpTime)	//NOTE: Commented out by Jacob E. because there's no guarantee this method will run
+//		{											//every single millisecond, and this block would only take effect if elapsedTime was
+//			stopMotors();							//equal to a single, specific millisecond value. I transfered the two lines in this
+//			manipulator.stopBarrelMotors();			//if statement to the following one.
+//		}
 		
 		else if (elapsedTime > (5000 + setUpTime) && elapsedTime <= (5250 + setUpTime))
 		{
+			stopMotors();
+			manipulator.stopBarrelMotors();
 			secondaryActuate();
 		}
 		
 		else if (elapsedTime > (5250 + setUpTime) && elapsedTime < (7250 + setUpTime))
 		{
-			manipulator.startBarrelMotors(true);	
+			manipulator.startBarrelMotors(true);	//Barrel motors start moving up
 		}
 		
 //		else if (elapsedTime == 72500+setUpTime)
@@ -309,12 +313,12 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			if(barrelCount < 3)
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyLeftWheels(true);
+				rotateOnlyLeftWheels(true);		//Rotates only the left wheels, moving the robot (counterclockwise?)
 			}
 			else
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyRightWheels(true);
+				rotateOnlyRightWheels(true);	//Rotates only the right wheels, moving the robot (counterclockwise?)
 			}
 		}
 		
@@ -323,7 +327,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			stopMotors();
 			startTime = 0;
 			barrelCount++;
-			barrelCollectComplete= true;
+			barrelCollectComplete = true;
 		}
 	}
 	
