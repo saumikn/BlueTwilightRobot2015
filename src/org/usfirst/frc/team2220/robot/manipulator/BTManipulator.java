@@ -3,9 +3,6 @@ package org.usfirst.frc.team2220.robot.manipulator;
 import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class BTManipulator implements BTIManipulator
 {
 	public BTStorage storage;
@@ -13,7 +10,6 @@ public class BTManipulator implements BTIManipulator
 	public BTManipulator(BTStorage storage)
 	{
 		this.storage = storage;
-		totecount = 0;
 		stopSecondary();
 	}
 	
@@ -38,9 +34,6 @@ public class BTManipulator implements BTIManipulator
 	boolean keepExtended = false;
 	boolean isGoingUp;
 	
-	private int totecount = 0;
-	private boolean isBarrelCollectorUpper = false;
-	
 	boolean waitingForUpper = false;
 	
 	@Override
@@ -54,15 +47,6 @@ public class BTManipulator implements BTIManipulator
 		isRightToteUpper = storage.robot.getRightToteUpperLimit().getValue();
 		isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
 		
-		
-//		SmartDashboard.putBoolean("Tote In", isToteIn);
-//		SmartDashboard.putBoolean("Left Lower", isLeftToteLower);
-//		SmartDashboard.putBoolean("Right Lower", isRightToteLower);
-//		SmartDashboard.putBoolean("Tote Middle", isToteMiddle);
-//		SmartDashboard.putBoolean("Left Upper", isLeftToteUpper);
-//		SmartDashboard.putBoolean("Right Upper", isRightToteUpper);
-//		SmartDashboard.putBoolean("Secondary Upper", isSecondaryUpper);
-		
 		toteCollectUp = storage.controller.getToteCollect().getValue();
 		toteCollectDown = storage.controller.getToteCollectDown().getValue();
 		isReleasing = storage.controller.getToteRelease().getButtonValue();
@@ -71,12 +55,6 @@ public class BTManipulator implements BTIManipulator
 		
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
-		
-//		SmartDashboard.putBoolean("Collecting", isCollecting);
-//		SmartDashboard.putBoolean("Collecting Down", isCollectingDown);
-//		SmartDashboard.putBoolean("Releasing", isReleasing);
-//		SmartDashboard.putBoolean("Secondary Up", isSecondaryCollectButtonUp);
-//		SmartDashboard.putBoolean("Secondary Down", isSecondaryCollectButtonDown);
 		
 		if((toteCollectUp > 0)||(toteCollectDown > 0))
 		{
@@ -104,19 +82,18 @@ public class BTManipulator implements BTIManipulator
 			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)) && !isToteIn)
 			{
 				keepExtended = true; 
-				storage.robot.getToteClamp().retract(); // retract claws to let tote go by
 				storage.robot.getBarrelHolder().retract();
 			}
+			
 			else if (keepExtended && isLeftToteUpper && isRightToteUpper)
 			{
 				keepExtended = false;
 				storage.robot.getToteClamp().extend();
-				//storage.robot.getBarrelHolder().extend();
 			}
+			
 			else if (!keepExtended)
 			{
 				storage.robot.getToteClamp().extend();
-				//storage.robot.getBarrelHolder().extend();
 			}
 		}
 		
@@ -124,9 +101,7 @@ public class BTManipulator implements BTIManipulator
 		{
 			releaseBarrel();
 		}
-			
-		
-		
+
 		if (isSecondaryCollectButtonDown)
 		{
 			lowerSecondary();
@@ -146,12 +121,12 @@ public class BTManipulator implements BTIManipulator
 	
 	public void liftSecondary()
 	{
-		startBarrelMotors(true);
+		startBarrelMotors(false); //based on the ways the barrel motors are wired
 	}
 	
 	public void lowerSecondary()
 	{
-		startBarrelMotors(false);
+		startBarrelMotors(true); //based on the ways the barrel motors are wired
 	}
 	
 	public void stopSecondary()
@@ -206,66 +181,6 @@ public class BTManipulator implements BTIManipulator
 	
 	public void releaseTotes()
 	{
-		/*
-		if (!isExtended)
-		{ 
-			if (!isLeftToteUpper)
-			{
-				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
-			}
-			else 
-			{
-				moveLeftForkMotors(0);
-			}
-			if (!isRightToteUpper)
-			{
-				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
-			}
-			else 
-			{
-				moveRightForkMotors(0);
-			}
-			
-			if (isLeftToteUpper && isRightToteUpper)
-			{
-				storage.robot.getToteClamp().extend();
-				isExtended = true;
-				moveRightForkMotors(0);
-				moveLeftForkMotors(0);
-			}
-		}
-		
-		else
-		{
-			
-			if (!isLeftToteLower)
-			{
-				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-			}
-			else 
-			{
-				moveLeftForkMotors(0);
-			}
-			
-			if (!isRightToteLower)
-			{
-				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-			}
-			else 
-			{
-				moveRightForkMotors(0);
-			}
-			
-			if (isLeftToteLower && isRightToteLower)
-			{
-				isExtended = false;
-				moveRightForkMotors(0);
-				moveLeftForkMotors(0);
-			}
-			
-			
-		}
-		*/
 		storage.robot.getToteClamp().retract();
 		storage.robot.getBarrelHolder().retract();
 		isExtended = true;
@@ -282,26 +197,6 @@ public class BTManipulator implements BTIManipulator
 			storage.robot.getBarrelHolder().extend();
 		}
 	}
-	
-//	public void startCollectorMotors()
-//	{
-//		if (BTConstants.COLLECTORS_REVERSED)
-//		{
-//			storage.robot.getCollectorMotorLeft().setX(BTConstants.COLLECTOR_MOTOR_POWER);
-//			storage.robot.getCollectorMotorRight().setX(-BTConstants.COLLECTOR_MOTOR_POWER);
-//		}
-//		else
-//		{
-//			storage.robot.getCollectorMotorLeft().setX(-BTConstants.COLLECTOR_MOTOR_POWER);
-//			storage.robot.getCollectorMotorRight().setX(BTConstants.COLLECTOR_MOTOR_POWER);
-//		}
-//	}
-	
-//	public void stopCollectorMotors()
-//	{
-//		storage.robot.getCollectorMotorLeft().setX(0);
-//		storage.robot.getCollectorMotorRight().setX(0);
-//	}
 	
 	public void startBarrelMotors(boolean goUp)
 	{
@@ -337,49 +232,4 @@ public class BTManipulator implements BTIManipulator
 //		System.out.println("Fork Right:\t" + x);
 	}
 	
-//	public boolean emergencyTimeMiddleForkTest(String methodname)
-//	{
-//		if (System.currentTimeMillis() - collectStartTime > BTConstants.EMERGENCY_STOP_TIME_MIDDLE)
-//		{
-//			//if the motor going up times out, move it back down to the bottom
-//			moveForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-//			if (isLeftToteLower || isRightToteLower)
-//			{
-//				moveForkMotors(0);
-//			}
-//			//if that times out too, stop the motors
-//			if (System.currentTimeMillis() - collectStartTime > 2 * BTConstants.EMERGENCY_STOP_TIME_MIDDLE)
-//			{
-//				moveForkMotors(0);
-//				System.out.println("Error: Motor timed out in " + methodname + " method"
-//						+ " AND emergency reset timed out");
-//			}
-//			System.out.println("Error: Motor timed out in " + methodname + " method.");
-//			return true;
-//		}
-//		return false;
-//	}
-//
-//	public boolean emergencyTimeUpperForkTest(String methodname)
-//	{
-//		if (System.currentTimeMillis() - collectStartTime > BTConstants.EMERGENCY_STOP_TIME_TOP)
-//		{
-//			//if the motor going up times out, move it back down to the bottom
-//			moveForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-//			if (isLeftToteLower || isRightToteLower)
-//			{
-//				moveForkMotors(0);
-//			}
-//			//if that times out too, stop the motors
-//			if (System.currentTimeMillis() - collectStartTime > 2 * BTConstants.EMERGENCY_STOP_TIME_TOP)
-//			{
-//				moveForkMotors(0);
-//				System.out.println("Error: Motor timed out in " + methodname + " method"
-//						+ " AND emergency reset timed out");
-//			}
-//			System.out.println("Error: Motor timed out in " + methodname + " method.");
-//			return true;
-//		}
-//		return false;
-//	}
 }

@@ -2,23 +2,15 @@
 package org.usfirst.frc.team2220.robot;
 
 import org.usfirst.frc.team2220.robot.electronics.BTCameraThreaded;
-import org.usfirst.frc.team2220.robot.autonomous.BTAuto;
 import org.usfirst.frc.team2220.robot.autonomous.BTAutoContinuous;
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
-//import org.usfirst.frc.team2220.robot.drivetrain.BTMeca;
-//import org.usfirst.frc.team2220.robot.drivetrain.BTOcto;
 import org.usfirst.frc.team2220.robot.drivetrain.BTTankMeca;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
-import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.Timer;
 
 public class BTMain extends SampleRobot
 {
@@ -84,7 +76,7 @@ public class BTMain extends SampleRobot
     	auto.resetTimer();
 		while (isAutonomous())
 		{
-			auto.runAutonomous();
+			auto.runAutonomous();		
 		}
     	
     }
@@ -108,6 +100,6 @@ public class BTMain extends SampleRobot
 	//@Override
     public void disabled()
     {
-    	
+    	auto.resetTimer();
     }
 }

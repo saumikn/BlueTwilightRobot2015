@@ -94,8 +94,8 @@ public class BTConstants
 	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
 	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
 	public static final double TOTE_MOTOR_POWER = 0.25;
-	public static final double BARREL_MOTOR_POWER_DOWN = 0.9;
-	public static final double BARREL_MOTOR_POWER_UP = 0.5;
+	public static final double BARREL_MOTOR_POWER_DOWN = 0.6;
+	public static final double BARREL_MOTOR_POWER_UP = 0.6;
 	public static final double COLLECTOR_MOTOR_POWER = 0.9;
 	
 	// Electronics Constants
@@ -122,7 +122,7 @@ public class BTConstants
 	public static final double ROTATE_RIGHT_SPEED = 0.3;
 	public static final double MOVE_RIGHT_SPEED = 0.9;
 	public static final double ANGLE_ERROR = 5;
-	public static final double MOTOR_ERROR = 0;
+	public static final double MOTOR_GYRO_SCALE_VALUE = 0.8;
 	
 	
 //	public static final int COLLECT_TIME = 1000;
