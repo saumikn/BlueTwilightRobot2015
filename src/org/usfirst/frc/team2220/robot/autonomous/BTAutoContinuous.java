@@ -10,6 +10,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	BTManipulator manipulator;
 	
 	double wheelSpeed = 0.75;
+	double slowWheelSpeed= 0.5;
 	double fl = 0.0;
 	double bl = 0.0;
 	double fr = 0.0;
@@ -39,7 +40,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	@Override
 	public void runAutonomous()
 	{
-		barrelSteal();
+		barrelSteal2();
 	}
 	
 	public void runAutonomousCoop()
@@ -61,23 +62,23 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			manipulator.stopBarrelMotors();
 		}
 		
-		if((elapsedTime > 45000) && (elapsedTime <= 54000))
+		if((elapsedTime > 4500) && (elapsedTime <= 5400))
 		{
 			moveForward();
 		}
-		else if((elapsedTime > 54000) && (elapsedTime <= 67500))
+		else if((elapsedTime > 5400) && (elapsedTime <= 6750))
 		{
 			rotateOnlyRightWheels(true);
 		}
-		else if((elapsedTime > 67500) && (elapsedTime <= 80000))
+		else if((elapsedTime > 6750) && (elapsedTime <= 8000))
 		{
 			moveLeft();
 		}
-		else if ((elapsedTime > 80000) && (elapsedTime <= 89000))
+		else if ((elapsedTime > 8000) && (elapsedTime <= 8900))
 		{
 			moveBackward();
 		}
-		else if((elapsedTime > 89000) && (elapsedTime <= 101500))
+		else if((elapsedTime > 8900) && (elapsedTime <= 10150))
 		{
 			moveLeft();
 		}
@@ -89,55 +90,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	public void barrelSteal()
 	{
-//		if (barrelCount == 2)
-//		{
-//			if (extraMoveLeftTime == 0)
-//			{
-//				extraMoveLeftTime = System.currentTimeMillis();
-//			}
-//			
-//			if (extraMoveLeftTime - System.currentTimeMillis() <= 2500)
-//			{
-//				if (!correcting)
-//				{
-//					moveLeft();
-//				}
-//				
-//				degree = storage.robot.getGyro().getAngle();
-//				
-//				if(degree < (-BTConstants.ANGLE_ERROR)) //adjust front wheel speed to turn robot 
-//				{
-//					fr = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
-//					fl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
-//		
-//					invertMotors();
-//		
-//					storage.robot.getFrontLeftMotor().setX(fl);
-//					storage.robot.getFrontRightMotor().setX(fr);
-//					correcting = true;
-//				}
-//				else if(degree > (BTConstants.ANGLE_ERROR)) //adjust back wheel speed to turn robot 
-//				{
-//					br = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);					
-//					bl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
-//		
-//					invertMotors();
-//		
-//					storage.robot.getBackLeftMotor().setX(bl);
-//					storage.robot.getBackRightMotor().setX(br);	
-//					correcting = true;
-//				}
-//				else
-//				{
-//					correcting = false;
-//				}
-//			}
-//			else
-//			{
-//				stopMotors();
-//			}
-//		}
-		if (barrelCount >= 4)
+		if (barrelCount >= 4)	//We don't expect this to happen given the short time for autonomous
 		{
 			stopMotors();
 			manipulator.stopBarrelMotors();
@@ -146,13 +99,10 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		else if (barrelCount <= 3)
 		{
 			
-			
 			if (!barrelCollectComplete)
 			{
 				liftBarrel();
 			}
-			
-			correcting = false;
 			
 			if(moveLeftStartTime == 0)
 			{
@@ -163,7 +113,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			
 			
 			
-			if (barrelCollectComplete && moveLeftElapsedTime >= 0 && moveLeftElapsedTime < (12_000+setUpTime))
+			if (barrelCollectComplete && moveLeftElapsedTime < (1_200 + setUpTime))
 			{
 				if (!correcting)
 				{
@@ -172,10 +122,10 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				
 				degree = storage.robot.getGyro().getAngle();
 				
-				if(degree < (-BTConstants.ANGLE_ERROR)) //adjust front wheel speed to turn robot 
+				if(degree < (-BTConstants.ANGLE_ERROR)) //If robot pointing too far left, adjust front wheel speed to turn robot 
 				{
-					fr = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
-					fl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+					fr = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;
+					fl = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;
 		
 					invertMotors();
 		
@@ -183,10 +133,10 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 					storage.robot.getFrontRightMotor().setX(fr);
 					correcting = true;
 				}
-				else if(degree > (BTConstants.ANGLE_ERROR)) //adjust back wheel speed to turn robot 
+				else if(degree > (BTConstants.ANGLE_ERROR)) //If robot pointing too far right, adjust back wheel speed to turn robot 
 				{
-					br = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);					
-					bl = wheelSpeed - (wheelSpeed * BTConstants.MOTOR_ERROR);
+					br = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;					
+					bl = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;
 		
 					invertMotors();
 		
@@ -218,103 +168,77 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				moveLeftStartTime = 0;
 			}
 		}
-		
-		
 
 	}
 		
-	public void liftBarrel ()
+	public void liftBarrel()
 	{
 		if(startTime == 0)
 		{
 			startTime = System.currentTimeMillis();
 		}
 		
-		elapsedTime = System.currentTimeMillis() - startTime;
+		elapsedTime = System.currentTimeMillis() - startTime;	//Time since the operation began running
 		
 		if (elapsedTime >= 0 && elapsedTime < (0 + setUpTime))
 		{
-			manipulator.startBarrelMotors(false);
+			manipulator.startBarrelMotors(false);	//Barrel motors start moving down
 		}
 		
-//		else if (elapsedTime == setUpTime)
-//		{
-//			manipulator.stopBarrelMotors();
-//		}
-		
-		else if(elapsedTime > (00 + setUpTime) && elapsedTime <= (250 + setUpTime))
+		else if(elapsedTime > (0 + setUpTime) && elapsedTime <= (250 + setUpTime))
 		{
 			manipulator.stopBarrelMotors();
-			secondaryActuate();
+			secondaryActuate();	//Currently does nothing
 		}
 		
 		else if(elapsedTime > (250 + setUpTime) && elapsedTime < (1000 + setUpTime))
 		{
-			manipulator.startBarrelMotors(true);
+			manipulator.startBarrelMotors(true);	//Barrel motors start moving up
 		}
-		
-//		else if (elapsedTime == 10000 + setUpTime)
-//		{
-//			manipulator.stopBarrelMotors();
-//		}
-		
-		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3_000 + setUpTime))
+
+		else if (elapsedTime > (1000 + setUpTime) && elapsedTime < (3000 + setUpTime))
 		{
 			if(barrelCount < 3)
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyLeftWheels(false);
+				rotateOnlyRightWheels(true);	//Rotates only the left wheels, moving the robot (clockwise?)
 			}
 			else
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyRightWheels(false);
+				rotateOnlyLeftWheels(true);	//Rotates only the right wheels, moving the robot (clockwise?)
 			}
 		}
-		
-//		else if (elapsedTime == 3000 + setUpTime)
-//		{
-//			stopMotors();
-//		}
 		
 		else if (elapsedTime > (3000 + setUpTime) && elapsedTime < (5000 + setUpTime))
 		{
 			stopMotors();
-			manipulator.startBarrelMotors(false);
-		}
-		
-		else if (elapsedTime == 5000 + setUpTime)
-		{
-			stopMotors();
-			manipulator.stopBarrelMotors();
+			manipulator.startBarrelMotors(false);	//Barrel motors start moving down
 		}
 		
 		else if (elapsedTime > (5000 + setUpTime) && elapsedTime <= (5250 + setUpTime))
 		{
+			stopMotors();
+			manipulator.stopBarrelMotors();
 			secondaryActuate();
 		}
 		
 		else if (elapsedTime > (5250 + setUpTime) && elapsedTime < (7250 + setUpTime))
 		{
-			manipulator.startBarrelMotors(true);	
+			manipulator.startBarrelMotors(true);	//Barrel motors start moving up
 		}
-		
-//		else if (elapsedTime == 72500+setUpTime)
-//		{
-//			manipulator.stopBarrelMotors();
-//		}
 		
 		else if	(elapsedTime > (7250 + setUpTime) && elapsedTime <= (9250 + setUpTime))
 		{
 			if(barrelCount < 3)
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyLeftWheels(true);
+				rotateOnlyRightWheels(false);		//Rotates only the left wheels, moving the robot (counterclockwise?)
 			}
 			else
 			{
 				manipulator.stopBarrelMotors();
-				rotateOnlyRightWheels(true);
+				rotateOnlyLeftWheels(true);	//Rotates only the right wheels, moving the robot (counterclockwise?)
 			}
 		}
 		
@@ -323,7 +247,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 			stopMotors();
 			startTime = 0;
 			barrelCount++;
-			barrelCollectComplete= true;
+			barrelCollectComplete = true;
 		}
 	}
 	
@@ -340,6 +264,82 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 //		{
 //			storage.robot.getBarrelHolder().extend();
 //		}
+		
+	}
+	
+	public void barrelSteal2()
+	{
+		if (startTime == 0)
+		{
+			startTime = System.currentTimeMillis();
+		}
+			
+		elapsedTime = System.currentTimeMillis() - startTime;
+			
+		//first barrel - setting up next to totes
+		if (elapsedTime > 0 && elapsedTime <= 1500)
+		{
+			rotateOnlyRightWheels(true);
+		}
+		else if (elapsedTime > 1500 && elapsedTime <= 1750)
+		{
+			rotateOnlyLeftWheels(true);
+		}
+		else if (elapsedTime > 1750 && elapsedTime <= 2250)
+		{
+			slowMoveLeft();
+		}
+		else if (elapsedTime > 2250 && elapsedTime <= 4500)
+		{
+			stopMotors();
+			manipulator.startBarrelMotors(false);
+		}
+		else if (elapsedTime > 4500 && elapsedTime <= 5000)
+		{
+			manipulator.stopBarrelMotors();
+			rotateOnlyLeftWheels(false);
+		}
+		else if (elapsedTime > 5000 && elapsedTime <= 6000)
+		{
+			stopMotors();
+			manipulator.startBarrelMotors(true);
+		}
+		else if (elapsedTime > 6000 && elapsedTime <= 6600)
+		{
+			manipulator.stopBarrelMotors();
+			rotateOnlyLeftWheels(true);
+		}
+		else if (elapsedTime > 6600 && elapsedTime <= 6750)
+		{
+			slowMoveRight();
+		}
+		else if (elapsedTime > 6750 && elapsedTime <= 7150)
+		{
+			manipulator.startBarrelMotors(true);
+		}
+		else if (elapsedTime > 7150 && elapsedTime <= 7300)
+		{
+			rotateOnlyRightWheels(true);
+		}
+		else if (elapsedTime > 7300 && elapsedTime <= 7450)
+		{
+			rotateOnlyLeftWheels(true);
+		}
+		else if (elapsedTime > 7450 && elapsedTime <= 9450)
+		{
+			stopMotors();
+			manipulator.startBarrelMotors(false);
+		}
+		else if (elapsedTime > 9450 && elapsedTime <= 11450)
+		{
+			manipulator.stopBarrelMotors();
+			moveForward();
+		}
+		else
+		{
+			stopMotors();
+			manipulator.stopBarrelMotors();
+		}
 		
 	}
 
@@ -407,6 +407,36 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		fr = -wheelSpeed;
 		bl = -wheelSpeed;
 		br = -wheelSpeed;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
+	public void slowMoveLeft()
+	{
+		fl = -slowWheelSpeed;
+		fr = -slowWheelSpeed;
+		bl = -slowWheelSpeed;
+		br = -slowWheelSpeed;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
+	public void slowMoveRight()
+	{
+		fl = slowWheelSpeed;
+		fr = slowWheelSpeed;
+		bl = slowWheelSpeed;
+		br = slowWheelSpeed;
 		
 		invertMotors();
 		
