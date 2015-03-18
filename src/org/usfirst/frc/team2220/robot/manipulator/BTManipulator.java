@@ -50,7 +50,7 @@ public class BTManipulator implements BTIManipulator
 		toteCollectUp = storage.controller.getToteCollect().getValue();
 		toteCollectDown = storage.controller.getToteCollectDown().getValue();
 		isReleasing = storage.controller.getToteRelease().getButtonValue();
-		isBarrelRelease = storage.controller.getBarrelRelease().getLeadingEdge();
+		isBarrelRelease = storage.controller.getBarrelRelease().getButtonValue();
 		isClaspRelease = storage.controller.getClaspRelease().getLeadingEdge();
 		
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
@@ -99,9 +99,13 @@ public class BTManipulator implements BTIManipulator
 		
 		if (isBarrelRelease)
 		{
-			releaseBarrel();
+			storage.robot.getBarrelHolder().extend();
 		}
-
+		else 
+		{
+			storage.robot.getBarrelHolder().retract();
+		}
+		
 		if (isSecondaryCollectButtonDown)
 		{
 			lowerSecondary();
@@ -188,14 +192,7 @@ public class BTManipulator implements BTIManipulator
 	
 	public void releaseBarrel()
 	{
-		if(storage.robot.getBarrelHolder().isExtended())
-		{
-			storage.robot.getBarrelHolder().retract();
-		}
-		else
-		{
-			storage.robot.getBarrelHolder().extend();
-		}
+		
 	}
 	
 	public void startBarrelMotors(boolean goUp)
