@@ -17,6 +17,21 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	double br = 0.0;
 	double degree = 0.0;
 	
+	double s1 = 1300; 			//turn 90 degrees to align secondary with landfill & barrels
+	double s2 = s1 + 500; 		//ram forward into landfill
+	double s3 = s2 + 300; 		//move robot left to 1st barrel
+	double s4 = s3 + 1500;		//lift barrel
+	double s5 = s4 + 250;		//rotate robot left wheels forward
+	double s6 = s5 + 750;		//lower secondary
+	double s7 = s6 + 250;		//rotate robot left wheels backward
+	double s8 = s7 + 250;		//moving robot right to next barrel
+	double s9 = s8 + 150;		//moving and raising secondary
+	double s10 = s9 + 200;		//move robot backward into landfill
+	double s11 = s10 + 1500; 	//raise secondary
+	double s12 = s11 + 200;		//move robot forward
+	double s13 = s12 + 1300;	//rotate 90 counterclockwise
+	double s14 = s13 + 1500;	//driving robot right to auto zone 
+	
 	int barrelCount = 0;
 	
 	boolean isSecondaryUpper = false;
@@ -267,61 +282,61 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		elapsedTime = System.currentTimeMillis() - startTime;
 			
 		//first barrel - setting up next to totes
-		if (elapsedTime > 0 && elapsedTime <= 1300)
+		if (elapsedTime > 0 && elapsedTime <= s1)
 		{
 			rotateOnlyRightWheels(true);
 		}
-		else if (elapsedTime > 1300 && elapsedTime <= 1800)
+		else if (elapsedTime > s1 && elapsedTime <= s2)
 		{
 			moveBackward();
 		}
-		else if (elapsedTime > 1800 && elapsedTime <= 2100)
+		else if (elapsedTime > s2 && elapsedTime <= s3)
 		{
 			slowMoveLeft();
+		}
+		else if ((elapsedTime > s3 && elapsedTime <= s4) && !isSecondaryUpper)
+		{
+			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
+			stopMotors();
+			if (isSecondaryUpper)
+			{
+				manipulator.stopBarrelMotors();	
+			}
+			barrelMotorsAuto(false);
 		}
 		else
 		{
 			stopMotors();
+			manipulator.stopBarrelMotors();
 		}
-
-//		else if ((elapsedTime > 2400 && elapsedTime <= 4650) && !isSecondaryUpper)
-//		{
-//			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
-//			stopMotors();
-//			if (isSecondaryUpper)
-//			{
-//				manipulator.stopBarrelMotors();	
-//			}
-//			barrelMotorsAuto(false);
-//		}
-//		else if (elapsedTime > 4650 && elapsedTime <= 5150)
+//		else if (elapsedTime > s4 && elapsedTime <= s5)
 //		{
 //			manipulator.stopBarrelMotors();
 //			rotateOnlyLeftWheels(false);
 //		}
-//		else if (elapsedTime > 5150 && elapsedTime <= 6150)
+//		else if (elapsedTime > s5 && elapsedTime <= s6)
 //		{
 //			stopMotors();
-//			manipulator.startBarrelMotors(true);
+//			barrelMotorsAuto(true);
 //		}
-//		else if (elapsedTime > 6150 && elapsedTime <= 6750 )
+//		else if (elapsedTime > s6 && elapsedTime <= s7)
 //		{
 //			manipulator.stopBarrelMotors();
 //			rotateOnlyLeftWheels(true);
 //		}
-//		else if (elapsedTime > 6750 && elapsedTime <= 6900)
+//		else if (elapsedTime > s7 && elapsedTime <= s8)
 //		{
 //			slowMoveRight();
 //		}
-//		else if (elapsedTime > 6900 && elapsedTime <= 7300)
+//		else if (elapsedTime > s8 && elapsedTime <= s9)
 //		{
 //			barrelMotorsAuto(true);
 //		}
-//		else if (elapsedTime > 7300 && elapsedTime <= 7400)
+//		else if (elapsedTime > s9 && elapsedTime <= s10)
 //		{
 //			moveBackward();
 //		}
-//		else if ((elapsedTime > 7400 && elapsedTime <= 8400) && !isSecondaryUpper)
+//		else if ((elapsedTime > s10 && elapsedTime <= s11) && !isSecondaryUpper)
 //		{
 //			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
 //			stopMotors();
@@ -331,16 +346,16 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 //			}
 //			barrelMotorsAuto(false);
 //		}
-//		else if (elapsedTime > 8400 && elapsedTime <= 8650)
+//		else if (elapsedTime > s11 && elapsedTime <= s12)
 //		{
 //			manipulator.stopBarrelMotors();
 //			moveForward();
 //		}
-//		else if (elapsedTime > 8650 && elapsedTime <= 10300)
+//		else if (elapsedTime > s12 && elapsedTime <= s13)
 //		{
 //			rotateOnlyRightWheels(false);
 //		}
-//		else if (elapsedTime > 10300 && elapsedTime <= 11300)
+//		else if (elapsedTime > s13 && elapsedTime <= s14)
 //		{
 //			moveRight();
 //		}
