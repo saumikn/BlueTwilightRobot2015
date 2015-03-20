@@ -57,11 +57,11 @@ public class BTMain extends SampleRobot
 		storage.robot.getBarrelHolder().retract();
 		
 		
-		T1.start();
-		T1.setPriority(Thread.MIN_PRIORITY);
-		T1.frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        T1.session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxConfigureGrab(T1.session);
+//		T1.start();
+//		T1.setPriority(Thread.MIN_PRIORITY);
+//		T1.frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+//        T1.session = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+//        NIVision.IMAQdxConfigureGrab(T1.session);
         
 //	   	server = CameraServer.getInstance();
 //        server.setQuality(50);
@@ -84,17 +84,16 @@ public class BTMain extends SampleRobot
 	//@Override
     public void operatorControl()
     {
-    	NIVision.IMAQdxStartAcquisition(T1.session);
-        
+//    	NIVision.IMAQdxStartAcquisition(T1.session);
         
     	while(isOperatorControl())
     	{
-    		T1.run();
+//    		T1.run();
          
     		meca.drive();
     		manipulator.perform();
 		}
-    	NIVision.IMAQdxStopAcquisition(T1.session);
+//    	NIVision.IMAQdxStopAcquisition(T1.session);
     }
 	
 	//@Override

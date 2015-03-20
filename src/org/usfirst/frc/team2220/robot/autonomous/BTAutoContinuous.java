@@ -19,7 +19,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	int barrelCount = 0;
 	
-	boolean isSecondaryUpper;
+	boolean isSecondaryUpper = false;
 	boolean correcting = false;
 	boolean barrelCollectComplete = false;
 	
@@ -253,22 +253,12 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	public void secondaryActuate()
 	{
-	
-	//barrelClamp does not exist yet, will be written in storage once solenoid ports have been determined
-	
-//		if (storage.robot.getBarrelHolder().isExtended())
-//		{
-//			storage.robot.getBarrelHolder().retract();
-//		}
-//		else
-//		{
-//			storage.robot.getBarrelHolder().extend();
-//		}
 		
 	}
 	
 	public void barrelSteal2()
 	{
+		
 		if (startTime == 0)
 		{
 			startTime = System.currentTimeMillis();
@@ -277,69 +267,88 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		elapsedTime = System.currentTimeMillis() - startTime;
 			
 		//first barrel - setting up next to totes
-		if (elapsedTime > 0 && elapsedTime <= 1500)
+		if (elapsedTime > 0 && elapsedTime <= 1300)
 		{
 			rotateOnlyRightWheels(true);
 		}
-		else if (elapsedTime > 1500 && elapsedTime <= 1750)
+		else if (elapsedTime > 1300 && elapsedTime <= 1800)
 		{
-			rotateOnlyLeftWheels(true);
+			moveBackward();
 		}
-		else if (elapsedTime > 1750 && elapsedTime <= 2250)
+		else if (elapsedTime > 1800 && elapsedTime <= 2100)
 		{
 			slowMoveLeft();
-		}
-		else if (elapsedTime > 2250 && elapsedTime <= 4500)
-		{
-			stopMotors();
-			manipulator.startBarrelMotors(false);
-		}
-		else if (elapsedTime > 4500 && elapsedTime <= 5000)
-		{
-			manipulator.stopBarrelMotors();
-			rotateOnlyLeftWheels(false);
-		}
-		else if (elapsedTime > 5000 && elapsedTime <= 6000)
-		{
-			stopMotors();
-			manipulator.startBarrelMotors(true);
-		}
-		else if (elapsedTime > 6000 && elapsedTime <= 6600)
-		{
-			manipulator.stopBarrelMotors();
-			rotateOnlyLeftWheels(true);
-		}
-		else if (elapsedTime > 6600 && elapsedTime <= 6750)
-		{
-			slowMoveRight();
-		}
-		else if (elapsedTime > 6750 && elapsedTime <= 7150)
-		{
-			manipulator.startBarrelMotors(true);
-		}
-		else if (elapsedTime > 7150 && elapsedTime <= 7300)
-		{
-			rotateOnlyRightWheels(true);
-		}
-		else if (elapsedTime > 7300 && elapsedTime <= 7450)
-		{
-			rotateOnlyLeftWheels(true);
-		}
-		else if (elapsedTime > 7450 && elapsedTime <= 9450)
-		{
-			stopMotors();
-			manipulator.startBarrelMotors(false);
-		}
-		else if (elapsedTime > 9450 && elapsedTime <= 11450)
-		{
-			manipulator.stopBarrelMotors();
-			moveForward();
 		}
 		else
 		{
 			stopMotors();
-			manipulator.stopBarrelMotors();
 		}
+
+//		else if ((elapsedTime > 2400 && elapsedTime <= 4650) && !isSecondaryUpper)
+//		{
+//			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
+//			stopMotors();
+//			if (isSecondaryUpper)
+//			{
+//				manipulator.stopBarrelMotors();	
+//			}
+//			barrelMotorsAuto(false);
+//		}
+//		else if (elapsedTime > 4650 && elapsedTime <= 5150)
+//		{
+//			manipulator.stopBarrelMotors();
+//			rotateOnlyLeftWheels(false);
+//		}
+//		else if (elapsedTime > 5150 && elapsedTime <= 6150)
+//		{
+//			stopMotors();
+//			manipulator.startBarrelMotors(true);
+//		}
+//		else if (elapsedTime > 6150 && elapsedTime <= 6750 )
+//		{
+//			manipulator.stopBarrelMotors();
+//			rotateOnlyLeftWheels(true);
+//		}
+//		else if (elapsedTime > 6750 && elapsedTime <= 6900)
+//		{
+//			slowMoveRight();
+//		}
+//		else if (elapsedTime > 6900 && elapsedTime <= 7300)
+//		{
+//			barrelMotorsAuto(true);
+//		}
+//		else if (elapsedTime > 7300 && elapsedTime <= 7400)
+//		{
+//			moveBackward();
+//		}
+//		else if ((elapsedTime > 7400 && elapsedTime <= 8400) && !isSecondaryUpper)
+//		{
+//			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
+//			stopMotors();
+//			if (isSecondaryUpper)
+//			{
+//				manipulator.stopBarrelMotors();	
+//			}
+//			barrelMotorsAuto(false);
+//		}
+//		else if (elapsedTime > 8400 && elapsedTime <= 8650)
+//		{
+//			manipulator.stopBarrelMotors();
+//			moveForward();
+//		}
+//		else if (elapsedTime > 8650 && elapsedTime <= 10300)
+//		{
+//			rotateOnlyRightWheels(false);
+//		}
+//		else if (elapsedTime > 10300 && elapsedTime <= 11300)
+//		{
+//			moveRight();
+//		}
+//		else
+//		{
+//			stopMotors();
+//			manipulator.stopBarrelMotors();
+//		}
 		
 	}
 
@@ -446,6 +455,21 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		storage.robot.getBackRightMotor().setX(br);
 	}
 	
+	public void moveRight()
+	{
+		fl = wheelSpeed;
+		fr = wheelSpeed;
+		bl = wheelSpeed;
+		br = wheelSpeed;
+		
+		invertMotors();
+		
+		storage.robot.getFrontLeftMotor().setX(fl);
+		storage.robot.getBackLeftMotor().setX(bl);
+		storage.robot.getFrontRightMotor().setX(fr);
+		storage.robot.getBackRightMotor().setX(br);
+	}
+	
 	public void rotateOnlyRightWheels(boolean direction)
 	{
 		if(!direction)
@@ -474,6 +498,32 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		
 			storage.robot.getFrontLeftMotor().setX(fl);
 			storage.robot.getBackLeftMotor().setX(bl);
+			storage.robot.getFrontRightMotor().setX(fr);
+			storage.robot.getBackRightMotor().setX(br);	
+		}
+	}
+	
+	
+	public void rotateOnlyRightWheelsLeaveOthers(boolean direction)
+	{
+		if(!direction)
+		{
+			fr = -wheelSpeed;
+			br = wheelSpeed;
+		
+			invertMotors();
+		
+			storage.robot.getFrontRightMotor().setX(fr);
+			storage.robot.getBackRightMotor().setX(br);
+		}
+		
+		if(direction)
+		{
+			fr = wheelSpeed;
+			br = -wheelSpeed;
+		
+			invertMotors();
+		
 			storage.robot.getFrontRightMotor().setX(fr);
 			storage.robot.getBackRightMotor().setX(br);	
 		}
@@ -512,9 +562,48 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		}
 	}
 	
+	public void rotateOnlyLeftWheelsLeaveOthers(boolean direction)
+	{
+		if(!direction)
+		{
+			fl = wheelSpeed;
+			bl = -wheelSpeed;
+		
+			invertMotors();
+		
+			storage.robot.getFrontLeftMotor().setX(fl);
+			storage.robot.getBackLeftMotor().setX(bl);
+		}
+		
+		if(direction)
+		{
+			fl = -wheelSpeed;
+			bl = wheelSpeed;
+		
+			invertMotors();
+		
+			storage.robot.getFrontLeftMotor().setX(fl);
+			storage.robot.getBackLeftMotor().setX(bl);
+		}
+	}
+	
 	
 	public void resetTimer()
 	{
 		startTime = 0; 
+	}
+	
+	public void barrelMotorsAuto(boolean goUp)
+	{
+		if (!goUp)
+		{
+			storage.robot.getBarrelMotorLeft().setX(BTConstants.BARREL_MOTOR_POWER_UP_AUTO);
+			storage.robot.getBarrelMotorRight().setX(BTConstants.BARREL_MOTOR_POWER_UP_AUTO);
+		}
+		else
+		{
+			storage.robot.getBarrelMotorLeft().setX(-BTConstants.BARREL_MOTOR_POWER_DOWN_AUTO);
+			storage.robot.getBarrelMotorRight().setX(-BTConstants.BARREL_MOTOR_POWER_DOWN_AUTO);
+		}
 	}
 }
