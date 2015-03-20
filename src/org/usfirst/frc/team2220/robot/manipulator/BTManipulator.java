@@ -82,7 +82,7 @@ public class BTManipulator implements BTIManipulator
 			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)) && !isToteIn)
 			{
 				keepExtended = true; 
-				storage.robot.getBarrelHolder().retract();
+				storage.robot.getToteClamp().retract();
 			}
 			
 			else if (keepExtended && isLeftToteUpper && isRightToteUpper)
@@ -119,7 +119,6 @@ public class BTManipulator implements BTIManipulator
 		{
 			stopSecondary();
 		}
-		
 		
 	}
 	
@@ -190,10 +189,6 @@ public class BTManipulator implements BTIManipulator
 		isExtended = true;
 	}
 	
-	public void releaseBarrel()
-	{
-		
-	}
 	
 	public void startBarrelMotors(boolean goUp)
 	{
