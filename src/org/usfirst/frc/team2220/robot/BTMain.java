@@ -1,13 +1,16 @@
 
 package org.usfirst.frc.team2220.robot;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team2220.robot.electronics.BTCameraThreaded;
 import org.usfirst.frc.team2220.robot.autonomous.BTAutoContinuous;
 import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.drivetrain.BTTankMeca;
 import org.usfirst.frc.team2220.robot.manipulator.BTManipulator;
 
-import com.ni.vision.NIVision;
+//import com.ni.vision.NIVision;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -23,6 +26,8 @@ public class BTMain extends SampleRobot
 	BTManipulator manipulator;
 	CameraServer server;
 	BTCameraThreaded T1 = new BTCameraThreaded();
+	BTMacroRecord recorder;
+	BTMacroPlay playah;
 	
 	
     public BTMain()
@@ -56,6 +61,12 @@ public class BTMain extends SampleRobot
 		
 		storage.robot.getBarrelHolder().retract();
 		
+		try {
+			recorder = new BTMacroRecord();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 //		T1.start();
 //		T1.setPriority(Thread.MIN_PRIORITY);
@@ -76,7 +87,9 @@ public class BTMain extends SampleRobot
     	auto.resetTimer();
 		while (isAutonomous())
 		{
-			auto.runAutonomous();		
+			auto.runAutonomous();
+			//playah.play(storage);
+			
 		}
     	
     }
@@ -85,13 +98,22 @@ public class BTMain extends SampleRobot
     public void operatorControl()
     {
 //    	NIVision.IMAQdxStartAcquisition(T1.session);
-        
+        auto.resetTimer();
     	while(isOperatorControl())
     	{
+    		//Camera (threaded)
 //    		T1.run();
-         
+    		
+    		//records values using macro to .csv file
+//    		try {
+//				recorder.record(storage);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+    		
     		meca.drive();
     		manipulator.perform();
+    		
 		}
 //    	NIVision.IMAQdxStopAcquisition(T1.session);
     }
