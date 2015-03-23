@@ -25,14 +25,14 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	double s4 = s3_75 + 3000;		//lift barrel
 	double s5 = s4 + 3000;		//stafe forward
 	double s6 = s5 + 350;		//move right
-	double s7 = s6 + 250;		//rotate robot left wheels backward
-	double s8 = s7 + 250;		//moving robot right to next barrel
-	double s9 = s8 + 150;		//moving and raising secondary
-	double s10 = s9 + 200;		//move robot backward into landfill
-	double s11 = s10 + 1500; 	//raise secondary
-	double s12 = s11 + 200;		//move robot forward
-	double s13 = s12 + 1300;	//rotate 90 counterclockwise
-	double s14 = s13 + 1500;	//driving robot right to auto zone 
+//	double s7 = s6 + 250;		//rotate robot left wheels backward
+//	double s8 = s7 + 250;		//moving robot right to next barrel
+//	double s9 = s8 + 150;		//moving and raising secondary
+//	double s10 = s9 + 200;		//move robot backward into landfill
+//	double s11 = s10 + 1500; 	//raise secondary
+//	double s12 = s11 + 200;		//move robot forward
+//	double s13 = s12 + 1300;	//rotate 90 counterclockwise
+//	double s14 = s13 + 1500;	//driving robot right to auto zone 
 	
 	int barrelCount = 0;
 	
@@ -57,7 +57,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	@Override
 	public void runAutonomous()
 	{
-		barrelSteal2();
+		moveAutoZone();
 //		moveIntoAutoZone();
 	}
 	
@@ -106,6 +106,24 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		}
 	}
 	
+	public void moveAutoZone()
+	{
+		if (startTime == 0)
+		{
+			startTime = System.currentTimeMillis();
+		}
+			
+		elapsedTime = System.currentTimeMillis() - startTime;
+		
+		if (elapsedTime > 0 && elapsedTime <= 400)
+		{
+			moveLeft();
+		}
+		else
+		{
+			stopMotors();
+		}
+	}
 	public void barrelSteal()
 	{
 		if (barrelCount >= 4)	//We don't expect this to happen given the short time for autonomous

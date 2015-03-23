@@ -46,7 +46,7 @@ public class BTMacroRecord {
 		writer.append("," + storage.robot.getLeftForkLeft().get());
 		writer.append("," + storage.robot.getLeftForkRight().get());
 		writer.append("," + storage.robot.getRightForkLeft().get());
-		writer.append("," + storage.robot.getRightForkRight().get() + "\n");
+		writer.append("," + storage.robot.getRightForkRight().get() + ",");
 	}
 	
 	public void end() throws IOException

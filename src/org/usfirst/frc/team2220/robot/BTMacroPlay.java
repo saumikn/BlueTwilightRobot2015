@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class BTMacroPlay {
 	Scanner scanner;
 	long startTime;
+
+	boolean onTime = true;
+	double nextDouble;
 	
 
 	public BTMacroPlay() throws FileNotFoundException
@@ -19,23 +22,42 @@ public class BTMacroPlay {
 	
 	public void play(BTStorage storage)
 	{
-		//time recorded for values - how far into replaying it we are--> if not zero, hold up
-		double t_delta = scanner.nextDouble() - (System.currentTimeMillis()-startTime);
-		if (t_delta <= 0)
+		if (scanner.hasNextDouble())
 		{
-			storage.robot.getFrontLeftMotor().setX(scanner.nextDouble());
-			storage.robot.getBackLeftMotor().setX(scanner.nextDouble());
-			storage.robot.getFrontRightMotor().setX(scanner.nextDouble());
-			storage.robot.getBackRightMotor().setX(scanner.nextDouble());
+			double t_delta;
+			if(onTime)
+			{
+				nextDouble = scanner.nextDouble();
+			}
+			//time recorded for values minus how far into replaying it we are--> if not zero, hold up
+			t_delta = nextDouble - (System.currentTimeMillis()-startTime);
 			
-			storage.robot.getBarrelMotorLeft().setX(scanner.nextDouble());
-			storage.robot.getBarrelMotorRight().setX(scanner.nextDouble());
-			
-			storage.robot.getLeftForkLeft().setX(scanner.nextDouble());
-			storage.robot.getLeftForkRight().setX(scanner.nextDouble());
-			storage.robot.getRightForkLeft().setX(scanner.nextDouble());
-			storage.robot.getRightForkRight().setX(scanner.nextDouble());
-		}	
+			if (t_delta <= 0)
+			{
+				storage.robot.getFrontLeftMotor().setX(scanner.nextDouble());
+				storage.robot.getFrontRightMotor().setX(scanner.nextDouble());
+				storage.robot.getBackRightMotor().setX(scanner.nextDouble());
+				storage.robot.getBackLeftMotor().setX(scanner.nextDouble());
+				
+				storage.robot.getBarrelMotorLeft().setX(scanner.nextDouble());
+				storage.robot.getBarrelMotorRight().setX(scanner.nextDouble());
+				
+				storage.robot.getLeftForkLeft().setX(scanner.nextDouble());
+				storage.robot.getLeftForkRight().setX(scanner.nextDouble());
+				storage.robot.getRightForkLeft().setX(scanner.nextDouble());
+				storage.robot.getRightForkRight().setX(scanner.nextDouble());
+				
+				onTime = true;
+			}	
+			else
+			{
+				onTime = false;
+			}
+		}
+		else
+		{
+			this.end(storage);
+		}
 		
 	}
 	
@@ -53,6 +75,9 @@ public class BTMacroPlay {
 		storage.robot.getLeftForkRight().setX(0);
 		storage.robot.getRightForkLeft().setX(0);
 		storage.robot.getRightForkRight().setX(0);
+		
+		scanner.close();
+		
 	}
 	
 }
