@@ -7,26 +7,13 @@ public class BTMacroRecord {
 	FileWriter writer;
 	long startTime;
 	
+	long autonumber;
+	
 	public BTMacroRecord() throws IOException
 	{
 			startTime = System.currentTimeMillis();
 			
-			writer = new FileWriter("/home/lvuser/recordedAuto.csv");
-			
-//			writer.append("Time");
-//			
-//			writer.append(",FrontLeftDrive");
-//			writer.append(",FrontRightDrive");
-//			writer.append(",BackRightDrive");
-//			writer.append(",BackLeftDrive");
-//			
-//			writer.append(",BarrelMotorLeft");
-//			writer.append(",BarrelMotorRight");
-//			
-//			writer.append(",LeftForkLeft");
-//			writer.append(",LeftForkRight");
-//			writer.append(",RightForkLeft");
-//			writer.append(",RightForkRight\n");
+			writer = new FileWriter("/home/lvuser/recordedAuto" + autonumber + ".csv");
 	}
 	
 

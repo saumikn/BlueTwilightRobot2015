@@ -30,5 +30,6 @@ public interface BTIController
 	public BTIConButton getTurboToggle();
 	public BTIConButton getBarrelRelease();
 	public BTIConButton getClaspRelease();
+	public BTIConButton getRecordButton();
 
 }

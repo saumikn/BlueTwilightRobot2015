@@ -53,6 +53,7 @@ public class BTXboxController implements BTIController
 
 	}
 
+
 	public BTIConAxis getAxis(int port)
 	{
 		return new BTJoyAxis(joy, port);
@@ -130,6 +131,11 @@ public class BTXboxController implements BTIController
 	public BTIConButton getClaspRelease()
 	{
 		return LEFT_STICK_BUTTON;
+	}
+
+	public BTIConButton getRecordButton()
+	{
+		return START_BUTTON;
 	}
 
 	@Override

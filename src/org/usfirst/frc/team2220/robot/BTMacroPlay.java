@@ -11,10 +11,12 @@ public class BTMacroPlay {
 	boolean onTime = true;
 	double nextDouble;
 	
+	long autonumber;
+	
 
 	public BTMacroPlay() throws FileNotFoundException
 	{
-		scanner = new Scanner(new File("/home/lvuser/recordedAuto.csv"));
+		scanner = new Scanner(new File("/home/lvuser/recordedAuto" + autonumber + ".csv"));
 		
 		scanner.useDelimiter(",");
 		startTime = System.currentTimeMillis();	
@@ -22,6 +24,7 @@ public class BTMacroPlay {
 	
 	public void play(BTStorage storage)
 	{
+		
 		if (scanner.hasNextDouble())
 		{
 			double t_delta;

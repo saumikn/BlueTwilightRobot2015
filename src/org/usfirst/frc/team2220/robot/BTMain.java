@@ -28,10 +28,9 @@ public class BTMain extends SampleRobot
 	BTManipulator manipulator;
 	CameraServer server;
 	BTCameraThreaded T1 = new BTCameraThreaded();
+	
+	boolean isRecording = false;
 
-	
-	
-	
     public BTMain()
     {
     	
@@ -83,66 +82,92 @@ public class BTMain extends SampleRobot
 	//@Override
     public void autonomous()
     {
-    	auto.resetTimer();
-    	
-//    	BTMacroPlay playah = null;
-//    	try {
-//    		 playah = new BTMacroPlay();
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+    	BTMacroPlay playah = null;
+    	try
+    	{
+    		 playah = new BTMacroPlay();
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
     	
 		while (isAutonomous())
 		{
 			auto.runAutonomous();
-//			if (playah != null)
-//			{
-//			playah.play(storage);
-//			}
+			if (playah != null)
+			{
+				playah.play(storage);
+			}
 			
 		}
-//		if(playah!= null)
-//		{
-//			playah.end(storage);
-//		}
+		
+		if(playah != null)
+		{
+			playah.end(storage);
+		}
     	
+    	auto.resetTimer();
     }
 	
 	//@Override
     public void operatorControl()
     {
+    	
+    	
 //    	NIVision.IMAQdxStartAcquisition(T1.session);
+       
         auto.resetTimer();
-//    	BTMacroRecord recorder = null;
-//        try {
-//			recorder = new BTMacroRecord();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+    	BTMacroRecord recorder = null;
+        
+        try 
+        {
+			recorder = new BTMacroRecord();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
     	while(isOperatorControl())
     	{
+			if (storage.controller.getRecordButton().getButtonValue())
+			{
+    			isRecording = !isRecording;
+			}    		
     		//Camera (threaded)
 //    		T1.run();
     		meca.drive();
     		manipulator.perform();
-//    		try {
-//    			
-//    			if(recorder != null)
-//    			{
-//    				recorder.record(storage);
-//    			}
-//    			
-//			} catch (IOException e) {
-//			}
-//		}
-//    	try {
-//    		if(recorder != null)
-//    		{
-//    			recorder.end();
-//    		}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-		}
+    		if (isRecording)
+    		{
+	    		try 
+	    		{
+	    			if(recorder != null)
+	    			{
+	    				recorder.record(storage);
+	    			}
+				} 
+				catch (IOException e) 
+				{
+					
+				}
+	    		try 
+	    		{
+	    			if(recorder != null)
+	    			{
+	    				recorder.end();
+	    			}
+				} 
+				catch (IOException e) 
+				{
+					e.printStackTrace();
+				}
+				
+				isRecording = false;
+    		}
+    	auto.resetTimer();
+    	}
 //    	NIVision.IMAQdxStopAcquisition(T1.session);
     }
 	

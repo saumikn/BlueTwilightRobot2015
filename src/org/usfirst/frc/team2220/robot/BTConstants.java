@@ -69,6 +69,7 @@ public class BTConstants
 	
 	// Analog Potentiometer port
 	public static final int COMPEITION_ANALOG_POT_TEST = 2;
+	public static final int ENCODER_MOTOR_ERROR = 500;
 	
 	// Drivetrain Constants: General
 	public static final double MECANUM_SCALE_VALUE 	= 1.0;

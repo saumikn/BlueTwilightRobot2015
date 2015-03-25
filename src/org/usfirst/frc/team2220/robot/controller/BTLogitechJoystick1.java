@@ -76,6 +76,11 @@ public class BTLogitechJoystick1 implements BTIController
 	{
 		return Y_AXIS;
 	}
+	
+	public BTIConButton getRecordButton()
+	{
+		return null;
+	}
 
 	@Override
 	public BTIConAxis getDriveRotate()

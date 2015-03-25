@@ -3,6 +3,8 @@ package org.usfirst.frc.team2220.robot.manipulator;
 import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class BTManipulator implements BTIManipulator
 {
 	public BTStorage storage;
@@ -34,6 +36,10 @@ public class BTManipulator implements BTIManipulator
 	boolean keepExtended = false;
 	boolean isGoingUp;
 	
+	double encodeFR; 
+	double encodeFL;
+	double encoder_delta;
+	
 	boolean waitingForUpper = false;
 	
 	@Override
@@ -53,12 +59,38 @@ public class BTManipulator implements BTIManipulator
 		isBarrelRelease = storage.controller.getBarrelRelease().getButtonValue();
 		isClaspRelease = storage.controller.getClaspRelease().getLeadingEdge();
 		
+		encodeFR = storage.robot.getFrontRightEncoder().getValue();
+		encodeFL = storage.robot.getFrontLeftEncoder().getValue();
+		
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
 		if((toteCollectUp > 0)||(toteCollectDown > 0))
 		{
 			collectTote();
+		}
+		
+		if (isLeftToteUpper || isLeftToteLower)
+		{
+			storage.robot.getFrontLeftEncoder().reset();
+		}
+		
+		if (isRightToteUpper || isRightToteLower)
+		{
+			storage.robot.getFrontRightEncoder().reset();
+		}
+		
+		encoder_delta = encodeFR - encodeFL;
+		
+		if (encoder_delta > BTConstants.ENCODER_MOTOR_ERROR)
+		{
+			storage.robot.getRightForkLeft().setX(BTConstants.TOTE_MOTOR_POWER * .8);
+			storage.robot.getRightForkRight().setX(BTConstants.TOTE_MOTOR_POWER * .8);
+		}
+		if (encoder_delta < -BTConstants.ENCODER_MOTOR_ERROR)
+		{
+			storage.robot.getLeftForkLeft().setX(BTConstants.TOTE_MOTOR_POWER * .8);
+			storage.robot.getLeftForkRight().setX(BTConstants.TOTE_MOTOR_POWER * .8);
 		}
 		
 		if(isClaspRelease)
@@ -76,26 +108,6 @@ public class BTManipulator implements BTIManipulator
 			moveRightForkMotors(0);
 			moveLeftForkMotors(0);
 		}
-		
-//		if(toteCollectUp > 0)
-//		{
-//			if ((isToteMiddle && (!isLeftToteUpper && !isRightToteUpper)) && !isToteIn)
-//			{
-//				keepExtended = true; 
-//				storage.robot.getToteClamp().retract();
-//			}
-//			
-//			else if (keepExtended && isLeftToteUpper && isRightToteUpper)
-//			{
-//				keepExtended = false;
-//				storage.robot.getToteClamp().extend();
-//			}
-//			
-//			else if (!keepExtended)
-//			{
-//				storage.robot.getToteClamp().extend();
-//			}
-//		}
 		
 		if (isBarrelRelease)
 		{
