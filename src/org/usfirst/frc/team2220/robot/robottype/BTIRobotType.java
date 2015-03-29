@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2220.robot.robottype;
 
+import org.usfirst.frc.team2220.robot.electronics.BTAnalogPotentiometer;
 import org.usfirst.frc.team2220.robot.electronics.BTCompressor;
 import org.usfirst.frc.team2220.robot.electronics.BTEncoder;
 import org.usfirst.frc.team2220.robot.electronics.BTGyro;
@@ -9,6 +10,7 @@ import org.usfirst.frc.team2220.robot.motor.BTIMotor;
 
 public interface BTIRobotType
 {
+
 	public BTIMotor getFrontLeftMotor();
 	public BTIMotor getFrontRightMotor();
 	public BTIMotor getBackLeftMotor();
@@ -36,6 +38,9 @@ public interface BTIRobotType
 	public BTEncoder getFrontRightEncoder();
 	public BTEncoder getBackLeftEncoder();
 	public BTEncoder getBackRightEncoder();
+	
+	public BTAnalogPotentiometer getFrontRightPot();
+	public BTAnalogPotentiometer getFrontLeftPot();
 	
 	public BTIPiston getToteClamp();
 	public BTIPiston getBarrelHolder();

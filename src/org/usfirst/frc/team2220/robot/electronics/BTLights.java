@@ -7,7 +7,7 @@ import org.usfirst.frc.team2220.robot.BTConstants;
 public class BTLights 
 {
 	DigitalOutput bit0 = new DigitalOutput(BTConstants.ARDUINO_BIT0);
-	DigitalOutput bit1 = new DigitalOutput(BTConstants.ADRUINO_BIT1);
+	DigitalOutput bit1 = new DigitalOutput(BTConstants.ARDUINO_BIT1);
 	DigitalOutput bit2 = new DigitalOutput(BTConstants.ARDUINO_BIT2);
 	
 	public void setLEDColor(int color)

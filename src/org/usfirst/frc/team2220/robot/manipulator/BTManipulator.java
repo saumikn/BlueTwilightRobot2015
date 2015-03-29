@@ -40,7 +40,15 @@ public class BTManipulator implements BTIManipulator
 	double encodeFL;
 	double encoder_delta;
 	
+	double turnFR;
+	double turnFL;
+	double rev_right;
+	double rev_left;
+	
 	boolean waitingForUpper = false;
+	boolean isRevvedRight = false;
+	boolean isRevvedLeft = false;
+	boolean isCorrecting = false;
 	
 	@Override
 	public void perform()
@@ -62,6 +70,12 @@ public class BTManipulator implements BTIManipulator
 		encodeFR = storage.robot.getFrontRightEncoder().getValue();
 		encodeFL = storage.robot.getFrontLeftEncoder().getValue();
 		
+		turnFR = storage.robot.getFrontRightPot().getValue();
+		turnFL = storage.robot.getFrontLeftPot().getValue();
+		
+		SmartDashboard.putNumber("Front Right", turnFR);
+		SmartDashboard.putNumber("Front Left", turnFL);
+		
 		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
 		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
@@ -72,26 +86,14 @@ public class BTManipulator implements BTIManipulator
 		
 		if (isLeftToteUpper || isLeftToteLower)
 		{
-			storage.robot.getFrontLeftEncoder().reset();
+			rev_left = 0;
 		}
 		
 		if (isRightToteUpper || isRightToteLower)
 		{
-			storage.robot.getFrontRightEncoder().reset();
+			rev_right = 0;
 		}
 		
-		encoder_delta = encodeFR - encodeFL;
-		
-		if (encoder_delta > BTConstants.ENCODER_MOTOR_ERROR)
-		{
-			storage.robot.getRightForkLeft().setX(BTConstants.TOTE_MOTOR_POWER * .8);
-			storage.robot.getRightForkRight().setX(BTConstants.TOTE_MOTOR_POWER * .8);
-		}
-		if (encoder_delta < -BTConstants.ENCODER_MOTOR_ERROR)
-		{
-			storage.robot.getLeftForkLeft().setX(BTConstants.TOTE_MOTOR_POWER * .8);
-			storage.robot.getLeftForkRight().setX(BTConstants.TOTE_MOTOR_POWER * .8);
-		}
 		
 		if(isClaspRelease)
 		{
@@ -118,18 +120,17 @@ public class BTManipulator implements BTIManipulator
 			storage.robot.getBarrelHolder().retract();
 		}
 		
-		if (isSecondaryCollectButtonDown)
+		if (isSecondaryCollectButtonDown) //aka start collector motors in reverse, i'm lazy
 		{
-			lowerSecondary();
+			reverseCollectorMotors();
 		}
-		else if ((isSecondaryCollectButtonUp) && !isSecondaryUpper)
+		else if (isSecondaryCollectButtonUp) //aka start collector motors forward, i'm lazy
 		{
-			liftSecondary();
+			startCollectorMotors();
 		}
-		
 		else
 		{
-			stopSecondary();
+			stopCollectorMotors();
 		}
 		
 	}
@@ -151,34 +152,135 @@ public class BTManipulator implements BTIManipulator
 	
 	public void collectTote()
 	{
-			
-		if((toteCollectUp > 0) && !isLeftToteUpper)
+		if(!isCorrecting)
 		{
-			moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-		}
-		else if((toteCollectDown > 0) && !isLeftToteLower)
-		{
-			moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER);
-		}
-		else
-		{
-			moveLeftForkMotors(0);
+			if((toteCollectUp > 0) && !isLeftToteUpper)
+			{
+				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN);
+			}
+			else if((toteCollectDown > 0) && !isLeftToteLower)
+			{
+				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_UP);
+			}
+			else
+			{
+				moveLeftForkMotors(0);
+			}
 		}
 		
-		if((toteCollectUp > 0) && !isRightToteUpper)
+		
+		if(!isCorrecting)
 		{
-			moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER);
+			if((toteCollectUp > 0) && !isRightToteUpper)
+			{
+				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN);
+			}
+			else if((toteCollectDown > 0) && !isRightToteLower)
+			{
+				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP);
+			}
+			else
+			{
+				moveRightForkMotors(0);
+			}
 		}
-		else if((toteCollectDown > 0) && !isRightToteLower)
-		{
-			moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER);
-		}
-		else
-		{
-			moveRightForkMotors(0);
-		}
-			
-			//set robot color to blue
+		
+//		if (toteCollectUp > 0)
+//		{
+//			if ((turnFR > 0 && turnFR < BTConstants.POT_REVOLUTION_ERROR_UP) && !isRevvedRight)
+//			{
+//				rev_right++;
+//				isRevvedRight = true;
+//			}
+//			if ((turnFL > 0 && turnFL < BTConstants.POT_REVOLUTION_ERROR_UP) && !isRevvedLeft)
+//			{
+//				rev_left++;
+//				isRevvedLeft = true;
+//			}
+//			
+//			if (turnFR > BTConstants.POT_REVOLUTION_ERROR_UP && turnFR < BTConstants.POT_FULL_REV)
+//			{
+//				isRevvedRight = false;
+//			}
+//			
+//			if (turnFL > BTConstants.POT_REVOLUTION_ERROR_UP && turnFL < BTConstants.POT_FULL_REV)
+//			{
+//				isRevvedLeft = false;
+//			}
+//			
+//			if (((rev_left * BTConstants.POT_FULL_REV) + turnFL) < ((rev_right * BTConstants.POT_FULL_REV) + turnFR))
+//			{
+//				lowerRightSideSpeed();
+//				isCorrecting = true;
+//			}
+//			else if (((rev_right * BTConstants.POT_FULL_REV) + turnFR) < ((rev_left * BTConstants.POT_FULL_REV) + turnFL))
+//			{
+//				lowerLeftSideSpeed();
+//				isCorrecting = true;
+//			}
+//			else
+//			{
+//				isCorrecting = false;
+//			}
+//			
+//		}
+//		
+//		if (toteCollectDown > 0)
+//		{
+//			if ((turnFR < 0 && turnFR > BTConstants.POT_REVOLUTION_ERROR_DOWN) && !isRevvedRight)
+//			{
+//				rev_right++;
+//				isRevvedRight = true;
+//			}
+//			if ((turnFL < 0 && turnFL > BTConstants.POT_REVOLUTION_ERROR_DOWN) && !isRevvedLeft)
+//			{
+//				rev_left++;
+//				isRevvedLeft = true;
+//			}
+//			
+//			if (turnFR < BTConstants.POT_REVOLUTION_ERROR_DOWN && turnFR > 0)
+//			{
+//				isRevvedRight = false;
+//			}
+//			
+//			if (turnFL < BTConstants.POT_REVOLUTION_ERROR_DOWN && turnFL > 0)
+//			{
+//				isRevvedLeft = false;
+//			}
+//			
+//			if (((rev_left * BTConstants.POT_FULL_REV) + turnFL) > ((rev_right * BTConstants.POT_FULL_REV) + turnFR))
+//			{
+//				lowerRightSideSpeed();
+//				isCorrecting = true;
+//			}
+//			else if (((rev_right * BTConstants.POT_FULL_REV) + turnFR) > ((rev_left * BTConstants.POT_FULL_REV) + turnFL))
+//			{
+//				lowerLeftSideSpeed();
+//				isCorrecting = true;
+//			}
+//			else
+//			{
+//				isCorrecting = false;
+//			}
+//		}
+	}
+	
+	public void startCollectorMotors()
+	{
+		storage.robot.getCollectorMotorLeft().setX(BTConstants.COLLECTOR_MOTOR_POWER_COLLECT);
+		storage.robot.getCollectorMotorRight().setX(BTConstants.COLLECTOR_MOTOR_POWER_COLLECT);
+	}
+	
+	public void reverseCollectorMotors()
+	{
+		storage.robot.getCollectorMotorLeft().setX(-BTConstants.COLLECTOR_MOTOR_POWER_EJECT);
+		storage.robot.getCollectorMotorRight().setX(-BTConstants.COLLECTOR_MOTOR_POWER_EJECT);
+	}
+	
+	public void stopCollectorMotors()
+	{
+		storage.robot.getCollectorMotorLeft().setX(0);
+		storage.robot.getCollectorMotorRight().setX(0);
 	}
 	
 	public void claspRelease()
@@ -234,6 +336,18 @@ public class BTManipulator implements BTIManipulator
 		storage.robot.getRightForkLeft().setX(x);
 		storage.robot.getRightForkRight().setX(x);
 //		System.out.println("Fork Right:\t" + x);
+	}
+	
+	public void lowerRightSideSpeed()
+	{
+		storage.robot.getRightForkLeft().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
+		storage.robot.getRightForkRight().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
+	}
+	
+	public void lowerLeftSideSpeed()
+	{
+		storage.robot.getLeftForkLeft().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
+		storage.robot.getLeftForkRight().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
 	}
 	
 }

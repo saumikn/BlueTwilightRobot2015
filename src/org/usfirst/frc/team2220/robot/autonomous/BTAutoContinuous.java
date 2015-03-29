@@ -57,7 +57,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	@Override
 	public void runAutonomous()
 	{
-		moveAutoZone();
+		//moveAutoZone();
 //		moveIntoAutoZone();
 	}
 	

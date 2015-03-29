@@ -2,18 +2,32 @@ package org.usfirst.frc.team2220.robot;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BTMacroRecord {
 	FileWriter writer;
 	long startTime;
 	
-	long autonumber;
-	
 	public BTMacroRecord() throws IOException
 	{
 			startTime = System.currentTimeMillis();
 			
-			writer = new FileWriter("/home/lvuser/recordedAuto" + autonumber + ".csv");
+			writer = new FileWriter("/home/lvuser/recordedAuto11.csv");
+			
+//			writer.append("Time");
+//			
+//			writer.append(",FrontLeftDrive");
+//			writer.append(",FrontRightDrive");
+//			writer.append(",BackRightDrive");
+//			writer.append(",BackLeftDrive");
+//			
+//			writer.append(",BarrelMotorLeft");
+//			writer.append(",BarrelMotorRight");
+//			
+//			writer.append(",LeftForkLeft");
+//			writer.append(",LeftForkRight");
+//			writer.append(",RightForkLeft");
+//			writer.append(",RightForkRight\n");
 	}
 	
 
@@ -27,8 +41,8 @@ public class BTMacroRecord {
 		writer.append("," + storage.robot.getBackRightMotor().get());		
 		writer.append("," + storage.robot.getBackLeftMotor().get());
 		//barrel motors
-		writer.append("," + storage.robot.getBarrelMotorLeft().get());
-		writer.append("," + storage.robot.getBarrelMotorRight().get());
+//		writer.append("," + storage.robot.getBarrelMotorLeft().get());
+//		writer.append("," + storage.robot.getBarrelMotorRight().get());
 		//fork motors
 		writer.append("," + storage.robot.getLeftForkLeft().get());
 		writer.append("," + storage.robot.getLeftForkRight().get());

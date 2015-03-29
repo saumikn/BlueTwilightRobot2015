@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team2220.robot;
 
 import java.io.FileNotFoundException;
@@ -28,9 +27,13 @@ public class BTMain extends SampleRobot
 	BTManipulator manipulator;
 	CameraServer server;
 	BTCameraThreaded T1 = new BTCameraThreaded();
-	
-	boolean isRecording = false;
+	BTMacroPlay playah;
+	BTMacroRecord recorder;
+	boolean isRecording = true;
 
+	
+	
+	
     public BTMain()
     {
     	
@@ -40,7 +43,6 @@ public class BTMain extends SampleRobot
     public void robotInit()
     {
 		Compressor comp = new Compressor();
-		
 		
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)
@@ -62,10 +64,6 @@ public class BTMain extends SampleRobot
 		
 		storage.robot.getBarrelHolder().retract();
 		
-		
-		
-		
-		
 //		T1.start();
 //		T1.setPriority(Thread.MIN_PRIORITY);
 //		T1.frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
@@ -82,19 +80,21 @@ public class BTMain extends SampleRobot
 	//@Override
     public void autonomous()
     {
+//    	auto.resetTimer();
+    	
     	BTMacroPlay playah = null;
-    	try
+    	try 
     	{
     		 playah = new BTMacroPlay();
 		} 
-		catch (FileNotFoundException e) 
-		{
+    	catch (FileNotFoundException e) 
+    	{
 			e.printStackTrace();
 		}
     	
 		while (isAutonomous())
 		{
-			auto.runAutonomous();
+			//auto.runAutonomous();
 			if (playah != null)
 			{
 				playah.play(storage);
@@ -102,39 +102,30 @@ public class BTMain extends SampleRobot
 			
 		}
 		
-		if(playah != null)
+		if(playah!= null)
 		{
 			playah.end(storage);
 		}
-    	
-    	auto.resetTimer();
-    }
+	}
+    
 	
 	//@Override
     public void operatorControl()
     {
-    	
-    	
 //    	NIVision.IMAQdxStartAcquisition(T1.session);
-       
-        auto.resetTimer();
+//        auto.resetTimer();
     	BTMacroRecord recorder = null;
-        
-        try 
-        {
+        try {
 			recorder = new BTMacroRecord();
-		} 
-		catch (IOException e) 
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
     	while(isOperatorControl())
     	{
-			if (storage.controller.getRecordButton().getButtonValue())
+    		if (storage.controller.getRecordButton().getButtonValue())
 			{
     			isRecording = !isRecording;
-			}    		
+			}    	
     		//Camera (threaded)
 //    		T1.run();
     		meca.drive();
@@ -143,31 +134,30 @@ public class BTMain extends SampleRobot
     		{
 	    		try 
 	    		{
+	    			
 	    			if(recorder != null)
 	    			{
 	    				recorder.record(storage);
 	    			}
+	    			
 				} 
-				catch (IOException e) 
-				{
-					
-				}
-	    		try 
+	    		catch (IOException e) 
 	    		{
-	    			if(recorder != null)
-	    			{
-	    				recorder.end();
-	    			}
-				} 
-				catch (IOException e) 
-				{
 					e.printStackTrace();
 				}
-				
-				isRecording = false;
     		}
-    	auto.resetTimer();
-    	}
+		}
+    	try 
+    	{
+    		if(recorder != null)
+    		{
+    			recorder.end();
+    		}
+		} 
+    	catch (IOException e) 
+    	{
+			e.printStackTrace();
+		}
 //    	NIVision.IMAQdxStopAcquisition(T1.session);
     }
 	
