@@ -23,7 +23,7 @@ public class BTTestClass
 	
 	public void test()
 	{
-		SmartDashboard.putNumber("aaasd", storage.robot.getFrontLeftEncoder().getValue() / 256.);
+//		SmartDashboard.putNumber("aaasd", storage.robot.getLeftEncoder().getValue() / 256.);
 		//barrelUp = storage.controller.getBarrelCollect().getButtonValue();
 		//barrelDown = storage.controller.getBarrelCollectDown().getButtonValue();
 

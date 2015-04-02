@@ -17,4 +17,5 @@ public class BTAnalogPotentiometer
 	{
 		return analogPotentiometer.get();
 	}
+	
 }

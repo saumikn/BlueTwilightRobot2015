@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2220.robot.electronics;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class BTEncoder
@@ -32,6 +31,11 @@ public class BTEncoder
 	public double getDistance()
 	{
 		return encoder.getDistance();
+	}
+	
+	public void switchDirection(boolean direction)
+	{
+		encoder.setReverseDirection(direction);
 	}
 	
 

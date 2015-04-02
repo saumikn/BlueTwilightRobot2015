@@ -36,7 +36,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	
 	int barrelCount = 0;
 	
-	boolean isSecondaryUpper = false;
+//	boolean isSecondaryUpper = false;
 	boolean correcting = false;
 	boolean barrelCollectComplete = false;
 	
@@ -69,41 +69,41 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		}
 		
 		elapsedTime = System.currentTimeMillis() - startTime;
-		isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
+//		isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
 		
-		if(!isSecondaryUpper)
-		{
-			manipulator.startBarrelMotors(true);
-		}
-		else
-		{
-			manipulator.stopBarrelMotors();
-		}
-		
-		if((elapsedTime > 4500) && (elapsedTime <= 5400))
-		{
-			moveForward();
-		}
-		else if((elapsedTime > 5400) && (elapsedTime <= 6750))
-		{
-			rotateOnlyRightWheels(true);
-		}
-		else if((elapsedTime > 6750) && (elapsedTime <= 8000))
-		{
-			moveLeft();
-		}
-		else if ((elapsedTime > 8000) && (elapsedTime <= 8900))
-		{
-			moveBackward();
-		}
-		else if((elapsedTime > 8900) && (elapsedTime <= 10150))
-		{
-			moveLeft();
-		}
-		else 
-		{
-			stopMotors();
-		}
+//		if(!isSecondaryUpper)
+//		{
+//			manipulator.startBarrelMotors(true);
+//		}
+//		else
+//		{
+//			manipulator.stopBarrelMotors();
+//		}
+//		
+//		if((elapsedTime > 4500) && (elapsedTime <= 5400))
+//		{
+//			moveForward();
+//		}
+//		else if((elapsedTime > 5400) && (elapsedTime <= 6750))
+//		{
+//			rotateOnlyRightWheels(true);
+//		}
+//		else if((elapsedTime > 6750) && (elapsedTime <= 8000))
+//		{
+//			moveLeft();
+//		}
+//		else if ((elapsedTime > 8000) && (elapsedTime <= 8900))
+//		{
+//			moveBackward();
+//		}
+//		else if((elapsedTime > 8900) && (elapsedTime <= 10150))
+//		{
+//			moveLeft();
+//		}
+//		else 
+//		{
+//			stopMotors();
+//		}
 	}
 	
 	public void moveAutoZone()
@@ -158,7 +158,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 				
 				degree = storage.robot.getGyro().getAngle();
 				
-				if(degree < (-BTConstants.ANGLE_ERROR)) //If robot pointing too far left, adjust front wheel speed to turn robot 
+				if(degree < (5)) //If robot pointing too far left, adjust front wheel speed to turn robot 
 				{
 					fr = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;
 					fl = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;
@@ -169,7 +169,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 					storage.robot.getFrontRightMotor().setX(fr);
 					correcting = true;
 				}
-				else if(degree > (BTConstants.ANGLE_ERROR)) //If robot pointing too far right, adjust back wheel speed to turn robot 
+				else if(degree > 5) //If robot pointing too far right, adjust back wheel speed to turn robot 
 				{
 					br = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;					
 					bl = wheelSpeed * BTConstants.MOTOR_GYRO_SCALE_VALUE;
@@ -323,16 +323,16 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		{
 			rotateOnlyLeftWheels(true);
 		}	
-		else if ((elapsedTime > s3_75 && elapsedTime <= s4) && !isSecondaryUpper)
-		{
-			stopMotors();
-			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
-			if (isSecondaryUpper)
-			{
-				manipulator.stopBarrelMotors();	
-			}
-			barrelMotorsAuto(false);
-		}
+//		else if ((elapsedTime > s3_75 && elapsedTime <= s4) && !isSecondaryUpper)
+//		{
+//			stopMotors();
+//			isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
+//			if (isSecondaryUpper)
+//			{
+//				manipulator.stopBarrelMotors();	
+//			}
+//			barrelMotorsAuto(false);
+//		}
 		else if ((elapsedTime > s4 && elapsedTime <= s5))
 		{
 			manipulator.stopBarrelMotors();

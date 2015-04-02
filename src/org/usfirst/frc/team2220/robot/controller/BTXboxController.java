@@ -103,12 +103,12 @@ public class BTXboxController implements BTIController
 		return null;
 	}
 
-	public BTIConButton getBarrelCollect()
+	public BTIConButton getCollectorWheelsCollect()
 	{
 		return RIGHT_BUMPER_BUTTON;
 	}
 	
-	public BTIConButton getBarrelCollectDown()
+	public BTIConButton getCollectorWheelsEject()
 	{
 		return LEFT_BUMPER_BUTTON;
 	}
@@ -131,6 +131,16 @@ public class BTXboxController implements BTIController
 	public BTIConButton getClaspRelease()
 	{
 		return LEFT_STICK_BUTTON;
+	}
+	
+	public BTIConButton getFrontContainmentOut()
+	{
+		return X_BUTTON;
+	}
+	
+	public BTIConButton getFrontContainmentIn()
+	{
+		return Y_BUTTON;
 	}
 
 	public BTIConButton getRecordButton()
@@ -175,5 +185,6 @@ public class BTXboxController implements BTIController
 	public BTIConAxis getRightJoystickLeftRight() {
 		return RIGHT_STICK_X_AXIS;
 	}
+	
 
 }

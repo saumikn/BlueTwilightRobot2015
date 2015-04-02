@@ -119,13 +119,13 @@ public class BTLogitechJoystick1 implements BTIController
 	}
 	
 	@Override
-	public BTIConButton getBarrelCollect()
+	public BTIConButton getCollectorWheelsCollect()
 	{
 		return null;
 	}
 	
 	@Override
-	public BTIConButton getBarrelCollectDown()
+	public BTIConButton getCollectorWheelsEject()
 	{
 		return null;
 	}
@@ -169,6 +169,18 @@ public class BTLogitechJoystick1 implements BTIController
 
 	@Override
 	public BTIConButton getClaspRelease() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConButton getFrontContainmentOut() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BTIConButton getFrontContainmentIn() {
 		// TODO Auto-generated method stub
 		return null;
 	}

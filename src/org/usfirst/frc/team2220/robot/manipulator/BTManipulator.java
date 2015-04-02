@@ -15,13 +15,10 @@ public class BTManipulator implements BTIManipulator
 		stopSecondary();
 	}
 	
-	boolean isToteIn;
 	boolean isLeftToteLower;
 	boolean isRightToteLower;
-	boolean isToteMiddle;
 	boolean isLeftToteUpper;
 	boolean isRightToteUpper;
-	boolean isSecondaryUpper = false;
 	
 	double toteCollectUp = 0.0;
 	double toteCollectDown = 0.0;
@@ -29,8 +26,10 @@ public class BTManipulator implements BTIManipulator
 	boolean isReleasingDown = false;
 	boolean isClaspRelease = false;
 	
-	boolean isSecondaryCollectButtonUp;
-	boolean isSecondaryCollectButtonDown;
+	boolean isCollectorWheelButtonCollect;
+	boolean isCollectorWheelButtonEject;
+	boolean isFrontContainmentButtonOut;
+	boolean isFrontContainmentButtonIn;
 	boolean isBarrelRelease = false;
 	boolean isExtended = false;
 	boolean keepExtended = false;
@@ -40,10 +39,7 @@ public class BTManipulator implements BTIManipulator
 	double encodeFL;
 	double encoder_delta;
 	
-	double turnFR;
-	double turnFL;
-	double rev_right;
-	double rev_left;
+	int counter = 0;
 	
 	boolean waitingForUpper = false;
 	boolean isRevvedRight = false;
@@ -53,13 +49,10 @@ public class BTManipulator implements BTIManipulator
 	@Override
 	public void perform()
 	{
-		isToteIn = storage.robot.getToteLimit().getValue();
 		isLeftToteLower = storage.robot.getLeftToteLowerLimit().getValue();
 		isRightToteLower = storage.robot.getRightToteLowerLimit().getValue();
-		isToteMiddle = storage.robot.getToteMiddleLimit().getValue();
 		isLeftToteUpper = storage.robot.getLeftToteUpperLimit().getValue();
 		isRightToteUpper = storage.robot.getRightToteUpperLimit().getValue();
-		isSecondaryUpper = storage.robot.getSecondaryUpperLimit().getValue();
 		
 		toteCollectUp = storage.controller.getToteCollect().getValue();
 		toteCollectDown = storage.controller.getToteCollectDown().getValue();
@@ -67,33 +60,44 @@ public class BTManipulator implements BTIManipulator
 		isBarrelRelease = storage.controller.getBarrelRelease().getButtonValue();
 		isClaspRelease = storage.controller.getClaspRelease().getLeadingEdge();
 		
-		encodeFR = storage.robot.getFrontRightEncoder().getValue();
-		encodeFL = storage.robot.getFrontLeftEncoder().getValue();
+		encodeFR = storage.robot.getRightEncoder().getValue();
+		encodeFL = storage.robot.getLeftEncoder().getValue();
+		encoder_delta = encodeFR - encodeFL;
 		
-		turnFR = storage.robot.getFrontRightPot().getValue();
-		turnFL = storage.robot.getFrontLeftPot().getValue();
+		if (counter == 50)
+		{
+			SmartDashboard.putNumber("Right Encoder", storage.robot.getRightEncoder().getValue());
+			SmartDashboard.putNumber("Left Encoder", storage.robot.getLeftEncoder().getValue());
+			SmartDashboard.putNumber("Encoder delta", encoder_delta);
+			SmartDashboard.putNumber("Left Fork Motor", storage.robot.getRightForkLeft().get());
+			SmartDashboard.putNumber("Right Fork Motor", storage.robot.getRightForkRight().get());
+			counter = 0;
+		}
+		else
+		{
+			counter++;
+		}
 		
-		SmartDashboard.putNumber("Front Right", turnFR);
-		SmartDashboard.putNumber("Front Left", turnFL);
+		isCollectorWheelButtonCollect = storage.controller.getCollectorWheelsCollect().getButtonValue();
+		isCollectorWheelButtonEject = storage.controller.getCollectorWheelsEject().getButtonValue();
+		isFrontContainmentButtonIn = storage.controller.getFrontContainmentIn().getButtonValue();
+		isFrontContainmentButtonOut = storage.controller.getFrontContainmentOut().getButtonValue();
 		
-		isSecondaryCollectButtonUp = storage.controller.getBarrelCollect().getButtonValue();
-		isSecondaryCollectButtonDown = storage.controller.getBarrelCollectDown().getButtonValue();
 		
 		if((toteCollectUp > 0)||(toteCollectDown > 0))
 		{
 			collectTote();
 		}
-		
-		if (isLeftToteUpper || isLeftToteLower)
+
+		if (isFrontContainmentButtonIn)
 		{
-			rev_left = 0;
+			containmentIn();
 		}
 		
-		if (isRightToteUpper || isRightToteLower)
+		if (isFrontContainmentButtonOut)
 		{
-			rev_right = 0;
+			containmentOut();
 		}
-		
 		
 		if(isClaspRelease)
 		{
@@ -120,11 +124,11 @@ public class BTManipulator implements BTIManipulator
 			storage.robot.getBarrelHolder().retract();
 		}
 		
-		if (isSecondaryCollectButtonDown) //aka start collector motors in reverse, i'm lazy
+		if (isCollectorWheelButtonEject)
 		{
 			reverseCollectorMotors();
 		}
-		else if (isSecondaryCollectButtonUp) //aka start collector motors forward, i'm lazy
+		else if (isCollectorWheelButtonCollect) 
 		{
 			startCollectorMotors();
 		}
@@ -151,7 +155,17 @@ public class BTManipulator implements BTIManipulator
 	}
 	
 	public void collectTote()
-	{
+	{		
+		
+		if (Math.abs(encoder_delta) > BTConstants.ENCODER_MARGIN_OF_ERROR)
+		{
+			isCorrecting = true;
+		}
+		else
+		{
+			isCorrecting = false;
+		}
+		
 		if(!isCorrecting)
 		{
 			if((toteCollectUp > 0) && !isLeftToteUpper)
@@ -166,18 +180,14 @@ public class BTManipulator implements BTIManipulator
 			{
 				moveLeftForkMotors(0);
 			}
-		}
-		
-		
-		if(!isCorrecting)
-		{
+			
 			if((toteCollectUp > 0) && !isRightToteUpper)
 			{
-				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN);
+				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN_RIGHT);
 			}
 			else if((toteCollectDown > 0) && !isRightToteLower)
 			{
-				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP);
+				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP_RIGHT);
 			}
 			else
 			{
@@ -185,83 +195,54 @@ public class BTManipulator implements BTIManipulator
 			}
 		}
 		
-//		if (toteCollectUp > 0)
+		if (isCorrecting)
+		{
+			if (encoder_delta > BTConstants.ENCODER_MARGIN_OF_ERROR)
+			{
+				if((toteCollectUp > 0) && !isLeftToteUpper)
+				{
+					moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN * BTConstants.ENCODER_MOTOR_CORRECTION);
+					moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN);
+				}
+				else if((toteCollectDown > 0) && !isLeftToteLower)
+				{
+					moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+					moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_UP);
+				}
+				else
+				{
+					moveRightForkMotors(0);
+					moveLeftForkMotors(0);
+				}
+			}
+			else 
+			{
+				if((toteCollectUp > 0) && !isLeftToteUpper)
+				{
+					moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN * BTConstants.ENCODER_MOTOR_CORRECTION);
+					moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN);
+				}
+				else if((toteCollectDown > 0) && !isLeftToteLower)
+				{
+					moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+					moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP);
+				}
+				else
+				{
+					moveLeftForkMotors(0);
+					moveRightForkMotors(0);
+				}
+			}	
+		}
+		
+//		if (isLeftToteUpper || isLeftToteLower)
 //		{
-//			if ((turnFR > 0 && turnFR < BTConstants.POT_REVOLUTION_ERROR_UP) && !isRevvedRight)
-//			{
-//				rev_right++;
-//				isRevvedRight = true;
-//			}
-//			if ((turnFL > 0 && turnFL < BTConstants.POT_REVOLUTION_ERROR_UP) && !isRevvedLeft)
-//			{
-//				rev_left++;
-//				isRevvedLeft = true;
-//			}
-//			
-//			if (turnFR > BTConstants.POT_REVOLUTION_ERROR_UP && turnFR < BTConstants.POT_FULL_REV)
-//			{
-//				isRevvedRight = false;
-//			}
-//			
-//			if (turnFL > BTConstants.POT_REVOLUTION_ERROR_UP && turnFL < BTConstants.POT_FULL_REV)
-//			{
-//				isRevvedLeft = false;
-//			}
-//			
-//			if (((rev_left * BTConstants.POT_FULL_REV) + turnFL) < ((rev_right * BTConstants.POT_FULL_REV) + turnFR))
-//			{
-//				lowerRightSideSpeed();
-//				isCorrecting = true;
-//			}
-//			else if (((rev_right * BTConstants.POT_FULL_REV) + turnFR) < ((rev_left * BTConstants.POT_FULL_REV) + turnFL))
-//			{
-//				lowerLeftSideSpeed();
-//				isCorrecting = true;
-//			}
-//			else
-//			{
-//				isCorrecting = false;
-//			}
-//			
+//			storage.robot.getLeftEncoder().reset();
 //		}
 //		
-//		if (toteCollectDown > 0)
+//		if (isRightToteUpper || isRightToteLower)
 //		{
-//			if ((turnFR < 0 && turnFR > BTConstants.POT_REVOLUTION_ERROR_DOWN) && !isRevvedRight)
-//			{
-//				rev_right++;
-//				isRevvedRight = true;
-//			}
-//			if ((turnFL < 0 && turnFL > BTConstants.POT_REVOLUTION_ERROR_DOWN) && !isRevvedLeft)
-//			{
-//				rev_left++;
-//				isRevvedLeft = true;
-//			}
-//			
-//			if (turnFR < BTConstants.POT_REVOLUTION_ERROR_DOWN && turnFR > 0)
-//			{
-//				isRevvedRight = false;
-//			}
-//			
-//			if (turnFL < BTConstants.POT_REVOLUTION_ERROR_DOWN && turnFL > 0)
-//			{
-//				isRevvedLeft = false;
-//			}
-//			
-//			if (((rev_left * BTConstants.POT_FULL_REV) + turnFL) > ((rev_right * BTConstants.POT_FULL_REV) + turnFR))
-//			{
-//				lowerRightSideSpeed();
-//				isCorrecting = true;
-//			}
-//			else if (((rev_right * BTConstants.POT_FULL_REV) + turnFR) > ((rev_left * BTConstants.POT_FULL_REV) + turnFL))
-//			{
-//				lowerLeftSideSpeed();
-//				isCorrecting = true;
-//			}
-//			else
-//			{
-//				isCorrecting = false;
-//			}
+//			storage.robot.getRightEncoder().reset();
 //		}
 	}
 	
@@ -340,14 +321,43 @@ public class BTManipulator implements BTIManipulator
 	
 	public void lowerRightSideSpeed()
 	{
-		storage.robot.getRightForkLeft().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
-		storage.robot.getRightForkRight().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
+		if(toteCollectUp > 0)
+		{
+		storage.robot.getRightForkLeft().setX(-BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		storage.robot.getRightForkRight().setX(-BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		}
+		if(toteCollectDown > 0)
+		{
+		storage.robot.getRightForkLeft().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		storage.robot.getRightForkRight().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		}
 	}
 	
 	public void lowerLeftSideSpeed()
 	{
-		storage.robot.getLeftForkLeft().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
-		storage.robot.getLeftForkRight().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.POT_MOTOR_CORRECTION);
+		if(toteCollectUp > 0)
+		{
+		storage.robot.getLeftForkLeft().setX(-BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		storage.robot.getLeftForkRight().setX(-BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		}
+		if (toteCollectDown > 0)
+		{
+			storage.robot.getLeftForkLeft().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+			storage.robot.getLeftForkRight().setX(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+		}
+		
+	}
+	
+	public void containmentIn()
+	{
+		storage.robot.getFrontContainmentMotor().setX(BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
+		storage.robot.getFrontContainmentMotor().setX(BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
+	}
+	
+	public void containmentOut()
+	{
+		storage.robot.getFrontContainmentMotor().setX(-BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
+		storage.robot.getFrontContainmentMotor().setX(-BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
 	}
 	
 }

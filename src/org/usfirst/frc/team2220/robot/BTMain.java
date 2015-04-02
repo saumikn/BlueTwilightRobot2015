@@ -29,10 +29,7 @@ public class BTMain extends SampleRobot
 	BTCameraThreaded T1 = new BTCameraThreaded();
 	BTMacroPlay playah;
 	BTMacroRecord recorder;
-	boolean isRecording = true;
-
-	
-	
+	boolean isRecording = false;
 	
     public BTMain()
     {
@@ -43,6 +40,12 @@ public class BTMain extends SampleRobot
     public void robotInit()
     {
 		Compressor comp = new Compressor();
+		
+//		storage.robot.getLeftEncoder().reset();
+//		storage.robot.getRightEncoder().reset();
+//		
+//		storage.robot.getRightEncoder().switchDirection(false);
+//		storage.robot.getLeftEncoder().switchDirection(true);
 		
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)

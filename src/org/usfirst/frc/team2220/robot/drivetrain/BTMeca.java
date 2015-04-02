@@ -211,10 +211,10 @@ public class BTMeca implements BTIDrivetrain
 //		fl = fl * maxPower;
 //		bl = bl * maxPower;
 		
-		encodeFR = storage.robot.getFrontRightEncoder().getValue();
-		encodeFL = storage.robot.getFrontLeftEncoder().getValue();
-		encodeBL = storage.robot.getBackLeftEncoder().getValue();
-		encodeBR = storage.robot.getBackRightEncoder().getValue();
+//		encodeFR = storage.robot.getRightEncoder().getValue();
+//		encodeFL = storage.robot.getLeftEncoder().getValue();
+//		encodeBL = storage.robot.getBackLeftEncoder().getValue();
+//		encodeBR = storage.robot.getBackRightEncoder().getValue();
 		
 		SmartDashboard.putNumber("Front Right Encoder Reading", encodeFR);
 		SmartDashboard.putNumber("Back Right Encoder Reading", encodeFL);

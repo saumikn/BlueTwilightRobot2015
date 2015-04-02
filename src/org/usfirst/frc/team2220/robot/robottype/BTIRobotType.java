@@ -26,21 +26,21 @@ public interface BTIRobotType
 	public BTIMotor getCollectorMotorLeft();
 	public BTIMotor getCollectorMotorRight();
 	
-	public BTLimitSwitch getToteLimit();
+//	public BTLimitSwitch getToteLimit();
 	public BTLimitSwitch getLeftToteLowerLimit();
 	public BTLimitSwitch getRightToteLowerLimit();
-	public BTLimitSwitch getToteMiddleLimit();
+//	public BTLimitSwitch getToteMiddleLimit();
 	public BTLimitSwitch getLeftToteUpperLimit();
 	public BTLimitSwitch getRightToteUpperLimit();
-	public BTLimitSwitch getSecondaryUpperLimit();
+//	public BTLimitSwitch getSecondaryUpperLimit();
 	
-	public BTEncoder getFrontLeftEncoder();
-	public BTEncoder getFrontRightEncoder();
-	public BTEncoder getBackLeftEncoder();
-	public BTEncoder getBackRightEncoder();
+	public BTEncoder getLeftEncoder();
+	public BTEncoder getRightEncoder();
+//	public BTEncoder getBackLeftEncoder();
+//	public BTEncoder getBackRightEncoder();
 	
-	public BTAnalogPotentiometer getFrontRightPot();
-	public BTAnalogPotentiometer getFrontLeftPot();
+//	public BTAnalogPotentiometer getFrontRightPot();
+//	public BTAnalogPotentiometer getFrontLeftPot();
 	
 	public BTIPiston getToteClamp();
 	public BTIPiston getBarrelHolder();
@@ -49,4 +49,5 @@ public interface BTIRobotType
 	public BTGyro getGyro();
 	
 	public BTCompressor getCompressor();
+	BTIMotor getFrontContainmentMotor();
 }

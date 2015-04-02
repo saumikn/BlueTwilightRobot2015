@@ -8,12 +8,8 @@ import org.usfirst.frc.team2220.robot.electronics.BTEncoder;
 import org.usfirst.frc.team2220.robot.electronics.BTGyro;
 import org.usfirst.frc.team2220.robot.electronics.BTIPiston;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
-import org.usfirst.frc.team2220.robot.electronics.BTSinglePiston;
 import org.usfirst.frc.team2220.robot.motor.BTCANTalon;
 import org.usfirst.frc.team2220.robot.motor.BTIMotor;
-import org.usfirst.frc.team2220.robot.motor.BTTalonSRX;
-
-import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class BTCompetitionRobot implements BTIRobotType
@@ -27,37 +23,36 @@ public class BTCompetitionRobot implements BTIRobotType
 	private final BTIMotor BARREL_MOTOR_RIGHT;
 	private final BTIMotor COLLECTOR_MOTOR_LEFT;
 	private final BTIMotor COLLECTOR_MOTOR_RIGHT;
+	private final BTIMotor CONTAINMENT_MOTOR;
 	
 	private final BTIMotor LEFT_FORK_LEFT;
 	private final BTIMotor LEFT_FORK_RIGHT;
 	private final BTIMotor RIGHT_FORK_LEFT;
 	private final BTIMotor RIGHT_FORK_RIGHT;
 	
-	private final BTLimitSwitch TOTE_LIMIT;
+//	private final BTLimitSwitch TOTE_LIMIT;
 	private final BTLimitSwitch LEFT_TOTE_LOWER_LIMIT;
 	private final BTLimitSwitch RIGHT_TOTE_LOWER_LIMIT;
-	private final BTLimitSwitch TOTE_MIDDLE_LIMIT;
+//	private final BTLimitSwitch TOTE_MIDDLE_LIMIT;
 	private final BTLimitSwitch LEFT_TOTE_UPPER_LIMIT;
 	private final BTLimitSwitch RIGHT_TOTE_UPPER_LIMIT;
-	private final BTLimitSwitch SECONDARY_UPPER_LIMIT;
+//	private final BTLimitSwitch SECONDARY_UPPER_LIMIT;
 	
 	private final BTEncoder FRONT_LEFT_ENCODER;
 	private final BTEncoder FRONT_RIGHT_ENCODER;
-	private final BTEncoder BACK_LEFT_ENCODER;
-	private final BTEncoder BACK_RIGHT_ENCODER;
+//	private final BTEncoder BACK_LEFT_ENCODER;
+//	private final BTEncoder BACK_RIGHT_ENCODER;
 	
 	private final BTIPiston TOTE_CLAMP_PISTON;
 	private final BTIPiston BARREL_CLAMP_PISTON;
 	private final BTIPiston DRIVETRAIN_SWITCH_PISTON;
 	
-	private final BTAnalogPotentiometer RIGHT_POT;
-	private final BTAnalogPotentiometer LEFT_POT;
+//	private final BTAnalogPotentiometer RIGHT_POT;
+//	private final BTAnalogPotentiometer LEFT_POT;
 	
 	private final BTGyro GYRO;
 	
 	private final BTCompressor COMPRESSOR;
-	
-   	
 	
 	public BTCompetitionRobot()
 	{
@@ -66,22 +61,22 @@ public class BTCompetitionRobot implements BTIRobotType
 		BACK_LEFT_MOTOR   = new BTCANTalon(BTConstants.COMPETITION_BACK_LEFT_MOTOR, false);
 		BACK_RIGHT_MOTOR  = new BTCANTalon(BTConstants.COMPETITION_BACK_RIGHT_MOTOR, false);
 		
-		TOTE_LIMIT              = new BTLimitSwitch(BTConstants.COMPETITION_TOTE_LIMIT);
+//		TOTE_LIMIT              = new BTLimitSwitch(BTConstants.COMPETITION_TOTE_LIMIT);
 		LEFT_TOTE_LOWER_LIMIT   = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_UPPER_LIMIT_LEFT);
 		RIGHT_TOTE_LOWER_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT);
-		TOTE_MIDDLE_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_MIDDLE_LIMIT);
+//		TOTE_MIDDLE_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_MIDDLE_LIMIT);
 		LEFT_TOTE_UPPER_LIMIT   = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_LOWER_LIMIT_LEFT);
 		RIGHT_TOTE_UPPER_LIMIT  = new BTLimitSwitch(BTConstants.COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT);
-		SECONDARY_UPPER_LIMIT	= new BTLimitSwitch(BTConstants.COMPETITION_SECONDARY_UPPER_LIMIT);
+//		SECONDARY_UPPER_LIMIT	= new BTLimitSwitch(BTConstants.COMPETITION_SECONDARY_UPPER_LIMIT);
 		
 		FRONT_RIGHT_ENCODER = new BTEncoder(BTConstants.COMPETITION_FRONT_RIGHT_ENCODER_A,BTConstants.COMPETITION_FRONT_RIGHT_ENCODER_B);
 		FRONT_LEFT_ENCODER  = new BTEncoder(BTConstants.COMPETITION_FRONT_LEFT_ENCODER_A,BTConstants.COMPETITION_FRONT_LEFT_ENCODER_B);
-		BACK_RIGHT_ENCODER  = new BTEncoder(BTConstants.COMPETITION_BACK_RIGHT_ENCODER_A,BTConstants.COMPETITION_BACK_RIGHT_ENCODER_B);
-		BACK_LEFT_ENCODER   = new BTEncoder(BTConstants.COMPETITION_BACK_LEFT_ENCODER_A,BTConstants.COMPETITION_BACK_LEFT_ENCODER_B);
+//		BACK_RIGHT_ENCODER  = new BTEncoder(BTConstants.COMPETITION_BACK_RIGHT_ENCODER_A,BTConstants.COMPETITION_BACK_RIGHT_ENCODER_B);
+//		BACK_LEFT_ENCODER   = new BTEncoder(BTConstants.COMPETITION_BACK_LEFT_ENCODER_A,BTConstants.COMPETITION_BACK_LEFT_ENCODER_B);
 		
-		RIGHT_POT = new BTAnalogPotentiometer(BTConstants.COMPEITION_ANALOG_POT_RIGHT);
-		LEFT_POT = new BTAnalogPotentiometer(BTConstants.COMPETITION_ANALOG_POT_LEFT);
-		
+//		RIGHT_POT = new BTAnalogPotentiometer(BTConstants.COMPEITION_ANALOG_POT_RIGHT);
+//		LEFT_POT = new BTAnalogPotentiometer(BTConstants.COMPETITION_ANALOG_POT_LEFT);
+//		
 		
 		LEFT_FORK_LEFT   = new BTCANTalon(BTConstants.COMPETITION_LEFT_FORK_LEFT, true);
 		LEFT_FORK_RIGHT  = new BTCANTalon(BTConstants.COMPETITION_LEFT_FORK_RIGHT, true);
@@ -92,6 +87,7 @@ public class BTCompetitionRobot implements BTIRobotType
 		BARREL_MOTOR_RIGHT    = new BTCANTalon(BTConstants.COMPETITION_BARREL_MOTOR_RIGHT, true);
 		COLLECTOR_MOTOR_LEFT  = new BTCANTalon(BTConstants.COMPETITION_COLLECTOR_MOTOR_LEFT, true);
 		COLLECTOR_MOTOR_RIGHT = new BTCANTalon(BTConstants.COMPETITION_COLLECTOR_MOTOR_RIGHT, true);
+		CONTAINMENT_MOTOR = new BTCANTalon(BTConstants.COMPETITION_FRONT_CONTAINMENT_MOTOR, true);
 		
 		TOTE_CLAMP_PISTON        = new BTDoublePiston(BTConstants.COMPETITION_TOTE_CLAMP_EXTEND, BTConstants.COMPETITION_TOTE_CLAMP_RETRACT);
 		BARREL_CLAMP_PISTON      = new BTDoublePiston(BTConstants.COMPETITION_BARREL_HOLDER_EXTEND, BTConstants.COMPETITION_BARREL_HOLDER_RETRACT);
@@ -100,7 +96,6 @@ public class BTCompetitionRobot implements BTIRobotType
 		GYRO = new BTGyro(BTConstants.COMPETITION_GYRO);
 		
 		COMPRESSOR = new BTCompressor();
-
 	}
 	
 	
@@ -116,6 +111,12 @@ public class BTCompetitionRobot implements BTIRobotType
 	public BTIMotor getFrontRightMotor()
 	{
 		return FRONT_RIGHT_MOTOR;
+	}
+	
+	@Override
+	public BTIMotor getFrontContainmentMotor()
+	{
+		return CONTAINMENT_MOTOR;
 	}
 
 	@Override
@@ -154,11 +155,11 @@ public class BTCompetitionRobot implements BTIRobotType
 		return COLLECTOR_MOTOR_RIGHT;
 	}
 
-	@Override
-	public BTLimitSwitch getToteLimit()
-	{
-		return TOTE_LIMIT;
-	}
+//	@Override
+//	public BTLimitSwitch getToteLimit()
+//	{
+//		return TOTE_LIMIT;
+//	}
 
 	@Override
 	public BTLimitSwitch getLeftToteLowerLimit()
@@ -172,11 +173,11 @@ public class BTCompetitionRobot implements BTIRobotType
 		return RIGHT_TOTE_LOWER_LIMIT;
 	}
 
-	@Override
-	public BTLimitSwitch getToteMiddleLimit()
-	{
-		return TOTE_MIDDLE_LIMIT;
-	}
+//	@Override
+//	public BTLimitSwitch getToteMiddleLimit()
+//	{
+//		return TOTE_MIDDLE_LIMIT;
+//	}
 	
 	@Override
 	public BTLimitSwitch getLeftToteUpperLimit()
@@ -190,35 +191,35 @@ public class BTCompetitionRobot implements BTIRobotType
 		return RIGHT_TOTE_UPPER_LIMIT;
 	}
 
-	@Override
-	public BTLimitSwitch getSecondaryUpperLimit()
-	{
-		return SECONDARY_UPPER_LIMIT;
-	}
+//	@Override
+//	public BTLimitSwitch getSecondaryUpperLimit()
+//	{
+//		return SECONDARY_UPPER_LIMIT;
+//	}
 
 	@Override
-	public BTEncoder getFrontLeftEncoder()
+	public BTEncoder getLeftEncoder()
 	{
 		return FRONT_LEFT_ENCODER;
 	}
 
 	@Override
-	public BTEncoder getFrontRightEncoder()
+	public BTEncoder getRightEncoder()
 	{
 		return FRONT_RIGHT_ENCODER;
 	}
-
-	@Override
-	public BTEncoder getBackLeftEncoder()
-	{
-		return BACK_LEFT_ENCODER;
-	}
-
-	@Override
-	public BTEncoder getBackRightEncoder()
-	{
-		return BACK_RIGHT_ENCODER;
-	}
+//
+//	@Override
+//	public BTEncoder getBackLeftEncoder()
+//	{
+//		return BACK_LEFT_ENCODER;
+//	}
+//
+//	@Override
+//	public BTEncoder getBackRightEncoder()
+//	{
+//		return BACK_RIGHT_ENCODER;
+//	}
 
 	@Override
 	public BTGyro getGyro()
@@ -282,11 +283,11 @@ public class BTCompetitionRobot implements BTIRobotType
 
 
 
-	public BTAnalogPotentiometer getFrontRightPot() {
-		return RIGHT_POT;
-	}
-	
-	public BTAnalogPotentiometer getFrontLeftPot() {
-		return LEFT_POT;
-	}
+//	public BTAnalogPotentiometer getFrontRightPot() {
+//		return RIGHT_POT;
+//	}
+//	
+//	public BTAnalogPotentiometer getFrontLeftPot() {
+//		return LEFT_POT;
+//	}
 }
