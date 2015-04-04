@@ -14,7 +14,7 @@ public class BTMacroPlay {
 
 	public BTMacroPlay() throws FileNotFoundException
 	{
-		scanner = new Scanner(new File("/home/lvuser/recordedAuto11.csv"));
+		scanner = new Scanner(new File("/home/lvuser/recordedAuto15	.csv"));
 		
 		scanner.useDelimiter(",");
 		startTime = System.currentTimeMillis();	
@@ -22,7 +22,7 @@ public class BTMacroPlay {
 	
 	public void play(BTStorage storage)
 	{
-		if (scanner.hasNextDouble())
+		if ((scanner != null) && (scanner.hasNextDouble()))
 		{
 			double t_delta;
 			if(onTime)
@@ -57,6 +57,11 @@ public class BTMacroPlay {
 		else
 		{
 			this.end(storage);
+			if (scanner != null) 
+			{
+				scanner.close();
+				scanner = null;
+			}
 		}
 		
 	}
@@ -76,7 +81,10 @@ public class BTMacroPlay {
 		storage.robot.getRightForkLeft().setX(0);
 		storage.robot.getRightForkRight().setX(0);
 		
-		scanner.close();
+		if (scanner != null) 
+		{
+			scanner.close();
+		}
 		
 	}
 	

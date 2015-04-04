@@ -91,7 +91,7 @@ public class BTXboxController implements BTIController
 	
 	public BTIConAxis getToteCollect()
 	{
-		return RIGHT_TRIGGER;
+		return LEFT_TRIGGER;
 	}
 
 	public BTIConButton getToteRelease()
@@ -115,7 +115,7 @@ public class BTXboxController implements BTIController
 
 	public BTIConAxis getToteCollectDown() 
 	{
-		return LEFT_TRIGGER;
+		return RIGHT_TRIGGER;
 	}
 	
 	public BTIConButton getTurboToggle()

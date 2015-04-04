@@ -64,19 +64,19 @@ public class BTManipulator implements BTIManipulator
 		encodeFL = storage.robot.getLeftEncoder().getValue();
 		encoder_delta = encodeFR - encodeFL;
 		
-		if (counter == 50)
-		{
-			SmartDashboard.putNumber("Right Encoder", storage.robot.getRightEncoder().getValue());
-			SmartDashboard.putNumber("Left Encoder", storage.robot.getLeftEncoder().getValue());
-			SmartDashboard.putNumber("Encoder delta", encoder_delta);
-			SmartDashboard.putNumber("Left Fork Motor", storage.robot.getRightForkLeft().get());
-			SmartDashboard.putNumber("Right Fork Motor", storage.robot.getRightForkRight().get());
-			counter = 0;
-		}
-		else
-		{
-			counter++;
-		}
+//		if (counter == 50)
+//		{
+//			SmartDashboard.putNumber("Right Encoder", storage.robot.getRightEncoder().getValue());
+//			SmartDashboard.putNumber("Left Encoder", storage.robot.getLeftEncoder().getValue());
+//			SmartDashboard.putNumber("Encoder delta", encoder_delta);
+//			SmartDashboard.putNumber("Left Fork Motor", storage.robot.getRightForkLeft().get());
+//			SmartDashboard.putNumber("Right Fork Motor", storage.robot.getRightForkRight().get());
+//			counter = 0;
+//		}
+//		else
+//		{
+//			counter++;
+//		}
 		
 		isCollectorWheelButtonCollect = storage.controller.getCollectorWheelsCollect().getButtonValue();
 		isCollectorWheelButtonEject = storage.controller.getCollectorWheelsEject().getButtonValue();
@@ -93,10 +93,13 @@ public class BTManipulator implements BTIManipulator
 		{
 			containmentIn();
 		}
-		
-		if (isFrontContainmentButtonOut)
+		else if (isFrontContainmentButtonOut)
 		{
 			containmentOut();
+		}
+		else 
+		{
+			storage.robot.getFrontContainmentMotor().setX(0);
 		}
 		
 		if(isClaspRelease)
@@ -156,6 +159,15 @@ public class BTManipulator implements BTIManipulator
 	
 	public void collectTote()
 	{		
+//		if( counter == 250)
+//		{
+//		SmartDashboard.putBoolean("Left Up Limit" , isLeftToteUpper);
+//		SmartDashboard.putBoolean("Right Up Limit" , isRightToteUpper);
+//		SmartDashboard.putBoolean("Left Down Limit" , isLeftToteLower);
+//		SmartDashboard.putBoolean("Right Down Limit" , isRightToteLower);
+//		counter = 0;
+//		}
+//		counter++;
 		
 		if (Math.abs(encoder_delta) > BTConstants.ENCODER_MARGIN_OF_ERROR)
 		{
@@ -166,15 +178,31 @@ public class BTManipulator implements BTIManipulator
 			isCorrecting = false;
 		}
 		
-		if(!isCorrecting)
-		{
-			if((toteCollectUp > 0) && !isLeftToteUpper)
+//		isCorrecting = false;
+		double leftCorrection = 1.0;
+		double rightCorrection = 1.0;
+		
+		if((toteCollectUp > 0) && !isLeftToteUpper)
 			{
-				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN);
+				if(isCorrecting == true)
+				{
+					if (encodeFL > encodeFR)
+					{
+						leftCorrection = 0.9;
+					}
+				}
+				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN * leftCorrection);
 			}
 			else if((toteCollectDown > 0) && !isLeftToteLower)
 			{
-				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_UP);
+				if( isCorrecting == true)
+				{
+					if (encodeFR > encodeFL)
+					{
+						leftCorrection = 0.9;
+					}
+				}
+				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP * leftCorrection);
 			}
 			else
 			{
@@ -183,31 +211,44 @@ public class BTManipulator implements BTIManipulator
 			
 			if((toteCollectUp > 0) && !isRightToteUpper)
 			{
-				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN_RIGHT);
+				if( isCorrecting == true)
+				{
+					if (encodeFR > encodeFL)
+					{
+						rightCorrection = 0.9;
+					}
+				}
+				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN_RIGHT* rightCorrection);
 			}
 			else if((toteCollectDown > 0) && !isRightToteLower)
 			{
-				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP_RIGHT);
+				if( isCorrecting == true)
+				{
+					if (encodeFL > encodeFR)
+					{
+						rightCorrection = 0.9;
+					}
+				}
+				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_UP_RIGHT * rightCorrection);
 			}
 			else
 			{
 				moveRightForkMotors(0);
 			}
-		}
 		
-		if (isCorrecting)
+/*		if (isCorrecting)
 		{
 			if (encoder_delta > BTConstants.ENCODER_MARGIN_OF_ERROR)
 			{
 				if((toteCollectUp > 0) && !isLeftToteUpper)
 				{
-					moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN * BTConstants.ENCODER_MOTOR_CORRECTION);
-					moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN);
+					moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN * BTConstants.ENCODER_MOTOR_CORRECTION);
+					moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN);
 				}
 				else if((toteCollectDown > 0) && !isLeftToteLower)
 				{
-					moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
-					moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_UP);
+					moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_UP * BTConstants.ENCODER_MOTOR_CORRECTION);
+					moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP);
 				}
 				else
 				{
@@ -234,16 +275,18 @@ public class BTManipulator implements BTIManipulator
 				}
 			}	
 		}
+	*/	
+		if (isLeftToteUpper && isRightToteUpper)
+		{
+			storage.robot.getLeftEncoder().reset();
+			storage.robot.getRightEncoder().reset();
+		}
 		
-//		if (isLeftToteUpper || isLeftToteLower)
-//		{
-//			storage.robot.getLeftEncoder().reset();
-//		}
-//		
-//		if (isRightToteUpper || isRightToteLower)
-//		{
-//			storage.robot.getRightEncoder().reset();
-//		}
+		if (isLeftToteLower && isRightToteLower)
+		{
+			storage.robot.getLeftEncoder().reset();
+			storage.robot.getRightEncoder().reset();
+		}
 	}
 	
 	public void startCollectorMotors()
@@ -351,12 +394,10 @@ public class BTManipulator implements BTIManipulator
 	public void containmentIn()
 	{
 		storage.robot.getFrontContainmentMotor().setX(BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
-		storage.robot.getFrontContainmentMotor().setX(BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
 	}
 	
 	public void containmentOut()
 	{
-		storage.robot.getFrontContainmentMotor().setX(-BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
 		storage.robot.getFrontContainmentMotor().setX(-BTConstants.FRONT_CONTAINMENT_MOTOR_POWER);
 	}
 	

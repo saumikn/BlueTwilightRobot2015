@@ -41,11 +41,11 @@ public class BTConstants
 	
 	// Limit switch ports
 //	public static final int COMPETITION_TOTE_LIMIT 					= -1;
-	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_LEFT 	= 6;
+	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_LEFT 	= 0;
 	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_RIGHT 	= 5;
 //	public static final int COMPETITION_PRIMARY_MIDDLE_LIMIT 		= -1;
 	public static final int COMPETITION_PRIMARY_LOWER_LIMIT_LEFT	= 1;
-	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT 	= 0;
+	public static final int COMPETITION_PRIMARY_UPPER_LIMIT_RIGHT 	= 6;
 //	public static final int COMPETITION_SECONDARY_LOWER_LIMIT 		= -1;
 //	public static final int COMPETITION_SECONDARY_UPPER_LIMIT 		= -1;
 //	public static final int COMPETITION_LIMIT_SWITCH 				= -1;
@@ -98,15 +98,15 @@ public class BTConstants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
 	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
-	public static final double TOTE_MOTOR_POWER_UP = 0.5; 
-	public static final double TOTE_MOTOR_POWER_DOWN = 0.4; 
+	public static final double TOTE_MOTOR_POWER_UP = 0.4; 
+	public static final double TOTE_MOTOR_POWER_DOWN = 0.6; 
 	public static final double TOTE_MOTOR_POWER_UP_RIGHT = TOTE_MOTOR_POWER_UP; //+ 0.1;
 	public static final double TOTE_MOTOR_POWER_DOWN_RIGHT = TOTE_MOTOR_POWER_DOWN; //+ 0.1;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.875;
 	public static final double BARREL_MOTOR_POWER_UP = 0.875;
 	public static final double COLLECTOR_MOTOR_POWER_EJECT = 0.3;
-	public static final double COLLECTOR_MOTOR_POWER_COLLECT = 0.95;
-	public static final double FRONT_CONTAINMENT_MOTOR_POWER = 0.5;
+	public static final double COLLECTOR_MOTOR_POWER_COLLECT = 0.3;
+	public static final double FRONT_CONTAINMENT_MOTOR_POWER = 0.4;
 	
 	// Electronics Constants
 	public static final double KP = 0.03;
@@ -128,7 +128,6 @@ public class BTConstants
 	public static final double STRAFE_SPEED = 0.8;
 	public static final double BACK_SHORT_SPEED = 0.3;
 	public static final double BACK_LONG_SPEED = 0.3;
-	public static final double ROTATE_RIGHT_TIME = 0.3;
 	public static final double ROTATE_RIGHT_SPEED = 0.3;
 	public static final double MOVE_RIGHT_SPEED = 0.9;
 	public static final double ENCODER_MARGIN_OF_ERROR = 5;

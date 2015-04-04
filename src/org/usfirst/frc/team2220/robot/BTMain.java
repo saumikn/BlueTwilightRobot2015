@@ -46,7 +46,7 @@ public class BTMain extends SampleRobot
 //		
 //		storage.robot.getRightEncoder().switchDirection(false);
 //		storage.robot.getLeftEncoder().switchDirection(true);
-		
+//		
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)
 		{
@@ -95,6 +95,7 @@ public class BTMain extends SampleRobot
 			e.printStackTrace();
 		}
     	
+    	playah = null;
 		while (isAutonomous())
 		{
 			//auto.runAutonomous();
@@ -125,12 +126,13 @@ public class BTMain extends SampleRobot
 		}
     	while(isOperatorControl())
     	{
-    		if (storage.controller.getRecordButton().getButtonValue())
+    		if (storage.controller.getRecordButton().getLeadingEdge())
 			{
     			isRecording = !isRecording;
 			}    	
     		//Camera (threaded)
 //    		T1.run();
+    		
     		meca.drive();
     		manipulator.perform();
     		if (isRecording)

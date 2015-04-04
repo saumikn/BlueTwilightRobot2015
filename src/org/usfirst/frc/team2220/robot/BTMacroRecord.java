@@ -12,7 +12,7 @@ public class BTMacroRecord {
 	{
 			startTime = System.currentTimeMillis();
 			
-			writer = new FileWriter("/home/lvuser/recordedAuto11.csv");
+			writer = new FileWriter("/home/lvuser/recordedAuto30.csv");
 			
 //			writer.append("Time");
 //			
