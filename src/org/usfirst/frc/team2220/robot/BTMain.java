@@ -95,7 +95,6 @@ public class BTMain extends SampleRobot
 			e.printStackTrace();
 		}
     	
-    	playah = null;
 		while (isAutonomous())
 		{
 			//auto.runAutonomous();
