@@ -94,7 +94,6 @@ public class BTMain extends SampleRobot
     	{
 			e.printStackTrace();
 		}
-    	
 		while (isAutonomous())
 		{
 			//auto.runAutonomous();

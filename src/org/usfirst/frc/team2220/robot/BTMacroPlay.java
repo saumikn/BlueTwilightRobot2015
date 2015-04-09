@@ -14,7 +14,7 @@ public class BTMacroPlay {
 
 	public BTMacroPlay() throws FileNotFoundException
 	{
-		scanner = new Scanner(new File("/home/lvuser/recordedAuto15	.csv"));
+		scanner = new Scanner(new File("/home/lvuser/recordedAuto100.csv"));
 		
 		scanner.useDelimiter(",");
 		startTime = System.currentTimeMillis();	
@@ -42,10 +42,7 @@ public class BTMacroPlay {
 //				storage.robot.getBarrelMotorLeft().setX(scanner.nextDouble());
 //				storage.robot.getBarrelMotorRight().setX(scanner.nextDouble());
 				
-				storage.robot.getLeftForkLeft().setX(scanner.nextDouble());
-				storage.robot.getLeftForkRight().setX(scanner.nextDouble());
-				storage.robot.getRightForkLeft().setX(scanner.nextDouble());
-				storage.robot.getRightForkRight().setX(scanner.nextDouble());
+				storage.robot.getFrontContainmentMotor().setX(scanner.nextDouble());
 				
 				onTime = true;
 			}	
@@ -76,10 +73,7 @@ public class BTMacroPlay {
 //		storage.robot.getBarrelMotorLeft().setX(0);
 //		storage.robot.getBarrelMotorRight().setX(0);
 		
-		storage.robot.getLeftForkLeft().setX(0);
-		storage.robot.getLeftForkRight().setX(0);
-		storage.robot.getRightForkLeft().setX(0);
-		storage.robot.getRightForkRight().setX(0);
+		storage.robot.getFrontContainmentMotor().setX(0);
 		
 		if (scanner != null) 
 		{

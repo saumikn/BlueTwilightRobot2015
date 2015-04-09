@@ -12,7 +12,7 @@ public class BTMacroRecord {
 	{
 			startTime = System.currentTimeMillis();
 			
-			writer = new FileWriter("/home/lvuser/recordedAuto30.csv");
+			writer = new FileWriter("/home/lvuser/recordedAuto100.csv");
 			
 //			writer.append("Time");
 //			
@@ -44,10 +44,7 @@ public class BTMacroRecord {
 //		writer.append("," + storage.robot.getBarrelMotorLeft().get());
 //		writer.append("," + storage.robot.getBarrelMotorRight().get());
 		//fork motors
-		writer.append("," + storage.robot.getLeftForkLeft().get());
-		writer.append("," + storage.robot.getLeftForkRight().get());
-		writer.append("," + storage.robot.getRightForkLeft().get());
-		writer.append("," + storage.robot.getRightForkRight().get() + ",");
+		writer.append("," + storage.robot.getFrontContainmentMotor());
 	}
 	
 	public void end() throws IOException
