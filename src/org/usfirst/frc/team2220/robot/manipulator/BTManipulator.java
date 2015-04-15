@@ -15,6 +15,7 @@ public class BTManipulator implements BTIManipulator
 		stopSecondary();
 	}
 	
+	
 	boolean isLeftToteLower;
 	boolean isRightToteLower;
 	boolean isLeftToteUpper;
@@ -146,6 +147,8 @@ public class BTManipulator implements BTIManipulator
 	{
 		startBarrelMotors(false); //based on the ways the barrel motors are wired
 	}
+	
+	
 	
 	public void lowerSecondary()
 	{

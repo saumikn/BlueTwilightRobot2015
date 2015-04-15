@@ -17,6 +17,13 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	double br = 0.0;
 	double degree = 0.0;
 	
+	double b1 = 500;
+	double b2 = b1 + 500;
+	double b3 = b2 + 1000;
+	double b4 = b3 + 1500;
+	double b5 = b4 + 2000;
+	
+	
 	double s1 = 1400; 			//turn 90 degrees to align secondary with landfill & barrels
 	double s2 = s1 + 600; 		//ram forward into landfill
 	double s3 = s2 + 500; 		//move robot right to 2nd barrel
@@ -47,6 +54,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	long moveLeftTime = 0;
 	long moveLeftStartTime = 0;
 	long moveLeftElapsedTime = 0;
+	boolean arePistonsFired; //Code for Nationals Manipulator method starts at line 210
 	
 	public BTAutoContinuous(BTStorage storage, BTManipulator manipulator)
 	{
@@ -206,7 +214,48 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		}
 
 	}
+	
+	public void barrelSteal4() 
+	{
+		//Pistons start Extended
 		
+		if (startTime == 0)
+		{
+			startTime = System.currentTimeMillis();
+		}
+			
+		elapsedTime = System.currentTimeMillis() - startTime;
+		
+		//Drive forward
+		if (elapsedTime > 0 && elapsedTime <= b1)
+		{
+			moveRight();
+		}
+		
+		if (elapsedTime > b1 && elapsedTime <= b2)
+		{
+			slowMoveRight();
+		}
+		if (elapsedTime > b2 && elapsedTime <= b3)
+		{
+			//Retract pistons
+			stopMotors();
+			storage.robot.getToteClamp().extend();
+		}
+			
+		//Drive Backward into autozone
+		if (elapsedTime > b3 && elapsedTime <= b4)
+		{
+			moveLeft();
+		}
+		
+		if (elapsedTime > b4 && elapsedTime <= b5)
+		{
+			stopMotors();
+			//Start gearbox to wind in the t-arm 
+		}
+		
+	}
 	public void liftBarrel()
 	{
 		if(startTime == 0)
