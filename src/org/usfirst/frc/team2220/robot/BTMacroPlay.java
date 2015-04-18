@@ -14,7 +14,7 @@ public class BTMacroPlay {
 
 	public BTMacroPlay() throws FileNotFoundException
 	{
-		scanner = new Scanner(new File("/home/lvuser/recordedAuto100.csv"));
+		scanner = new Scanner(new File(BTMain.autoFile));
 		
 		scanner.useDelimiter(",");
 		startTime = System.currentTimeMillis();	

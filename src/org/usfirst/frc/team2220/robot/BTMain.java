@@ -30,6 +30,8 @@ public class BTMain extends SampleRobot
 	BTMacroPlay playah;
 	BTMacroRecord recorder;
 	boolean isRecording = false;
+	static int autoNumber = 10;
+	static String autoFile = new String("/home/lvuser/recordedAuto" + autoNumber + ".csv");
 	
     public BTMain()
     {
@@ -94,6 +96,7 @@ public class BTMain extends SampleRobot
     	{
 			e.printStackTrace();
 		}
+    	
 		while (isAutonomous())
 		{
 			//auto.runAutonomous();
@@ -117,9 +120,12 @@ public class BTMain extends SampleRobot
 //    	NIVision.IMAQdxStartAcquisition(T1.session);
 //        auto.resetTimer();
     	BTMacroRecord recorder = null;
-        try {
+        try 
+        {
 			recorder = new BTMacroRecord();
-		} catch (IOException e) {
+		} 
+        catch (IOException e) 
+        {
 			e.printStackTrace();
 		}
     	while(isOperatorControl())

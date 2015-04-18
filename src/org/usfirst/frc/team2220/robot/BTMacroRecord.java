@@ -12,7 +12,7 @@ public class BTMacroRecord {
 	{
 			startTime = System.currentTimeMillis();
 			
-			writer = new FileWriter("/home/lvuser/recordedAuto100.csv");
+			writer = new FileWriter(BTMain.autoFile);
 			
 //			writer.append("Time");
 //			
@@ -33,6 +33,8 @@ public class BTMacroRecord {
 
 	public void record(BTStorage storage) throws IOException
 	{
+		if (writer !=null)
+		{
 		//time
 		writer.append("" + (System.currentTimeMillis()-startTime));
 		//drive motors
@@ -45,11 +47,15 @@ public class BTMacroRecord {
 //		writer.append("," + storage.robot.getBarrelMotorRight().get());
 		//fork motors
 		writer.append("," + storage.robot.getFrontContainmentMotor());
+		}
 	}
 	
 	public void end() throws IOException
 	{
+		if (writer != null)
+		{
 		writer.flush();
 		writer.close();
+		}
 	}
 }
