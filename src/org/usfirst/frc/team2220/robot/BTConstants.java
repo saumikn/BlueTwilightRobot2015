@@ -4,8 +4,6 @@ import org.usfirst.frc.team2220.robot.autonomous.BTIAutonomousRoutine;
 import org.usfirst.frc.team2220.robot.controller.BTIController;
 import org.usfirst.frc.team2220.robot.controller.BTXboxController;
 import org.usfirst.frc.team2220.robot.drivetrain.BTIDrivetrain;
-import org.usfirst.frc.team2220.robot.robottype.BTCompetitionRobot;
-import org.usfirst.frc.team2220.robot.robottype.BTIRobotType;
 
 public class BTConstants
 {
@@ -104,8 +102,8 @@ public class BTConstants
 	public static final double TOTE_MOTOR_POWER_DOWN_RIGHT = TOTE_MOTOR_POWER_DOWN; //+ 0.1;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.875;
 	public static final double BARREL_MOTOR_POWER_UP = 0.875;
-	public static final double COLLECTOR_MOTOR_POWER_EJECT = 0.3;
-	public static final double COLLECTOR_MOTOR_POWER_COLLECT = 0.3;
+	public static final double BARREL_ARM_WINCH_IN = 0.8;
+	public static final double BARREL_ARM_WINCH_OUT = 0.5;
 	public static final double FRONT_CONTAINMENT_MOTOR_POWER = 0.8;
 	
 	// Electronics Constants

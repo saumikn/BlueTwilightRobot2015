@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2220.robot.robottype;
 
 import org.usfirst.frc.team2220.robot.BTConstants;
-import org.usfirst.frc.team2220.robot.electronics.BTAnalogPotentiometer;
 import org.usfirst.frc.team2220.robot.electronics.BTCompressor;
 import org.usfirst.frc.team2220.robot.electronics.BTDoublePiston;
 import org.usfirst.frc.team2220.robot.electronics.BTEncoder;
@@ -10,7 +9,6 @@ import org.usfirst.frc.team2220.robot.electronics.BTIPiston;
 import org.usfirst.frc.team2220.robot.electronics.BTLimitSwitch;
 import org.usfirst.frc.team2220.robot.motor.BTCANTalon;
 import org.usfirst.frc.team2220.robot.motor.BTIMotor;
-import edu.wpi.first.wpilibj.CameraServer;
 
 public class BTCompetitionRobot implements BTIRobotType
 {

@@ -44,6 +44,7 @@ public interface BTIRobotType
 	
 	public BTIPiston getToteClamp();
 	public BTIPiston getBarrelHolder();
+ 
 	public BTIPiston getDrivetrainSwitch();
 	
 	public BTGyro getGyro();

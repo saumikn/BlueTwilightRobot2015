@@ -2,32 +2,15 @@ package org.usfirst.frc.team2220.robot;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class BTMacroRecord {
 	FileWriter writer;
 	long startTime;
+	boolean isFirstTime;
 	
 	public BTMacroRecord() throws IOException
 	{
-			startTime = System.currentTimeMillis();
-			
-			writer = new FileWriter(BTMain.autoFile);
-			
-//			writer.append("Time");
-//			
-//			writer.append(",FrontLeftDrive");
-//			writer.append(",FrontRightDrive");
-//			writer.append(",BackRightDrive");
-//			writer.append(",BackLeftDrive");
-//			
-//			writer.append(",BarrelMotorLeft");
-//			writer.append(",BarrelMotorRight");
-//			
-//			writer.append(",LeftForkLeft");
-//			writer.append(",LeftForkRight");
-//			writer.append(",RightForkLeft");
-//			writer.append(",RightForkRight\n");
+		writer = new FileWriter(BTMain.autoFile);
+		isFirstTime = true;
 	}
 	
 
@@ -35,18 +18,28 @@ public class BTMacroRecord {
 	{
 		if (writer !=null)
 		{
-		//time
-		writer.append("" + (System.currentTimeMillis()-startTime));
-		//drive motors
-		writer.append("," + storage.robot.getFrontLeftMotor().get());
-		writer.append("," + storage.robot.getFrontRightMotor().get());
-		writer.append("," + storage.robot.getBackRightMotor().get());		
-		writer.append("," + storage.robot.getBackLeftMotor().get());
-		//barrel motors
-//		writer.append("," + storage.robot.getBarrelMotorLeft().get());
-//		writer.append("," + storage.robot.getBarrelMotorRight().get());
-		//fork motors
-		writer.append("," + storage.robot.getFrontContainmentMotor());
+			if(isFirstTime)
+			{
+				startTime = System.currentTimeMillis();
+				isFirstTime = false;
+			}
+			
+			//time
+			writer.append("" + (System.currentTimeMillis()-startTime));
+			
+			//drive motors
+			writer.append("," + storage.robot.getFrontLeftMotor().get());
+			writer.append("," + storage.robot.getFrontRightMotor().get());
+			writer.append("," + storage.robot.getBackRightMotor().get());
+			writer.append("," + storage.robot.getBackLeftMotor().get());
+			//this is how you do a piston with this macro
+			writer.append("," + storage.robot.getBarrelHolder().isExtended());
+			
+			/*
+			 * THE LAST ENTRY OF THINGS YOU RECORD NEEDS TO HAVE A COMMA CONCATENATED TO 
+			 * THE STRING AT THE END. OTHERWISE GIVES NOSUCHELEMENTEXCEPTION
+			 */ 
+			writer.append("," + storage.robot.getToteClamp().isExtended() + "\n");
 		}
 	}
 	
@@ -54,8 +47,8 @@ public class BTMacroRecord {
 	{
 		if (writer != null)
 		{
-		writer.flush();
-		writer.close();
+			writer.flush();
+			writer.close();
 		}
 	}
 }

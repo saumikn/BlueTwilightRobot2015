@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2220.robot;
 
-import org.usfirst.frc.team2220.robot.electronics.BTEncoder;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BTTestClass

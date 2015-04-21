@@ -16,7 +16,7 @@ public class BTMacroPlay {
 	{
 		scanner = new Scanner(new File(BTMain.autoFile));
 		
-		scanner.useDelimiter(",");
+		scanner.useDelimiter(",|\\n");
 		startTime = System.currentTimeMillis();	
 	}
 	
@@ -38,11 +38,8 @@ public class BTMacroPlay {
 				storage.robot.getFrontRightMotor().setX(scanner.nextDouble());
 				storage.robot.getBackRightMotor().setX(scanner.nextDouble());
 				storage.robot.getBackLeftMotor().setX(scanner.nextDouble());
-				
-//				storage.robot.getBarrelMotorLeft().setX(scanner.nextDouble());
-//				storage.robot.getBarrelMotorRight().setX(scanner.nextDouble());
-				
-				storage.robot.getFrontContainmentMotor().setX(scanner.nextDouble());
+				storage.robot.getBarrelHolder().set(scanner.nextBoolean());
+				storage.robot.getToteClamp().set(scanner.nextBoolean());
 				
 				onTime = true;
 			}	
@@ -69,11 +66,9 @@ public class BTMacroPlay {
 		storage.robot.getBackLeftMotor().setX(0);
 		storage.robot.getFrontRightMotor().setX(0);
 		storage.robot.getBackRightMotor().setX(0);
+		storage.robot.getBarrelHolder().set(storage.robot.getBarrelHolder().isExtended());
+		storage.robot.getToteClamp().set(storage.robot.getToteClamp().isExtended());
 		
-//		storage.robot.getBarrelMotorLeft().setX(0);
-//		storage.robot.getBarrelMotorRight().setX(0);
-		
-		storage.robot.getFrontContainmentMotor().setX(0);
 		
 		if (scanner != null) 
 		{

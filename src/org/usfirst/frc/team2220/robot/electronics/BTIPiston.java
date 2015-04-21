@@ -5,4 +5,5 @@ public interface BTIPiston
 	public void extend();
 	public void retract();
 	public boolean isExtended();
+	public void set(boolean up);
 }

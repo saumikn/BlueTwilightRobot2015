@@ -30,7 +30,7 @@ public class BTMain extends SampleRobot
 	BTMacroPlay playah;
 	BTMacroRecord recorder;
 	boolean isRecording = false;
-	static int autoNumber = 10;
+	static int autoNumber = 42;
 	static String autoFile = new String("/home/lvuser/recordedAuto" + autoNumber + ".csv");
 	
     public BTMain()

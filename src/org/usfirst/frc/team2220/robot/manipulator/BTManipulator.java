@@ -3,8 +3,6 @@ package org.usfirst.frc.team2220.robot.manipulator;
 import org.usfirst.frc.team2220.robot.BTConstants;
 import org.usfirst.frc.team2220.robot.BTStorage;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class BTManipulator implements BTIManipulator
 {
 	public BTStorage storage;
@@ -14,7 +12,6 @@ public class BTManipulator implements BTIManipulator
 		this.storage = storage;
 		stopSecondary();
 	}
-	
 	
 	boolean isLeftToteLower;
 	boolean isRightToteLower;
@@ -64,20 +61,6 @@ public class BTManipulator implements BTIManipulator
 		encodeFR = storage.robot.getRightEncoder().getValue();
 		encodeFL = storage.robot.getLeftEncoder().getValue();
 		encoder_delta = encodeFR - encodeFL;
-		
-//		if (counter == 50)
-//		{
-//			SmartDashboard.putNumber("Right Encoder", storage.robot.getRightEncoder().getValue());
-//			SmartDashboard.putNumber("Left Encoder", storage.robot.getLeftEncoder().getValue());
-//			SmartDashboard.putNumber("Encoder delta", encoder_delta);
-//			SmartDashboard.putNumber("Left Fork Motor", storage.robot.getRightForkLeft().get());
-//			SmartDashboard.putNumber("Right Fork Motor", storage.robot.getRightForkRight().get());
-//			counter = 0;
-//		}
-//		else
-//		{
-//			counter++;
-//		}
 		
 		isCollectorWheelButtonCollect = storage.controller.getCollectorWheelsCollect().getButtonValue();
 		isCollectorWheelButtonEject = storage.controller.getCollectorWheelsEject().getButtonValue();
@@ -130,15 +113,15 @@ public class BTManipulator implements BTIManipulator
 		
 		if (isCollectorWheelButtonEject)
 		{
-			reverseCollectorMotors();
+			runBarrelArmIn();
 		}
 		else if (isCollectorWheelButtonCollect) 
 		{
-			startCollectorMotors();
+			runBarrelArmOut();
 		}
 		else
 		{
-			stopCollectorMotors();
+			stopBarrelArmMotors();
 		}
 		
 	}
@@ -147,8 +130,6 @@ public class BTManipulator implements BTIManipulator
 	{
 		startBarrelMotors(false); //based on the ways the barrel motors are wired
 	}
-	
-	
 	
 	public void lowerSecondary()
 	{
@@ -243,19 +224,19 @@ public class BTManipulator implements BTIManipulator
 		}
 	}
 	
-	public void startCollectorMotors()
+	public void runBarrelArmOut()
 	{
-		storage.robot.getCollectorMotorLeft().setX(BTConstants.COLLECTOR_MOTOR_POWER_COLLECT);
-		storage.robot.getCollectorMotorRight().setX(BTConstants.COLLECTOR_MOTOR_POWER_COLLECT);
+		storage.robot.getCollectorMotorLeft().setX(BTConstants.BARREL_ARM_WINCH_OUT);
+		storage.robot.getCollectorMotorRight().setX(BTConstants.BARREL_ARM_WINCH_OUT);
 	}
 	
-	public void reverseCollectorMotors()
+	public void runBarrelArmIn()
 	{
-		storage.robot.getCollectorMotorLeft().setX(-BTConstants.COLLECTOR_MOTOR_POWER_EJECT);
-		storage.robot.getCollectorMotorRight().setX(-BTConstants.COLLECTOR_MOTOR_POWER_EJECT);
+		storage.robot.getCollectorMotorLeft().setX(-BTConstants.BARREL_ARM_WINCH_IN);
+		storage.robot.getCollectorMotorRight().setX(-BTConstants.BARREL_ARM_WINCH_IN);
 	}
 	
-	public void stopCollectorMotors()
+	public void stopBarrelArmMotors()
 	{
 		storage.robot.getCollectorMotorLeft().setX(0);
 		storage.robot.getCollectorMotorRight().setX(0);
@@ -273,14 +254,12 @@ public class BTManipulator implements BTIManipulator
 		}
 	}
 			
-	
 	public void releaseTotes()
 	{
 		storage.robot.getToteClamp().retract();
 		storage.robot.getBarrelHolder().retract();
 		isExtended = true;
 	}
-	
 	
 	public void startBarrelMotors(boolean goUp)
 	{
