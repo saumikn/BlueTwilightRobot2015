@@ -17,11 +17,11 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	double br = 0.0;
 	double degree = 0.0;
 	
-	double b1 = 500;
-	double b2 = b1 + 500;
-	double b3 = b2 + 1000;
-	double b4 = b3 + 1500;
-	double b5 = b4 + 2000;
+	double b1 = 500;		//move right time, extend piston
+	double b2 = b1 + 500;	//move right
+	double b3 = b2 + 250;	//stop motors, coast
+	double b3_5 = b3 + 1000;//drop piston
+	double b4 = b3_5 + 500;	//move left time
 	
 	
 	double s1 = 1400; 			//turn 90 degrees to align secondary with landfill & barrels
@@ -67,6 +67,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	{
 		//moveAutoZone();
 //		moveIntoAutoZone();
+		barrelSteal4();
 	}
 	
 	public void runAutonomousCoop()
@@ -230,26 +231,28 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		if (elapsedTime > 0 && elapsedTime <= b1)
 		{
 			moveRight();
+			storage.robot.getToteClamp().retract();
 		}
 		
-		if (elapsedTime > b1 && elapsedTime <= b2)
+		else if (elapsedTime > b1 && elapsedTime <= b2)
 		{
-			slowMoveRight();
+			moveRight();
 		}
-		if (elapsedTime > b2 && elapsedTime <= b3)
+		else if (elapsedTime > b2 && elapsedTime <= b3)
 		{
 			//Retract pistons
 			stopMotors();
+		}
+		else if (elapsedTime > b3 && elapsedTime <= b3_5)
+		{
 			storage.robot.getToteClamp().extend();
 		}
-			
-		//Drive Backward into autozone
-		if (elapsedTime > b3 && elapsedTime <= b4)
+		else if (elapsedTime > b3_5 && elapsedTime <= b4)
 		{
 			moveLeft();
 		}
 		
-		if (elapsedTime > b4 && elapsedTime <= b5)
+		else if (elapsedTime > b4)
 		{
 			stopMotors();
 			//Start gearbox to wind in the t-arm 

@@ -36,7 +36,7 @@ public class BTMacroRecord {
 			writer.append("," + storage.robot.getBarrelHolder().isExtended());
 			
 			/*
-			 * THE LAST ENTRY OF THINGS YOU RECORD NEEDS TO HAVE A COMMA CONCATENATED TO 
+			 * THE LAST ENTRY OF THINGS YOU RECORD NEEDS TO HAVE A COMMA OR ENTER CONCATENATED TO 
 			 * THE STRING AT THE END. OTHERWISE GIVES NOSUCHELEMENTEXCEPTION
 			 */ 
 			writer.append("," + storage.robot.getToteClamp().isExtended() + "\n");

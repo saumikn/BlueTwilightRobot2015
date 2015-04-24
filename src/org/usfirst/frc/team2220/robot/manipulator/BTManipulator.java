@@ -144,39 +144,39 @@ public class BTManipulator implements BTIManipulator
 	public void collectTote()
 	{		
 		
-		if (Math.abs(encoder_delta) > BTConstants.ENCODER_MARGIN_OF_ERROR)
-		{
-			isCorrecting = true;
-		}
-		else
-		{
-			isCorrecting = false;
-		}
+//		if (Math.abs(encoder_delta) > BTConstants.ENCODER_MARGIN_OF_ERROR)
+//		{
+//			isCorrecting = true;
+//		}
+//		else
+//		{
+//			isCorrecting = false;
+//		}
 		
 //		isCorrecting = false;
 		double leftCorrection = 1.0;
 		double rightCorrection = 1.0;
 		
-		if((toteCollectUp > 0) && !isLeftToteUpper)
+		if((toteCollectUp > 0)) //&& !isLeftToteUpper)
 			{
-				if(isCorrecting == true)
-				{
-					if (encodeFL > encodeFR)
-					{
-						leftCorrection = 0.5;
-					}
-				}
+//				if(isCorrecting == true)
+//				{
+//					if (encodeFL > encodeFR)
+//					{
+//						leftCorrection = 0.5;
+//					}
+//				}
 				moveLeftForkMotors(BTConstants.TOTE_MOTOR_POWER_DOWN * leftCorrection);
 			}
-			else if((toteCollectDown > 0) && !isLeftToteLower)
+			else if((toteCollectDown > 0))// && !isLeftToteLower)
 			{
-				if( isCorrecting == true)
-				{
-					if (encodeFR > encodeFL)
-					{
-						leftCorrection = 0.5;
-					}
-				}
+//				if( isCorrecting == true)
+//				{
+//					if (encodeFR > encodeFL)
+//					{
+//						leftCorrection = 0.5;
+//					}
+//				}
 				moveLeftForkMotors(-BTConstants.TOTE_MOTOR_POWER_UP * leftCorrection);
 			}
 			else
@@ -184,44 +184,44 @@ public class BTManipulator implements BTIManipulator
 				moveLeftForkMotors(0);
 			}
 			
-			if((toteCollectUp > 0) && !isRightToteUpper)
-			{
-				if( isCorrecting == true)
-				{
-					if (encodeFR > encodeFL)
-					{
-						rightCorrection = 0.5;
-					}
-				}
-				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN_RIGHT* rightCorrection);
-			}
-			else if((toteCollectDown > 0) && !isRightToteLower)
-			{
-				if( isCorrecting == true)
-				{
-					if (encodeFL > encodeFR)
-					{
-						rightCorrection = 0.5;
-					}
-				}
-				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_UP_RIGHT * rightCorrection);
-			}
-			else
-			{
-				moveRightForkMotors(0);
-			}
-	
-		if (isLeftToteUpper && isRightToteUpper)
-		{
-			storage.robot.getLeftEncoder().reset();
-			storage.robot.getRightEncoder().reset();
-		}
-		
-		if (isLeftToteLower && isRightToteLower)
-		{
-			storage.robot.getLeftEncoder().reset();
-			storage.robot.getRightEncoder().reset();
-		}
+//			if((toteCollectUp > 0) && !isRightToteUpper)
+//			{
+//				if( isCorrecting == true)
+//				{
+//					if (encodeFR > encodeFL)
+//					{
+//						rightCorrection = 0.5;
+//					}
+//				}
+//				moveRightForkMotors(-BTConstants.TOTE_MOTOR_POWER_DOWN_RIGHT* rightCorrection);
+//			}
+//			else if((toteCollectDown > 0) && !isRightToteLower)
+//			{
+//				if( isCorrecting == true)
+//				{
+//					if (encodeFL > encodeFR)
+//					{
+//						rightCorrection = 0.5;
+//					}
+//				}
+//				moveRightForkMotors(BTConstants.TOTE_MOTOR_POWER_UP_RIGHT * rightCorrection);
+//			}
+//			else
+//			{
+//				moveRightForkMotors(0);
+//			}
+//	
+//		if (isLeftToteUpper && isRightToteUpper)
+//		{
+//			storage.robot.getLeftEncoder().reset();
+//			storage.robot.getRightEncoder().reset();
+//		}
+//		
+//		if (isLeftToteLower && isRightToteLower)
+//		{
+//			storage.robot.getLeftEncoder().reset();
+//			storage.robot.getRightEncoder().reset();
+//		}
 	}
 	
 	public void runBarrelArmOut()

@@ -30,7 +30,7 @@ public class BTMain extends SampleRobot
 	BTMacroPlay playah;
 	BTMacroRecord recorder;
 	boolean isRecording = false;
-	static int autoNumber = 42;
+	static int autoNumber = 202;
 	static String autoFile = new String("/home/lvuser/recordedAuto" + autoNumber + ".csv");
 	
     public BTMain()
@@ -42,13 +42,7 @@ public class BTMain extends SampleRobot
     public void robotInit()
     {
 		Compressor comp = new Compressor();
-		
-//		storage.robot.getLeftEncoder().reset();
-//		storage.robot.getRightEncoder().reset();
-//		
-//		storage.robot.getRightEncoder().switchDirection(false);
-//		storage.robot.getLeftEncoder().switchDirection(true);
-//		
+				
 		storage = new BTStorage();
 		if(BTConstants.IS_TEST)
 		{
@@ -61,13 +55,13 @@ public class BTMain extends SampleRobot
 			manipulator = new BTManipulator(storage);
 			auto = new BTAutoContinuous(storage, manipulator);
 		}
-    	//octo = new BTOcto(storage);   	
+		
 		if (storage.robot.getGyro() != null)
 		{
 			storage.robot.getGyro().reset();
 		}
 		
-		storage.robot.getBarrelHolder().retract();
+		//storage.robot.getBarrelHolder().retract();
 		
 //		T1.start();
 //		T1.setPriority(Thread.MIN_PRIORITY);
@@ -87,30 +81,30 @@ public class BTMain extends SampleRobot
     {
 //    	auto.resetTimer();
     	
-    	BTMacroPlay playah = null;
-    	try 
-    	{
-    		 playah = new BTMacroPlay();
-		} 
-    	catch (FileNotFoundException e) 
-    	{
-			e.printStackTrace();
-		}
+//    	BTMacroPlay playah = null;
+//    	try 
+//    	{
+//    		 playah = new BTMacroPlay();
+//		} 
+//    	catch (FileNotFoundException e) 
+//    	{
+//			e.printStackTrace();
+//		}
     	
 		while (isAutonomous())
 		{
-			//auto.runAutonomous();
-			if (playah != null)
-			{
-				playah.play(storage);
-			}
+			auto.runAutonomous();
+//			if (playah != null)
+//			{
+//				playah.play(storage);
+//			}
 			
 		}
 		
-		if(playah!= null)
-		{
-			playah.end(storage);
-		}
+//		if(playah!= null)
+//		{
+//			playah.end(storage);
+//		}
 	}
     
 	

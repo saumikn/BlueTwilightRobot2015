@@ -91,18 +91,20 @@ public class BTConstants
 	public static final double SLOW_INCREASE_MAX_SPEED = 0.2;	//Speed at SLOW_INCREASE_MAX_RANGE
 	public static final double FAST_INCREASE_MAX_SPEED = 0.9;	//Speed at FAST_INCREAST_MAX_RANGE
 	public static final double GLOBAL_MAX_SPEED = 1.0;			//Speed at GLOBAL_MAX_RANGE
+	public static final double GYRO_MAX_TIPPING_ANGLE = 60;
+	public static final double GYRO_MOTOR_CORRECTION_SPEED = .5;
 	
 	// Manipulator Constants
 	public static final int MAX_TOTE_COUNT = 6;
 	public static final int EMERGENCY_STOP_TIME_MIDDLE = 2000;
 	public static final int EMERGENCY_STOP_TIME_TOP = 4000;
-	public static final double TOTE_MOTOR_POWER_UP = 0.4; 
+	public static final double TOTE_MOTOR_POWER_UP = 0.5; 
 	public static final double TOTE_MOTOR_POWER_DOWN = 0.6; 
 	public static final double TOTE_MOTOR_POWER_UP_RIGHT = TOTE_MOTOR_POWER_UP; //+ 0.1;
 	public static final double TOTE_MOTOR_POWER_DOWN_RIGHT = TOTE_MOTOR_POWER_DOWN; //+ 0.1;
 	public static final double BARREL_MOTOR_POWER_DOWN = 0.875;
 	public static final double BARREL_MOTOR_POWER_UP = 0.875;
-	public static final double BARREL_ARM_WINCH_IN = 0.8;
+	public static final double BARREL_ARM_WINCH_IN = 0.5;
 	public static final double BARREL_ARM_WINCH_OUT = 0.5;
 	public static final double FRONT_CONTAINMENT_MOTOR_POWER = 0.8;
 	
