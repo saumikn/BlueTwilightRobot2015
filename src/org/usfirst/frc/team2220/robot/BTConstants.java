@@ -106,7 +106,7 @@ public class BTConstants
 	public static final double BARREL_MOTOR_POWER_UP = 0.875;
 	public static final double BARREL_ARM_WINCH_IN = 0.5;
 	public static final double BARREL_ARM_WINCH_OUT = 0.5;
-	public static final double FRONT_CONTAINMENT_MOTOR_POWER = 0.8;
+	public static final double FRONT_CONTAINMENT_MOTOR_POWER = 0.7;
 	
 	// Electronics Constants
 	public static final double KP = 0.03;

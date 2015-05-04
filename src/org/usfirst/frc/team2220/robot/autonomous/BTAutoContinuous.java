@@ -18,8 +18,8 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 	double degree = 0.0;
 	
 	double b1 = 500;		//move right time, extend piston
-	double b2 = b1 + 500;	//move right
-	double b3 = b2 + 250;	//stop motors, coast
+	double b2 = b1 + 1000;	//move right
+	double b3 = b2 + 0;	//stop motors, coast
 	double b3_5 = b3 + 1000;//drop piston
 	double b4 = b3_5 + 500;	//move left time
 	
@@ -245,6 +245,7 @@ public class BTAutoContinuous implements BTIAutonomousRoutine
 		}
 		else if (elapsedTime > b3 && elapsedTime <= b3_5)
 		{
+			stopMotors();
 			storage.robot.getToteClamp().extend();
 		}
 		else if (elapsedTime > b3_5 && elapsedTime <= b4)
